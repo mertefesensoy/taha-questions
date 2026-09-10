@@ -51,7 +51,13 @@ An independent audit suite re-checks every claim by different methods than those
   measuring the vertex centres; reports the separation between edges and non-edges (every true edge
   scores 1.000, the strongest non-edge 0.141, so the reading is unambiguous)
 
-Run them with `python3 src/verify/audit.py` etc. All checks pass.
+Run them with `python3 src/verify/audit.py` etc. All checks pass. The image-reading scripts
+read `problem-set.jpg` (the original photo of the problem set, committed at the repo root), so the
+verification is reproducible from a clean clone.
+
+The PDF committed here is exactly what `src/build.sh` produces from the committed source: rebuilding
+from a clean checkout yields a file whose 19 pages are byte-identical in both content stream and text
+layer, differing only in the creation timestamp that Chromium embeds.
 
 ## Rebuilding the PDF
 

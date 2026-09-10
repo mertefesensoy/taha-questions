@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Assemble solutions.html from HTML fragments + generated SVG figures."""
-import re, sys, datetime
-sys.path.insert(0, '/tmp/claude-0/-home-user-taha-questions/64ad73c0-31f2-5c61-a3f4-35a349eafe52/scratchpad')
+import os, re, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import figs
 from tables import TBL
 from doc_css import CSS

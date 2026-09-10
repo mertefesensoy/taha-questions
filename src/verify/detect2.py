@@ -1,8 +1,14 @@
 from PIL import Image
 import math
 from collections import deque
+import os
+_HERE = os.path.dirname(os.path.abspath(__file__))
+IMAGE = next((p for p in (os.path.join(_HERE, "..", "..", "problem-set.jpg"),
+                          "/root/.claude/uploads/64ad73c0-31f2-5c61-a3f4-35a349eafe52/fce6c035-image.jpg")
+              if os.path.exists(p)), None)
 
-im = Image.open('/root/.claude/uploads/64ad73c0-31f2-5c61-a3f4-35a349eafe52/fce6c035-image.jpg').convert('L')
+
+im = Image.open(IMAGE).convert('L')
 px = im.load()
 regions = {'G1':(250,485,520,770), 'G2':(535,485,800,770), 'G3':(810,485,1080,770)}
 THRESH = 140
