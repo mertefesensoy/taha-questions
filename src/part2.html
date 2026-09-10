@@ -1,0 +1,117 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 2</span><h2>Two degree sequences</h2>
+<span class="ptag">Havel&#8211;Hakimi, Erd&#337;s&#8211;Gallai, parity</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Are there simple graphs with degree sequence &nbsp;<strong>(a)</strong> \(1,2,2,3,3,3\), &nbsp;respectively
+&nbsp;<strong>(b)</strong> \(1,1,2,2,3,4,4\)?</p></div>
+
+<p>A finite sequence of non&#8209;negative integers is called <em>graphical</em> if it is the degree sequence of some
+simple graph. Two necessary conditions are immediate for a sequence \(d_1,\dots,d_n\):</p>
+<ul class="tight">
+<li><strong>(N1) Range.</strong> \(0\le d_i\le n-1\) for every \(i\), since in a simple graph a vertex has at most
+\(n-1\) distinct neighbours.</li>
+<li><strong>(N2) Parity.</strong> \(d_1+\dots+d_n\) is even, since by Lemma&nbsp;A it equals \(2m\).</li>
+</ul>
+<p>These are not sufficient in general (for instance \(3,3,1,1\) satisfies both but is not graphical), so for part
+(a) we shall need a genuine criterion. We use the Havel&#8211;Hakimi reduction, which has the advantage of
+<em>building</em> the graph, and then double&#8209;check with the Erd&#337;s&#8211;Gallai inequalities.</p>
+
+<h3>Part (a): \(\;1,\,2,\,2,\,3,\,3,\,3\)</h3>
+
+<h4>The two necessary conditions</h4>
+<p>Here \(n=6\) and the largest entry is \(3\le n-1=5\), so (N1) holds. The sum is
+\[ 1+2+2+3+3+3 \;=\; 14, \]
+which is even, so (N2) holds and any such graph would have \(m=\tfrac{14}{2}=7\) edges. Both tests are passed; we
+now show the sequence really is graphical by constructing a graph.</p>
+
+<h4>The Havel&#8211;Hakimi reduction</h4>
+<div class="env thm"><span class="h">Theorem (Havel 1955, Hakimi 1962)</span><span class="body">
+Let \(d_1\ge d_2\ge\dots\ge d_n\ge 0\) with \(d_1\le n-1\). Then \(d_1,d_2,\dots,d_n\) is graphical if and only if
+the sequence obtained by deleting \(d_1\) and subtracting \(1\) from each of the next \(d_1\) entries,
+\[ d_2-1,\ d_3-1,\ \dots,\ d_{d_1+1}-1,\ d_{d_1+2},\ \dots,\ d_n , \]
+(re&#8209;sorted into non&#8209;increasing order) is graphical.</span></div>
+<p>The "if" direction &#8212; the only one we need &#8212; is constructive and obvious: given a graph realising the
+reduced sequence, add a new vertex and join it to the \(d_1\) vertices whose degrees were decreased. Applying the
+reduction repeatedly to our sequence, sorted as \(3,3,3,2,2,1\):</p>
+
+{{TBL:HH}}
+
+<p>The reduction terminates in the all&#8209;zero sequence, which is realised by the edgeless graph. Hence
+\(1,2,2,3,3,3\) <strong>is graphical</strong>.</p>
+
+<h4>The graph the reduction produces</h4>
+<p>Reading the reduction backwards and naming the vertices \(u_1,\dots,u_6\) with target degrees
+\(3,3,3,2,2,1\) respectively, each round joins the current vertex of largest residual demand to the vertices of next
+largest residual demand:</p>
+<ul class="tight">
+<li><em>Round 1:</em> \(u_1\) (demand \(3\)) is joined to \(u_2,u_3,u_4\). Residual demands become
+\((u_2,u_3,u_4,u_5,u_6)=(2,2,1,2,1)\).</li>
+<li><em>Round 2:</em> \(u_2\) (demand \(2\)) is joined to \(u_3\) and \(u_5\). Residual demands become
+\((u_3,u_4,u_5,u_6)=(1,1,1,1)\).</li>
+<li><em>Round 3:</em> the four remaining demands are all \(1\); pair them off as \(u_3u_5\) and \(u_4u_6\).</li>
+</ul>
+
+<p>This yields the graph \(G^\ast\) with \(V=\{u_1,\dots,u_6\}\) and the seven edges</p>
+\[ E(G^\ast)=\bigl\{\,u_1u_2,\; u_1u_3,\; u_1u_4,\; u_2u_3,\; u_2u_5,\; u_3u_5,\; u_4u_6\,\bigr\}. \]
+
+<figure>{{FIG:P2GRAPH}}
+<figcaption>A simple graph with degree sequence \(1,2,2,3,3,3\): the "diamond" \(K_4\) minus the edge \(u_1u_5\) on
+\(\{u_1,u_2,u_3,u_5\}\), with a pendant path \(u_1-u_4-u_6\) attached.</figcaption></figure>
+
+<h4>Verification, vertex by vertex</h4>
+<p>\(G^\ast\) is simple (the seven listed pairs are distinct and none is a loop) and has \(7=\tfrac{14}{2}\) edges,
+as required. The degrees are:</p>
+
+{{TBL:P2DEG}}
+
+<p>Sorted, the degrees read \(1,2,2,3,3,3\) &#8212; exactly the prescribed sequence.</p>
+
+<h4>Independent check: the Erd&#337;s&#8211;Gallai inequalities</h4>
+<div class="env thm"><span class="h">Theorem (Erd&#337;s&#8211;Gallai 1960)</span><span class="body">
+A non&#8209;increasing sequence \(d_1\ge\dots\ge d_n\ge0\) with even sum is graphical if and only if for every
+\(k\in\{1,\dots,n\}\)
+\[ \sum_{i=1}^{k} d_i \;\le\; k(k-1) \;+\; \sum_{i=k+1}^{n}\min(d_i,\,k). \]</span></div>
+<p>With \(d=(3,3,3,2,2,1)\) all six inequalities hold, comfortably:</p>
+
+{{TBL:EG}}
+
+<p>Both criteria agree, and we have an explicit graph. </p>
+
+<div class="answer"><span class="lab">Answer (a)</span>
+<p><strong>Yes.</strong> The sequence \(1,2,2,3,3,3\) is graphical. One realisation is
+\(E=\{u_1u_2,u_1u_3,u_1u_4,u_2u_3,u_2u_5,u_3u_5,u_4u_6\}\) on six vertices &#8212; a diamond
+(\(K_4\) minus one edge) with a pendant path of length \(2\) attached, drawn above.</p></div>
+
+<h3>Part (b): \(\;1,\,1,\,2,\,2,\,3,\,4,\,4\)</h3>
+
+<p>Here \(n=7\) and the largest entry is \(4\le n-1=6\), so condition (N1) is satisfied and nothing suspicious is
+visible at first glance. But look at the sum:</p>
+\[ 1+1+2+2+3+4+4 \;=\; 17 , \]
+<p>which is <strong>odd</strong>. By the handshake lemma (Lemma&nbsp;A, proved in Problem&nbsp;4), in every graph</p>
+\[ \sum_{v\in V(G)} d(v) \;=\; 2\,|E(G)| , \]
+<p>and the right&#8209;hand side is an even integer. A graph with this degree sequence would therefore satisfy
+\(17=2m\), i.e. \(m=8.5\), which is absurd since \(m\) is a non&#8209;negative integer. Hence <strong>no such graph
+exists</strong>.</p>
+
+<p>Two remarks on how robust this obstruction is.</p>
+<ul class="tight">
+<li>The argument never uses simplicity. Multiple edges are counted with multiplicity in the degree, and a loop
+contributes \(2\) to the degree of its vertex, so \(\sum_v d(v)=2m\) holds for multigraphs as well. So there is no
+<em>multigraph</em> with this degree sequence either &#8212; the sequence is unrealisable in the widest sense.</li>
+<li>Equivalently, one may invoke the corollary proved in Problem&nbsp;4: <em>the number of odd&#8209;degree vertices
+is even.</em> The odd entries of \(1,1,2,2,3,4,4\) are \(1,1,3\) &#8212; there are three of them, an odd number, which
+is impossible.</li>
+</ul>
+
+<div class="answer"><span class="lab">Answer (b)</span>
+<p><strong>No.</strong> The entries sum to \(17\), an odd number, while \(\sum_v d(v)=2|E|\) is always even.
+Equivalently, the sequence has three odd entries, whereas every graph has an even number of odd&#8209;degree
+vertices. No graph &#8212; simple or not &#8212; has degree sequence \(1,1,2,2,3,4,4\).</p></div>
+
+<div class="note"><span class="h">Remark (parity is the <em>only</em> defect in (b))</span>
+The failure is genuinely arithmetic, not structural: repairing the parity by a single small change makes the
+sequence realisable. For example \(1,1,2,2,\mathbf{2},4,4\) (sum \(16\)) and \(1,1,2,2,\mathbf{3},4,\mathbf{5}\)
+(sum \(18\)) are both graphical, as the Havel&#8211;Hakimi reduction confirms. This is worth noticing because it shows
+condition (N2) doing real work: it is not a formality that some other property would have caught.</div>
+</section>

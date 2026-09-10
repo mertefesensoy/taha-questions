@@ -1,0 +1,124 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 3</span><h2>\(2\)-regular graphs, and graphs with \(\Delta(G)\le 2\)</h2>
+<span class="ptag">classification</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Determine the \(2\)-regular graphs. What are those graphs that satisfy \(\Delta(G)\le 2\)?</p></div>
+
+<p>Both classes admit a complete and very clean description:</p>
+<ul class="tight">
+<li>\(G\) is \(2\)-regular \(\iff\) \(G\) is a disjoint union of cycles;</li>
+<li>\(\Delta(G)\le 2\) \(\iff\) \(G\) is a disjoint union of paths and cycles.</li>
+</ul>
+<p>We prove both, in that order; the second builds on the first.</p>
+
+<h3>Part 1. The \(2\)-regular graphs</h3>
+
+<div class="env thm"><span class="h">Theorem 3.1</span><span class="body">
+A finite simple graph \(G\) is \(2\)-regular if and only if every component of \(G\) is a cycle; equivalently, if and
+only if \(G\) is a vertex&#8209;disjoint union
+\(G\cong C_{n_1}\,\dot\cup\, C_{n_2}\,\dot\cup\,\dots\,\dot\cup\, C_{n_k}\) of cycles, with \(k\ge1\) and every
+\(n_i\ge 3\).</span></div>
+
+<div class="prf"><span class="h">Proof of "\(\Leftarrow\)".</span>
+In the cycle \(C_m\) every vertex has exactly the two neighbours adjacent to it along the cycle, so \(C_m\) is
+\(2\)-regular. Degrees are not affected by taking disjoint unions (a vertex acquires no new neighbours), so a
+disjoint union of cycles is \(2\)-regular. <span class="qed">&#9633;</span></div>
+
+<div class="prf"><span class="h">Proof of "\(\Rightarrow\)".</span>
+Let \(G\) be \(2\)-regular and let \(H\) be any component of \(G\). By Lemma&nbsp;D, \(d_H(x)=d_G(x)=2\) for every
+\(x\in V(H)\), so \(H\) is itself connected and \(2\)-regular. In particular \(\delta(H)=2\), so Lemma&nbsp;C gives a
+cycle \(C\subseteq H\).
+<p style="margin-top:.5em">We claim \(H=C\). First, \(V(H)=V(C)\). Suppose not; since \(H\) is connected and
+\(V(C)\neq\emptyset\), there is an edge \(xy\in E(H)\) with \(x\in V(C)\) and \(y\notin V(C)\). But \(x\) lies on the
+cycle \(C\), so its two neighbours along \(C\) are already two distinct neighbours of \(x\), both inside \(V(C)\);
+as \(d_H(x)=2\) these are <em>all</em> of its neighbours, and \(y\notin V(C)\) cannot be one of them &#8212; a
+contradiction. Hence \(V(H)=V(C)\).</p>
+<p>Second, \(E(H)=E(C)\). Each \(x\in V(C)\) already has its two \(C\)-neighbours, and \(d_H(x)=2\), so \(x\) is
+incident with no edge of \(H\) outside \(E(C)\). As this holds for every vertex, \(E(H)=E(C)\).</p>
+<p>Therefore \(H=C\) is a cycle, and \(G\) is the disjoint union of its components, each a cycle. Finally, in a
+<em>simple</em> graph a cycle has length at least \(3\) (a length-\(2\) "cycle" would be a repeated edge, a length-1
+one a loop), so every \(n_i\ge3\).</p><span class="qed">&#9633;</span></div>
+
+<figure>{{FIG:TWOREG}}
+<figcaption>A typical \(2\)-regular graph. Every \(2\)-regular graph looks like this and nothing else.</figcaption></figure>
+
+<div class="note"><span class="h">A second, purely arithmetic proof of "\(\Rightarrow\)"</span>
+Let \(H\) be a component, \(|V(H)|=h\). By Lemma&nbsp;A applied to \(H\), \(2h=\sum_{v\in V(H)}d_H(v)=2|E(H)|\), so
+\(|E(H)|=h\): the component has exactly as many edges as vertices. A connected graph on \(h\) vertices has at least
+\(h-1\) edges, with equality exactly for trees; having \(h\) edges it contains exactly one cycle. Since
+\(\delta(H)=2\) forbids any vertex of degree \(1\), no tree&#8209;like appendage can hang off that cycle, so \(H\) is
+the cycle itself.</div>
+
+<div class="note"><span class="h">Corollary (counting)</span>
+A \(2\)-regular graph on \(n\) vertices has exactly \(n\) edges, and by Theorem&nbsp;3.1 the \(2\)-regular graphs on
+\(n\) vertices correspond bijectively (up to isomorphism) to the partitions of \(n\) into parts of size \(\ge3\).
+For \(n=3,\dots,9\) the counts are \(1,1,1,2,2,3,4\); e.g. for \(n=8\) the three graphs are \(C_8\),
+\(C_5\,\dot\cup\,C_3\) and \(C_4\,\dot\cup\,C_4\). In particular there is no \(2\)-regular simple graph on \(1\) or
+\(2\) vertices.</div>
+
+<h3>Part 2. The graphs with \(\Delta(G)\le 2\)</h3>
+
+<div class="env thm"><span class="h">Theorem 3.2</span><span class="body">
+A finite simple graph \(G\) satisfies \(\Delta(G)\le 2\) if and only if every component of \(G\) is a path (possibly
+the trivial path \(K_1\)) or a cycle. Equivalently: \(G\) is a vertex&#8209;disjoint union of paths and
+cycles.</span></div>
+
+<div class="prf"><span class="h">Proof of "\(\Leftarrow\)".</span>
+In \(P_k\) the two end vertices have degree \(1\) and all others degree \(2\) (in \(P_1=K_1\) the only vertex has
+degree \(0\)); in \(C_m\) every degree is \(2\). All these are \(\le2\), and disjoint unions do not change degrees.
+<span class="qed">&#9633;</span></div>
+
+<div class="prf"><span class="h">Proof of "\(\Rightarrow\)".</span>
+Let \(H\) be a component of \(G\); by Lemma&nbsp;D every vertex of \(H\) has \(d_H=d_G\le 2\). We distinguish two
+cases.
+<p style="margin-top:.5em"><strong>Case 1: every vertex of \(H\) has degree exactly \(2\).</strong> Then \(H\) is a
+connected \(2\)-regular graph, so by Theorem&nbsp;3.1 it is a cycle.</p>
+<p><strong>Case 2: some vertex \(z\in V(H)\) has \(d_H(z)\le 1\).</strong> We show \(H\) is a path. If
+\(|V(H)|=1\) then \(H=K_1\), the trivial path, and we are done; so assume \(|V(H)|\ge2\), whence \(d_H(z)=1\) (a
+vertex of degree \(0\) would be a component by itself). Build a walk greedily:
+\[ z=x_0,\quad x_1:=\text{the unique neighbour of } x_0, \quad
+   x_{i+1}:=\text{the neighbour of } x_i \text{ other than } x_{i-1} \ \ (i\ge1), \]
+continuing as long as \(x_i\) has a second neighbour, i.e. as long as \(d_H(x_i)=2\). The walk never revisits a
+vertex: if \(x_j=x_i\) were the first repetition with \(i \lt j\), then \(x_i\) would be incident with the three
+<em>distinct</em> edges \(x_{i-1}x_i,\ x_ix_{i+1},\ x_{j-1}x_j\) &#8212; distinct because \(x_{j-1}\ne x_{i-1}\) and
+\(x_{j-1}\ne x_{i+1}\) by the minimality of \(j\) &#8212; contradicting \(d_H(x_i)\le 2\). Hence the walk visits
+distinct vertices, and since \(H\) is finite it must stop, at a vertex \(x_k\) with \(d_H(x_k)=1\). So
+\(P:=x_0x_1\dots x_k\) is a path in \(H\).</p>
+<p>Finally \(H=P\). Every vertex of \(P\) has all of its \(H\)-neighbours on \(P\): the interior vertices
+\(x_1,\dots,x_{k-1}\) have degree \(2\) with both neighbours \(x_{i-1},x_{i+1}\) on \(P\), and the two ends
+\(x_0,x_k\) have degree \(1\) with their unique neighbour on \(P\). Therefore no edge leaves \(V(P)\); since \(H\)
+is connected this forces \(V(H)=V(P)\), and then \(E(H)=E(P)\) because every vertex of \(P\) has already used up its
+degree inside \(P\). So \(H=P\) is a path.</p><span class="qed">&#9633;</span></div>
+
+<figure>{{FIG:DELTA2}}
+<figcaption>A typical graph with \(\Delta(G)\le2\): components are paths (including isolated vertices) and cycles.
+Here \(\Delta(G)=2\) and \(\delta(G)=0\).</figcaption></figure>
+
+<div class="note"><span class="h">The counting version of Case 2</span>
+There is a slicker way to see that a tree \(T\) with \(\Delta(T)\le2\) is a path. Being acyclic and connected,
+\(T\) has \(|E(T)|=|V(T)|-1\); if \(|V(T)|\ge2\) then no degree is \(0\), so every degree is \(1\) or \(2\). Writing
+\(\ell\) for the number of degree&#8209;\(1\) vertices, Lemma&nbsp;A gives
+\[ \ell + 2\bigl(|V(T)|-\ell\bigr) \;=\; \sum_{v}d(v) \;=\; 2|E(T)| \;=\; 2|V(T)|-2 ,\]
+i.e. \(2|V(T)|-\ell = 2|V(T)|-2\), so \(\ell=2\) exactly: a tree with maximum degree \(\le 2\) has precisely two
+leaves and is a path. (Case&nbsp;2 of the proof above first checks that \(H\) is acyclic: a cycle in \(H\) would
+already use up both available degrees at each of its vertices, making \(H\) a cycle by the argument of
+Theorem&nbsp;3.1 and contradicting the existence of \(z\) with \(d_H(z)\le1\).)</div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>\(2\)-regular graphs</strong> are exactly the vertex&#8209;disjoint unions of cycles
+\(C_{n_1}\dot\cup\dots\dot\cup C_{n_k}\), \(n_i\ge3\); equivalently, graphs all of whose components are cycles. Such
+a graph has as many edges as vertices.</p>
+<p><strong>Graphs with \(\Delta(G)\le 2\)</strong> are exactly the vertex&#8209;disjoint unions of paths and cycles
+&#8212; every component is a path (an isolated vertex being the trivial path) or a cycle. Comparing the two
+statements: \(G\) is \(2\)-regular precisely when \(\Delta(G)\le2\) <em>and</em> \(\delta(G)\ge2\); relaxing
+\(\Delta\le2\) from regularity is exactly what admits the path components.</p></div>
+
+<div class="note"><span class="h">Remark (infinite graphs)</span>
+If infinite graphs are allowed the classification acquires two extra items. A connected \(2\)-regular graph may also
+be a <em>double ray</em> \(\dots\,v_{-2}v_{-1}v_0v_1v_2\,\dots\), the two&#8209;way infinite path; and a connected
+graph with \(\Delta\le2\) may in addition be a <em>ray</em> \(v_0v_1v_2\dots\) (one&#8209;way infinite), whose initial
+vertex has degree \(1\). So in general: components of a \(2\)-regular graph are cycles or double rays, and components
+of a graph with \(\Delta\le2\) are finite paths, cycles, rays, or double rays. The ray reappears in Problem&nbsp;4 as
+the counterexample to the odd&#8209;degree theorem.</div>
+</section>

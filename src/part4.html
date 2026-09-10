@@ -1,0 +1,107 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 4</span><h2>The number of odd&#8209;degree vertices is even</h2>
+<span class="ptag">handshake lemma; the infinite case</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Show that the number of odd&#8209;degree vertices of a finite graph is even. Show that this is not necessarily
+true for infinite graphs.</p></div>
+
+<h3>Step 1. The handshake lemma</h3>
+
+<div class="env thm"><span class="h">Theorem 4.1 (handshake lemma; Euler 1736)</span><span class="body">
+For every finite graph \(G=(V,E)\),
+\[ \sum_{v\in V} d(v) \;=\; 2\,|E| . \]</span></div>
+
+<div class="prf"><span class="h">Proof (double counting).</span>
+Consider the set of <em>incidences</em>
+\[ I \;=\; \bigl\{\,(v,e)\in V\times E \;:\; v \text{ is an endpoint of } e \,\bigr\}, \]
+and count \(|I|\), which is a finite number, in two different ways.
+<p style="margin-top:.5em"><em>Grouping by edges.</em> Every edge \(e=xy\in E\) has exactly two endpoints, \(x\) and
+\(y\), and they are distinct because \(G\) has no loops. So each edge contributes exactly \(2\) pairs to \(I\), and
+\[ |I| \;=\; \sum_{e\in E} 2 \;=\; 2|E| . \]</p>
+<p><em>Grouping by vertices.</em> For a fixed vertex \(v\), the pairs \((v,e)\in I\) correspond exactly to the edges
+incident with \(v\), and there are \(d(v)\) of them &#8212; this is the definition of the degree (in a simple graph
+the edges at \(v\) are in bijection with the neighbours of \(v\)). So
+\[ |I| \;=\; \sum_{v\in V} d(v) . \]</p>
+<p>The two counts evaluate the same finite number, which gives the identity.</p><span class="qed">&#9633;</span></div>
+
+<p>The name comes from the standard reformulation: at a party, the total number of hands shaken, counted over all
+guests, is twice the number of handshakes &#8212; because each handshake involves exactly two hands. The lemma also
+holds verbatim for multigraphs (parallel edges are counted with multiplicity at both endpoints), and for graphs with
+loops under the usual convention that a loop at \(v\) contributes \(2\) to \(d(v)\) &#8212; which is precisely the
+convention that keeps the double count correct, since a loop yields two incidences at its single vertex.</p>
+
+<h3>Step 2. The parity corollary</h3>
+
+<div class="env cor"><span class="h">Corollary 4.2</span><span class="body">
+In every finite graph \(G\) the number of vertices of odd degree is even.</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+Partition the vertex set according to the parity of the degree,
+\[ V \;=\; V_{\mathrm{odd}} \,\dot\cup\, V_{\mathrm{even}}, \qquad
+   V_{\mathrm{odd}}=\{v: d(v) \text{ odd}\}, \quad V_{\mathrm{even}}=\{v: d(v) \text{ even}\}, \]
+and split the sum of Theorem&nbsp;4.1 accordingly:
+\[ 2|E| \;=\; \sum_{v\in V}d(v) \;=\; \underbrace{\sum_{v\in V_{\mathrm{odd}}}d(v)}_{=:S_{\mathrm{odd}}}
+   \;+\; \underbrace{\sum_{v\in V_{\mathrm{even}}}d(v)}_{=:S_{\mathrm{even}}} . \]
+Now \(2|E|\) is even, and \(S_{\mathrm{even}}\) is a finite sum of even numbers, hence even. Therefore
+\[ S_{\mathrm{odd}} \;=\; 2|E| - S_{\mathrm{even}} \]
+is even as well. On the other hand \(S_{\mathrm{odd}}\) is a sum of \(|V_{\mathrm{odd}}|\) <em>odd</em> numbers, so
+reducing modulo \(2\), where every odd number is \(\equiv 1\),
+\[ 0 \;\equiv\; S_{\mathrm{odd}} \;=\!\!\sum_{v\in V_{\mathrm{odd}}}\!\! d(v)
+   \;\equiv\; \sum_{v\in V_{\mathrm{odd}}} 1 \;=\; |V_{\mathrm{odd}}| \pmod 2 . \]
+Hence \(|V_{\mathrm{odd}}|\) is even. <span class="qed">&#9633;</span></div>
+
+<p>Three quick illustrations: \(K_4\) has all four degrees equal to \(3\), and \(4\) is even; the path \(P_3\) has
+degrees \(1,2,1\), so two odd vertices; the sequence \(1,1,2,2,3,4,4\) of Problem&nbsp;2(b) has the three odd entries
+\(1,1,3\), an odd number of them &#8212; which is exactly why no graph realises it.</p>
+
+<h3>Step 3. Infinite graphs: a counterexample</h3>
+
+<p>Corollary&nbsp;4.2 fails for infinite graphs, and the smallest possible example already does the job.</p>
+
+<div class="env defn"><span class="h">The ray \(R\)</span><span class="body">
+Let \(V(R)=\{v_0,v_1,v_2,\dots\}\) be a countably infinite vertex set and
+\(E(R)=\{\,v_iv_{i+1} : i\ge 0\,\}\). This one&#8209;way infinite path is called a <em>ray</em>.</span></div>
+
+<figure>{{FIG:RAY}}
+<figcaption>The ray \(R\): a connected infinite graph with exactly one vertex of odd degree.</figcaption></figure>
+
+<p>The degrees are immediate from the definition:</p>
+\[ d(v_0)=1 \quad(\text{only the neighbour } v_1), \qquad\qquad
+   d(v_i)=2 \quad(\text{the neighbours } v_{i-1},v_{i+1}) \ \text{ for } i\ge1 . \]
+<p>Hence \(V_{\mathrm{odd}}(R)=\{v_0\}\) and</p>
+\[ |V_{\mathrm{odd}}(R)| \;=\; 1, \]
+<p>which is <strong>odd</strong>. So the number of odd&#8209;degree vertices of an infinite graph need not be even.
+\(R\) is even connected and locally finite (all degrees are finite), so no pathology beyond infiniteness itself is
+being exploited.</p>
+
+<h4>Where exactly does the proof break down?</h4>
+<p>In \(R\) both sides of the handshake identity are infinite: \(|E(R)|=\aleph_0\) and
+\(\sum_{v}d(v)=1+2+2+2+\cdots=\infty\). The identity is not <em>false</em> &#8212; as cardinal arithmetic it still
+reads \(\aleph_0 = 2\cdot\aleph_0\) &#8212; it has simply become <em>vacuous</em>. The proof of Corollary&nbsp;4.2 used
+the finiteness of \(2|E|\) in an essential way, at the step "\(2|E|\) is an even integer, and
+\(S_{\mathrm{odd}}=2|E|-S_{\mathrm{even}}\)": one cannot subtract infinite quantities, and an infinite cardinal is
+neither even nor odd. Every trace of parity information is lost.</p>
+
+<h4>Counterexamples with any odd number of odd vertices</h4>
+<p>The construction generalises immediately. For \(k\ge1\) let \(R^{(k)}\) be the disjoint union of \(k\) copies of
+the ray \(R\). Each copy contributes exactly one vertex of degree \(1\), so \(R^{(k)}\) has exactly \(k\) vertices of
+odd degree. Choosing \(k\) odd gives infinitely many counterexamples; choosing \(k=1\) gives the connected one
+above.</p>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>Finite case.</strong> By double counting the vertex&#8211;edge incidences, \(\sum_v d(v)=2|E|\) is even.
+Splitting this sum over the odd&#8209;degree and even&#8209;degree vertices, the even&#8209;degree part is even,
+so the odd&#8209;degree part is even too; being a sum of \(|V_{\mathrm{odd}}|\) odd numbers, it is
+\(\equiv|V_{\mathrm{odd}}| \pmod 2\). Hence \(|V_{\mathrm{odd}}|\) is even.</p>
+<p><strong>Infinite case.</strong> False in general. The ray \(v_0v_1v_2\dots\) has \(d(v_0)=1\) and \(d(v_i)=2\) for
+\(i\ge1\), so it has exactly <em>one</em> vertex of odd degree. The proof collapses because \(\sum_v d(v)=2|E|=\infty\)
+carries no parity information.</p></div>
+
+<div class="note"><span class="h">Remark (what survives)</span>
+It is the infinitude of the <em>edge</em> set, not of the vertex set, that destroys the result. If \(G\) is an
+arbitrary graph &#8212; possibly with infinitely many vertices &#8212; but with only <em>finitely many edges</em>, then
+Corollary&nbsp;4.2 still holds: only finitely many vertices are incident with an edge, all other vertices have degree
+\(0\) (even), and applying the corollary to the finite subgraph spanned by the edges settles the matter. The ray, by
+contrast, has infinitely many edges.</div>
+</section>

@@ -1,0 +1,80 @@
+<div class="title-wrap">
+  <div class="kicker">Introduction to Graph Theory &middot; Problem Set</div>
+  <h1>Degrees, Regularity, Isomorphism<br>and Connectivity</h1>
+  <div class="sub">Complete worked solutions to eight problems</div>
+  <div class="meta"><span>Eight problems</span><span>&middot;</span><span>Full proofs and constructions</span><span>&middot;</span><span>All results machine&#8209;verified</span></div>
+</div>
+
+<p>This document contains complete solutions to the eight problems of the set. Every claim is proved from first
+principles: the only facts assumed are the definitions collected in the section below. Wherever a problem asks
+for a construction (a graph with a prescribed degree sequence, an explicit isomorphism, a counterexample), the
+object is exhibited and then verified entry by entry rather than merely asserted to exist.</p>
+
+<p>Four of the problems have a purely computational shadow &#8212; the reachability question in Problem&nbsp;1, the
+realisability questions in Problem&nbsp;2, the isomorphism question in Problem&nbsp;6, and the existence question in
+Problem&nbsp;8. For each of these the human proof given here was additionally confirmed by exhaustive computer
+search (breadth&#8209;first search over all positions, brute&#8209;force search over all \(9!=362\,880\) vertex
+bijections, and a max&#8209;flow realisation of the prescribed degree pairs). Those checks are reported at the end
+of the relevant sections; they are corroboration, not substitutes for the arguments.</p>
+
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><span class="a">Knights on the \(3\times 3\) board</span> &#8212; impossible; a cyclic&#8209;order invariant</li>
+    <li><span class="a">Two degree sequences</span> &#8212; (a) yes, (b) no</li>
+    <li><span class="a">2&#8209;regular graphs and \(\Delta(G)\le 2\)</span> &#8212; unions of cycles; unions of paths and cycles</li>
+    <li><span class="a">Odd&#8209;degree vertices</span> &#8212; the handshake lemma and an infinite counterexample</li>
+    <li><span class="a">Odd degree comes in pairs</span> &#8212; a path to a second odd vertex</li>
+    <li><span class="a">Three drawings</span> &#8212; \(G_1\cong G_3\), and \(G_2\) is different</li>
+    <li><span class="a">Minimum degree \(n/2\)</span> &#8212; connectivity, and in fact diameter \(\le 2\)</li>
+    <li><span class="a">A directed degree count</span> &#8212; the missing indegree is \(42\)</li>
+  </ol>
+</div>
+
+<h2 style="margin-top:6mm">Notation, conventions, and three basic lemmas</h2>
+<p>Unless stated otherwise every graph below is <em>finite</em> and <em>simple</em>: finitely many vertices, no
+loops, no parallel edges. We write \(G=(V(G),E(G))\), \(n=|V(G)|\), \(m=|E(G)|\). For a vertex \(v\),
+\(N_G(v)=\{u: uv\in E(G)\}\) is its <em>neighbourhood</em> and \(d_G(v)=|N_G(v)|\) its <em>degree</em>; we drop the
+subscript when the graph is clear. As usual \(\Delta(G)=\max_v d(v)\) and \(\delta(G)=\min_v d(v)\), and \(G\) is
+<em>\(k\)-regular</em> if \(d(v)=k\) for every vertex \(v\). We write \(P_k\), \(C_k\), \(K_k\) for the path, the
+cycle and the complete graph on \(k\) vertices.</p>
+
+<p>A <em>walk</em> of length \(k\) is a sequence \(v_0v_1\dots v_k\) with \(v_{i-1}v_i\in E(G)\) for all \(i\); a
+<em>path</em> is a walk whose vertices are pairwise distinct; a <em>cycle</em> is a walk of length \(k\ge 3\) with
+\(v_0=v_k\) and \(v_0,\dots,v_{k-1}\) pairwise distinct. The <em>components</em> of \(G\) are its maximal connected
+subgraphs; \(G\) is <em>connected</em> if it has exactly one component. An isolated vertex is regarded as a trivial
+path \(P_1=K_1\). The <em>distance</em> \(\operatorname{dist}(u,v)\) is the length of a shortest \(u\)&#8211;\(v\)
+path, and \(\operatorname{diam}(G)=\max_{u,v}\operatorname{dist}(u,v)\).</p>
+
+<p>The next three lemmas are used again and again, so we state them once here.</p>
+
+<div class="env lem"><span class="h">Lemma A (handshake lemma)</span><span class="body">
+For every finite graph \(G\) we have \(\sum_{v\in V(G)}d(v)=2|E(G)|\).</span></div>
+<p class="small" style="margin-left:3.4mm; color:#4a4a4a">Proved in full in Problem&nbsp;4, where it is the heart of
+the matter; we quote it freely before then.</p>
+
+<div class="env lem"><span class="h">Lemma B (every walk contains a path)</span><span class="body">
+If \(G\) contains a \(u\)&#8211;\(v\) walk then \(G\) contains a \(u\)&#8211;\(v\) path.</span></div>
+<div class="prf"><span class="h">Proof.</span>
+The set of lengths of \(u\)&#8211;\(v\) walks is a non&#8209;empty set of non&#8209;negative integers, so we may choose
+a \(u\)&#8211;\(v\) walk \(W=v_0v_1\dots v_k\) (\(v_0=u\), \(v_k=v\)) of <em>minimum</em> length. Suppose some vertex
+occurred twice, say \(v_i=v_j\) with \(i \lt j\). Then \(v_0\dots v_i v_{j+1}\dots v_k\) is again a
+\(u\)&#8211;\(v\) walk, of length \(k-(j-i) \lt k\) &#8212; contradicting minimality. So all vertices of \(W\) are
+distinct, i.e. \(W\) is a path. <span class="qed">&#9633;</span></div>
+
+<div class="env lem"><span class="h">Lemma C (minimum degree 2 forces a cycle)</span><span class="body">
+If \(G\) is finite and \(\delta(G)\ge 2\), then \(G\) contains a cycle.</span></div>
+<div class="prf"><span class="h">Proof.</span>
+\(G\) is finite, so among all paths of \(G\) there is one of maximum length, say \(P=v_0v_1\dots v_k\) (note
+\(k\ge 1\), since \(\delta\ge2 \gt 0\) means \(G\) has an edge). Every neighbour of \(v_0\) lies on \(P\): a neighbour
+\(y\notin V(P)\) would make \(y\,v_0v_1\dots v_k\) a strictly longer path. Since \(d(v_0)\ge 2\) and one neighbour
+of \(v_0\) is \(v_1\), the vertex \(v_0\) has another neighbour \(v_i\) with \(2\le i\le k\). Then
+\(v_0v_1\dots v_i v_0\) is a cycle, of length \(i+1\ge 3\). <span class="qed">&#9633;</span></div>
+
+<div class="env lem"><span class="h">Lemma D (components are degree&#8209;closed)</span><span class="body">
+Let \(H\) be a component of \(G\) and \(x\in V(H)\). Then \(N_G(x)\subseteq V(H)\), and consequently
+\(d_H(x)=d_G(x)\).</span></div>
+<div class="prf"><span class="h">Proof.</span>
+If \(y\in N_G(x)\) then the edge \(xy\) joins \(y\) to \(x\), so \(y\) lies in the same component as \(x\), namely
+\(H\). Hence \(N_H(x)=N_G(x)\) and the two degrees agree. This innocuous remark is what allows us to apply
+counting results component by component. <span class="qed">&#9633;</span></div>

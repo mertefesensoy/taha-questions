@@ -1,0 +1,93 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 8</span><h2>A directed degree count</h2>
+<span class="ptag">directed handshake lemma</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Let us assume that the outdegree of every vertex of a directed graph is \(22\). It is also known that the
+indegree of each vertex, except for three special vertices, is \(22\); furthermore the indegree of two of the three
+exceptional vertices is \(12\). What is the indegree of the third exceptional vertex?</p></div>
+
+<h3>Step 1. The directed handshake lemma</h3>
+
+<p>Let \(D=(V,A)\) be a directed graph: \(A\) is a set of <em>arcs</em>, each arc \(a\) being an ordered pair
+\((x,y)\) with <em>tail</em> \(x\) and <em>head</em> \(y\). For \(v\in V\) write</p>
+\[ d^{+}(v) \;=\; \#\{\,a\in A : a \text{ has tail } v\,\} \quad(\text{the \textit{outdegree}}), \qquad
+   d^{-}(v) \;=\; \#\{\,a\in A : a \text{ has head } v\,\} \quad(\text{the \textit{indegree}}). \]
+
+<div class="env thm"><span class="h">Theorem 8.1 (directed handshake lemma)</span><span class="body">
+For every finite directed graph \(D=(V,A)\),
+\[ \sum_{v\in V} d^{+}(v) \;=\; |A| \;=\; \sum_{v\in V} d^{-}(v) . \]</span></div>
+
+<div class="prf"><span class="h">Proof (double counting).</span>
+Count the arcs of \(D\) by grouping them according to their tail. Every arc has exactly one tail, so the sets
+\(\{a: a \text{ has tail } v\}\), for \(v\in V\), partition \(A\); summing their sizes gives
+\(\sum_v d^{+}(v)=|A|\). Grouping instead by heads: every arc has exactly one head, so the sets
+\(\{a : a\text{ has head } v\}\) also partition \(A\), and \(\sum_v d^{-}(v)=|A|\).
+<span class="qed">&#9633;</span></div>
+
+<p>In words: every arc leaves exactly one vertex and enters exactly one vertex, so the total number of departures,
+the total number of arrivals, and the number of arcs all coincide. (Unlike the undirected Lemma&nbsp;A there is no
+factor \(2\) here: an undirected edge has two <em>endpoints</em>, whereas an arc has one tail and one head, counted in
+two different sums.)</p>
+
+<h3>Step 2. Setting up the equation</h3>
+
+<p>Let \(n=|V|\) be the number of vertices, and denote the three exceptional vertices by \(w_1,w_2,w_3\), where</p>
+\[ d^{-}(w_1)=d^{-}(w_2)=12, \qquad d^{-}(w_3)=x \ \text{ (the unknown)} . \]
+<p>The data of the problem are then:</p>
+<ul class="tight">
+<li>\(d^{+}(v)=22\) for <em>every</em> one of the \(n\) vertices;</li>
+<li>\(d^{-}(v)=22\) for the \(n-3\) vertices other than \(w_1,w_2,w_3\).</li>
+</ul>
+
+<p>Compute \(|A|\) twice, using Theorem&nbsp;8.1. <strong>From the outdegrees:</strong></p>
+\[ |A| \;=\; \sum_{v\in V} d^{+}(v) \;=\; \underbrace{22+22+\dots+22}_{n \text{ terms}} \;=\; 22n . \]
+<p><strong>From the indegrees</strong>, splitting the sum into the ordinary vertices and the three exceptional
+ones:</p>
+\[ |A| \;=\; \sum_{v\in V} d^{-}(v)
+      \;=\; \underbrace{22(n-3)}_{\text{the } n-3 \text{ ordinary vertices}} \;+\; \underbrace{12+12}_{w_1,\,w_2}
+      \;+\; \underbrace{x}_{w_3}
+      \;=\; 22n-66+24+x \;=\; 22n-42+x . \]
+
+<h3>Step 3. Solving</h3>
+<p>Equating the two expressions for the same number \(|A|\):</p>
+\[ 22n \;=\; 22n-42+x . \]
+<p>The term \(22n\) cancels from both sides &#8212; note that the answer therefore does not depend on how many
+vertices the digraph has &#8212; leaving</p>
+\[ 0 \;=\; -42 + x, \qquad\text{that is}\qquad \boxed{\,x \;=\; 42\,}. \]
+
+<p>A useful way to see the same thing without any algebra is as a <em>balance of deficits and surpluses</em>. If
+every vertex had indegree \(22\), the total indegree would be \(22n\), exactly matching the total outdegree. The two
+vertices with indegree \(12\) each fall short of \(22\) by \(22-12=10\), a combined deficit of \(20\). The third
+exceptional vertex must make up the whole of this deficit on top of its own nominal \(22\):</p>
+\[ x \;=\; 22 + 2\cdot(22-12) \;=\; 22+20 \;=\; 42 . \]
+
+<div class="answer"><span class="lab">Answer</span>
+<p>The indegree of the third exceptional vertex is <strong>\(42\)</strong>.</p>
+<p>Reason: in any digraph the total outdegree and the total indegree both count the arcs, so they are equal. Here
+the total outdegree is \(22n\), while the total indegree is \(22(n-3)+12+12+x=22n-42+x\). Equating gives \(x=42\),
+independently of the number \(n\) of vertices.</p></div>
+
+<h3>Consistency: does such a digraph exist?</h3>
+
+<p>The counting argument determines \(x\) but does not by itself guarantee that a digraph with these degrees exists;
+it is worth checking that the answer is not vacuous. If \(D\) is required to be a <em>simple</em> digraph (no loops,
+and at most one arc in each direction between any two vertices), then every degree is bounded by \(n-1\), so we
+need</p>
+\[ d^{-}(w_3)=42\le n-1 \quad\text{and}\quad d^{+}(v)=22\le n-1, \qquad\text{i.e.}\qquad n\ \ge\ 43 . \]
+<p>And \(n\ge43\) is not merely necessary but sufficient: realising the prescribed pairs of degrees is a bipartite
+degree&#8209;sequence (transportation) problem, and solving it as a max&#8209;flow instance produces explicit
+digraphs. For \(n=43\) the resulting digraph has</p>
+\[ |A| \;=\; 22\cdot 43 \;=\; 946 \ \text{arcs}, \qquad
+   d^{+}\equiv 22, \qquad
+   d^{-} = \bigl(\underbrace{22,\dots,22}_{40},\,12,\,12,\,42\bigr), \]
+<p>with no loops &#8212; and analogous digraphs were constructed for \(n=44\) and \(n=60\). So the situation described
+in the problem is genuinely realisable, and \(42\) is the answer for every admissible size. (If loops or parallel
+arcs are permitted, the bound \(n\ge43\) disappears and only the counting constraint remains.)</p>
+
+<div class="note"><span class="h">Sanity checks on the answer</span>
+Two small consistency observations. First, \(42\ne22\), so \(w_3\) really is "exceptional", as the problem asserts
+&#8212; had the arithmetic produced \(22\) the hypotheses would have been contradictory. Second, the average indegree
+must equal the average outdegree, namely \(22\); and indeed the three exceptional values average out correctly,
+since \(12+12+42=66=3\cdot22\).</div>
+</section>

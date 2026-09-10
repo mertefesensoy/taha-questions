@@ -1,0 +1,71 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 5</span><h2>An odd&#8209;degree vertex is joined to another one</h2>
+<span class="ptag">consequence of Problem 4</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Prove that if the degree of a vertex \(u\in V(G)\) is odd, then there exists a \(u\)&#8211;\(v\) path in \(G\) such
+that \(u\ne v\) and the degree of \(v\) is also odd.</p></div>
+
+<p>The point of the statement is that a vertex of odd degree cannot be "odd in isolation": somewhere in its own
+connected component there must be a second odd&#8209;degree vertex, and being in the same component it is reachable
+by a path. The proof is Corollary&nbsp;4.2 applied not to \(G\) but to a single component of \(G\) &#8212; and
+Lemma&nbsp;D is what makes that legitimate.</p>
+
+<div class="env thm"><span class="h">Theorem 5.1</span><span class="body">
+Let \(G\) be a finite graph and let \(u\in V(G)\) have odd degree. Then there is a vertex \(v\in V(G)\) with
+\(v\ne u\) and \(d_G(v)\) odd, and a \(u\)&#8211;\(v\) path in \(G\).</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+Let \(H\) be the connected component of \(G\) that contains \(u\). Since \(G\) is finite, so is \(H\), and \(H\) is a
+graph in its own right, so Corollary&nbsp;4.2 applies to it:
+\[ \bigl|\{\,x\in V(H) \;:\; d_H(x) \text{ is odd}\,\}\bigr| \ \text{ is even.} \tag{5.1} \]
+<p style="margin-top:.5em"><em>Degrees in \(H\) are degrees in \(G\).</em> By Lemma&nbsp;D, every neighbour in \(G\) of
+a vertex \(x\in V(H)\) again lies in \(H\); hence \(d_H(x)=d_G(x)\) for all \(x\in V(H)\). So the set counted in
+(5.1) is exactly
+\[ A \;:=\; \{\,x\in V(H) : d_G(x) \text{ is odd}\,\}, \qquad\text{and } |A| \text{ is even.} \]</p>
+<p><em>\(A\) is non&#8209;empty, hence has at least two elements.</em> Indeed \(u\in V(H)\) and \(d_G(u)\) is odd by
+hypothesis, so \(u\in A\) and \(|A|\ge 1\). But \(|A|\) is even while \(1\) is odd, so \(|A|\neq 1\); hence
+\(|A|\ge 2\). Choose any \(v\in A\setminus\{u\}\). Then \(v\ne u\) and \(d_G(v)\) is
+odd.</p>
+<p><em>There is a \(u\)&#8211;\(v\) path.</em> Both \(u\) and \(v\) lie in \(V(H)\), and \(H\) is connected, so there
+is a \(u\)&#8211;\(v\) walk inside \(H\). By Lemma&nbsp;B that walk contains a \(u\)&#8211;\(v\) path, which is a path
+of \(H\subseteq G\), hence a path of \(G\).</p>
+<p>This produces the required vertex \(v\) and the required path.</p><span class="qed">&#9633;</span></div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p>Apply Corollary&nbsp;4.2 to the <em>component</em> \(H\) containing \(u\), not to \(G\) as a whole. Since a
+component contains all neighbours of each of its vertices, degrees inside \(H\) coincide with degrees in \(G\), so
+\(H\) has an even number of odd&#8209;degree vertices. That number is at least \(1\) because \(u\) is one of them;
+being even it is at least \(2\), so \(H\) contains a second odd&#8209;degree vertex \(v\ne u\). Since \(H\) is
+connected there is a \(u\)&#8211;\(v\) walk in \(H\), and every walk contains a path (Lemma&nbsp;B). This gives the
+required \(u\)&#8211;\(v\) path with both endpoints of odd degree.</p></div>
+
+<h3>Comments on the hypotheses</h3>
+
+<div class="note"><span class="h">Why "\(u\neq v\)" is the whole content</span>
+Without the requirement \(v\ne u\) the statement would be trivial: take \(v=u\) and the path of length \(0\). The
+substance of the theorem is that a <em>second</em>, different odd vertex must exist, and that it can be reached
+without leaving the component.</div>
+
+<div class="note"><span class="h">Why passing to the component is necessary</span>
+It would not be enough to apply Corollary&nbsp;4.2 to \(G\) itself. That gives another odd&#8209;degree vertex
+\(v\ne u\) somewhere in \(G\), but there is no reason for it to be joined to \(u\) by a path: consider
+\(G=P_2\,\dot\cup\,P_2\), two disjoint edges. All four vertices have odd degree \(1\), but the two odd vertices in
+the "other" copy are unreachable from \(u\). Localising the counting argument to the component of \(u\) is exactly
+what rules this out.</div>
+
+<div class="note"><span class="h">Finiteness is essential</span>
+As in Problem&nbsp;4, the statement fails for infinite graphs, and the ray \(R=v_0v_1v_2\dots\) is again the
+counterexample. \(R\) is connected, \(u=v_0\) has odd degree \(1\), and \(v_0\) is joined by a path to every other
+vertex &#8212; yet <em>every</em> other vertex has degree \(2\), which is even. So no \(v\) as in the theorem
+exists.</div>
+
+<div class="note"><span class="h">A classical strengthening</span>
+The proof shows a little more than it claims: in <em>each</em> component the odd&#8209;degree vertices occur in even
+number, so the odd&#8209;degree vertices of a finite graph can be split into pairs, each pair joined by a path inside
+its own component. A well&#8209;known theorem of Euler&#8211;Listing type sharpens this considerably: a connected graph
+with exactly \(2k \gt 0\) vertices of odd degree can be decomposed into \(k\) pairwise <em>edge&#8209;disjoint</em>
+trails, each of which joins two odd&#8209;degree vertices. For \(k=0\) this is the Euler&#8209;circuit theorem, and for
+\(k=1\) the Euler&#8209;trail theorem. We do not need &#8212; and do not prove &#8212; this sharper statement here; it
+is mentioned only to place Theorem&nbsp;5.1 in context.</div>
+</section>

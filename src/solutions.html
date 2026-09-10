@@ -1,0 +1,1123 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><title>Graph Theory - Problem Set Solutions</title><style>
+:root{
+  --ink:#1b1b1b; --soft:#4a4a4a; --acc:#1f4e79; --acc2:#a33a2a;
+  --rule:#d5d8dc; --tint:#f4f7fa; --tint2:#fbf6ef;
+}
+*{box-sizing:border-box}
+html{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+body{
+  font-family:'Bitstream Charter','Charter','DejaVu Serif','Liberation Serif',Georgia,serif;
+  font-size:10.4pt; line-height:1.52; color:var(--ink); margin:0; background:#fff;
+  text-rendering:optimizeLegibility;
+}
+p{margin:0 0 .62em 0; text-align:justify; hyphens:auto}
+h1,h2,h3,h4{font-family:inherit; color:var(--acc); font-weight:700; break-after:avoid; margin:0}
+h2{font-size:15.5pt; margin:0 0 .1em 0; letter-spacing:.1px}
+h3{font-size:11.6pt; margin:1.15em 0 .38em 0; color:#123c60}
+h4{font-size:10.6pt; margin:.95em 0 .3em 0; color:#2f2f2f; font-weight:700}
+
+/* ---- title block ---- */
+.title-wrap{text-align:center; padding:6mm 0 3mm 0; border-bottom:2.2pt solid var(--acc); margin-bottom:4mm}
+.title-wrap .kicker{font-size:9pt; letter-spacing:2.2px; text-transform:uppercase; color:var(--acc2); margin-bottom:2.5mm}
+.title-wrap h1{font-size:24pt; line-height:1.16; color:var(--acc); margin-bottom:2mm}
+.title-wrap .sub{font-size:11pt; color:var(--soft); font-style:italic}
+.meta{display:flex; justify-content:center; gap:26px; font-size:8.6pt; color:var(--soft); margin-top:3.2mm; letter-spacing:.3px}
+
+/* ---- problem headers ---- */
+.problem{margin-top:8mm; break-inside:auto}
+.problem:first-of-type{margin-top:6mm}
+.phead{break-after:avoid; break-inside:avoid}
+h3,h4{break-after:avoid}
+.nb{white-space:nowrap}
+.phead{display:flex; align-items:baseline; gap:10px; border-bottom:1.4pt solid var(--acc); padding-bottom:1.6mm; margin-bottom:2.6mm}
+.pnum{font-size:9pt; font-weight:700; color:#fff; background:var(--acc); border-radius:3px; padding:1.6px 7px; letter-spacing:.6px; white-space:nowrap}
+.ptag{margin-left:auto; padding-left:6px; font-size:8.2pt; color:var(--soft); font-style:italic; white-space:nowrap}
+
+/* ---- boxes ---- */
+.statement{background:var(--tint); border-left:3pt solid var(--acc); padding:2.6mm 4mm; margin:0 0 3.6mm 0; font-size:10.1pt; break-inside:avoid}
+.statement .lab{font-size:8pt; letter-spacing:1.4px; text-transform:uppercase; color:var(--acc); font-weight:700; display:block; margin-bottom:1mm}
+.statement p{margin-bottom:.35em}
+.statement p:last-child{margin-bottom:0}
+
+.answer{background:var(--tint2); border:1pt solid #e0cfae; border-left:3pt solid var(--acc2);
+  padding:2.6mm 4mm; margin:3.4mm 0; break-inside:avoid}
+.answer .lab{font-size:8pt; letter-spacing:1.4px; text-transform:uppercase; color:var(--acc2); font-weight:700; display:block; margin-bottom:1mm}
+.answer p:last-child{margin-bottom:0}
+
+.env{margin:.75em 0; break-inside:avoid-page; display:flow-root}
+.env .h{font-weight:700; color:#123c60}
+.env.thm .h,.env.lem .h,.env.cor .h,.env.defn .h{color:var(--acc)}
+.env.thm, .env.lem, .env.cor{border-left:2pt solid #c9d6e2; padding-left:3.2mm}
+.env.thm .body,.env.lem .body,.env.cor .body{font-style:italic}
+.prf{margin:.6em 0 .9em 0; display:flow-root}
+.prf .h{font-style:italic; color:var(--soft); font-weight:400}
+.qed{float:right; color:var(--soft)}
+.step{margin-top:.85em}
+.step .h{font-weight:700; color:#123c60}
+
+ul,ol{margin:.35em 0 .7em 0; padding-left:5.2mm}
+li{margin-bottom:.24em; text-align:justify}
+ul.tight li,ol.tight li{margin-bottom:.1em}
+
+/* ---- tables ---- */
+table.rule-top tbody tr:first-child td{border-top:1.1pt solid var(--ink)}
+table{border-collapse:collapse; margin:0 auto 1.4mm auto; font-size:9.1pt; break-inside:avoid}
+table.wide{width:100%}
+th,td{padding:1.35mm 2.6mm; text-align:center}
+thead th{border-top:1.1pt solid var(--ink); border-bottom:.6pt solid var(--ink); font-weight:700; background:#fafbfc}
+tbody tr:last-child td{border-bottom:1.1pt solid var(--ink)}
+tbody td{border-bottom:.35pt solid #e6e8ea}
+td.l,th.l{text-align:left}
+.tblock{break-inside:avoid; margin:2.6mm 0}
+.tcap{font-size:8.5pt; color:var(--soft); text-align:center; margin:0 0 2.6mm 0; font-style:italic}
+.hl{background:#fdf3ee}
+code,.mono{font-family:'DejaVu Sans Mono','Liberation Mono',monospace; font-size:8.8pt}
+
+/* ---- figures ---- */
+figure{margin:3.2mm 0; text-align:center; break-inside:avoid}
+figcaption{font-size:8.5pt; color:var(--soft); margin-top:1.2mm; font-style:italic}
+.figrow{display:flex; gap:6px; justify-content:center; align-items:flex-start; flex-wrap:wrap}
+svg.fig{max-width:100%; height:auto}
+.board{font-family:'DejaVu Sans Mono',monospace; font-size:11pt; line-height:1.35; text-align:center; letter-spacing:3px; margin:2mm 0}
+
+/* ---- misc ---- */
+.note{font-size:9.3pt; color:var(--soft); border-top:.5pt solid var(--rule); padding-top:1.6mm; margin-top:3mm}
+.note .h{font-weight:700; color:var(--acc); font-style:normal}
+.toc{background:var(--tint); border:1pt solid var(--rule); padding:3mm 5mm; margin:4mm 0 0 0; break-inside:avoid}
+.toc h3{margin-top:0}
+.toc ol{columns:2; column-gap:9mm; padding-left:4.6mm; margin-bottom:0}
+.toc li{font-size:9.4pt; margin-bottom:.22em; text-align:left}
+.toc .a{color:var(--acc2); font-weight:700}
+mjx-container{overflow-x:visible !important}
+mjx-container[display="true"]{margin:.55em 0 !important}
+.small{font-size:9.2pt}
+</style>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)'],['$','$']], displayMath: [['\\[','\\]']], processEscapes: true,
+         macros: { Zn: ["\\mathbb{Z}_9"] } },
+  chtml: { scale: 1.0, displayAlign: 'center' },
+  options: { renderActions: { addMenu: [] } },
+  startup: { pageReady: () => MathJax.startup.defaultPageReady().then(() => { window.MJDONE = true; }) }
+};
+</script>
+<script id="MathJax-script" src="node_modules/mathjax/es5/tex-mml-chtml.js"></script>
+</head><body><div class="title-wrap">
+  <div class="kicker">Introduction to Graph Theory &middot; Problem Set</div>
+  <h1>Degrees, Regularity, Isomorphism<br>and Connectivity</h1>
+  <div class="sub">Complete worked solutions to eight problems</div>
+  <div class="meta"><span>Eight problems</span><span>&middot;</span><span>Full proofs and constructions</span><span>&middot;</span><span>All results machine&#8209;verified</span></div>
+</div>
+
+<p>This document contains complete solutions to the eight problems of the set. Every claim is proved from first
+principles: the only facts assumed are the definitions collected in the section below. Wherever a problem asks
+for a construction (a graph with a prescribed degree sequence, an explicit isomorphism, a counterexample), the
+object is exhibited and then verified entry by entry rather than merely asserted to exist.</p>
+
+<p>Four of the problems have a purely computational shadow &#8212; the reachability question in Problem&nbsp;1, the
+realisability questions in Problem&nbsp;2, the isomorphism question in Problem&nbsp;6, and the existence question in
+Problem&nbsp;8. For each of these the human proof given here was additionally confirmed by exhaustive computer
+search (breadth&#8209;first search over all positions, brute&#8209;force search over all \(9!=362\,880\) vertex
+bijections, and a max&#8209;flow realisation of the prescribed degree pairs). Those checks are reported at the end
+of the relevant sections; they are corroboration, not substitutes for the arguments.</p>
+
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><span class="a">Knights on the \(3\times 3\) board</span> &#8212; impossible; a cyclic&#8209;order invariant</li>
+    <li><span class="a">Two degree sequences</span> &#8212; (a) yes, (b) no</li>
+    <li><span class="a">2&#8209;regular graphs and \(\Delta(G)\le 2\)</span> &#8212; unions of cycles; unions of paths and cycles</li>
+    <li><span class="a">Odd&#8209;degree vertices</span> &#8212; the handshake lemma and an infinite counterexample</li>
+    <li><span class="a">Odd degree comes in pairs</span> &#8212; a path to a second odd vertex</li>
+    <li><span class="a">Three drawings</span> &#8212; <span class="nb">\(G_1\cong G_3\),</span> and \(G_2\) is different</li>
+    <li><span class="a">Minimum degree \(n/2\)</span> &#8212; connectivity, and in fact diameter \(\le 2\)</li>
+    <li><span class="a">A directed degree count</span> &#8212; the missing indegree is \(42\)</li>
+  </ol>
+</div>
+
+<h2 style="margin-top:6mm">Notation, conventions, and three basic lemmas</h2>
+<p>Unless stated otherwise every graph below is <em>finite</em> and <em>simple</em>: finitely many vertices, no
+loops, no parallel edges. We write \(G=(V(G),E(G))\), \(n=|V(G)|\), \(m=|E(G)|\). For a vertex <span class="nb">\(v\),</span>
+\(N_G(v)=\{u: uv\in E(G)\}\) is its <em>neighbourhood</em> and \(d_G(v)=|N_G(v)|\) its <em>degree</em>; we drop the
+subscript when the graph is clear. As usual \(\Delta(G)=\max_v d(v)\) and \(\delta(G)=\min_v d(v)\), and \(G\) is
+<em>\(k\)-regular</em> if \(d(v)=k\) for every vertex <span class="nb">\(v\).</span> We write <span class="nb">\(P_k\),</span> <span class="nb">\(C_k\),</span> \(K_k\) for the path, the
+cycle and the complete graph on \(k\) vertices.</p>
+
+<p>A <em>walk</em> of length \(k\) is a sequence \(v_0v_1\dots v_k\) with \(v_{i-1}v_i\in E(G)\) for all <span class="nb">\(i\);</span> a
+<em>path</em> is a walk whose vertices are pairwise distinct; a <em>cycle</em> is a walk of length \(k\ge 3\) with
+\(v_0=v_k\) and \(v_0,\dots,v_{k-1}\) pairwise distinct. The <em>components</em> of \(G\) are its maximal connected
+subgraphs; \(G\) is <em>connected</em> if it has exactly one component. An isolated vertex is regarded as a trivial
+path <span class="nb">\(P_1=K_1\).</span> The <em>distance</em> \(\operatorname{dist}(u,v)\) is the length of a shortest \(u\)&#8211;\(v\)
+path, and \(\operatorname{diam}(G)=\max_{u,v}\operatorname{dist}(u,v)\).</p>
+
+<p>The next three lemmas are used again and again, so we state them once here.</p>
+
+<div class="env lem"><span class="h">Lemma A (handshake lemma)</span><span class="body">
+For every finite graph \(G\) we have \(\sum_{v\in V(G)}d(v)=2|E(G)|\).</span></div>
+<p class="small" style="margin-left:3.4mm; color:#4a4a4a">Proved in full in Problem&nbsp;4, where it is the heart of
+the matter; we quote it freely before then.</p>
+
+<div class="env lem"><span class="h">Lemma B (every walk contains a path)</span><span class="body">
+If \(G\) contains a \(u\)&#8211;\(v\) walk then \(G\) contains a \(u\)&#8211;\(v\) path.</span></div>
+<div class="prf"><span class="h">Proof.</span>
+The set of lengths of \(u\)&#8211;\(v\) walks is a non&#8209;empty set of non&#8209;negative integers, so we may choose
+a \(u\)&#8211;\(v\) walk \(W=v_0v_1\dots v_k\) (<span class="nb">\(v_0=u\),</span> \(v_k=v\)) of <em>minimum</em> length. Suppose some vertex
+occurred twice, say \(v_i=v_j\) with <span class="nb">\(i \lt j\).</span> Then \(v_0\dots v_i v_{j+1}\dots v_k\) is again a
+\(u\)&#8211;\(v\) walk, of length \(k-(j-i) \lt k\) &#8212; contradicting minimality. So all vertices of \(W\) are
+distinct, i.e. \(W\) is a path. <span class="qed">&#9633;</span></div>
+
+<div class="env lem"><span class="h">Lemma C (minimum degree 2 forces a cycle)</span><span class="body">
+If \(G\) is finite and \(\delta(G)\ge 2\), then \(G\) contains a cycle.</span></div>
+<div class="prf"><span class="h">Proof.</span>
+\(G\) is finite, so among all paths of \(G\) there is one of maximum length, say \(P=v_0v_1\dots v_k\) (note
+<span class="nb">\(k\ge 1\),</span> since \(\delta\ge2 \gt 0\) means \(G\) has an edge). Every neighbour of \(v_0\) lies on <span class="nb">\(P\):</span> a neighbour
+\(y\notin V(P)\) would make \(y\,v_0v_1\dots v_k\) a strictly longer path. Since \(d(v_0)\ge 2\) and one neighbour
+of \(v_0\) is <span class="nb">\(v_1\),</span> the vertex \(v_0\) has another neighbour \(v_i\) with <span class="nb">\(2\le i\le k\).</span> Then
+\(v_0v_1\dots v_i v_0\) is a cycle, of length <span class="nb">\(i+1\ge 3\).</span> <span class="qed">&#9633;</span></div>
+
+<div class="env lem"><span class="h">Lemma D (components are degree&#8209;closed)</span><span class="body">
+Let \(H\) be a component of \(G\) and \(x\in V(H)\). Then \(N_G(x)\subseteq V(H)\), and consequently
+\(d_H(x)=d_G(x)\).</span></div>
+<div class="prf"><span class="h">Proof.</span>
+If \(y\in N_G(x)\) then the edge \(xy\) joins \(y\) to <span class="nb">\(x\),</span> so \(y\) lies in the same component as <span class="nb">\(x\),</span> namely
+<span class="nb">\(H\).</span> Hence \(N_H(x)=N_G(x)\) and the two degrees agree. This innocuous remark is what allows us to apply
+counting results component by component. <span class="qed">&#9633;</span></div>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 1</span><h2>Knights on the \(3\times 3\) board</h2>
+<span class="ptag">a cyclic-order invariant</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Place two white and two dark knights in the corners of a \(3\times 3\) chessboard so that the identically
+coloured knights are on diametrically opposite corners. The knights move in the usual way known from chess, and two
+knights cannot stand on the same square at the same time. Is it possible to move the knights so that they stand in
+the corners at the end, but the diametrically opposite ones are of different colours?</p></div>
+
+<p>The answer is <strong>no</strong>. We prove it by exhibiting a quantity &#8212; the cyclic order in which the four
+knights appear around a certain \(8\)-cycle &#8212; that no legal move can ever change, and which differs between the
+starting position and every admissible target position.</p>
+
+<h3>Step 1. Set&#8209;up and the knight&#8209;move graph</h3>
+<p>Number the squares of the board</p>
+<p class="board">1&nbsp;2&nbsp;3<br>4&nbsp;5&nbsp;6<br>7&nbsp;8&nbsp;9</p>
+<p>so that square \(s\) sits in row \(\lfloor (s-1)/3\rfloor\) and column \((s-1)\bmod 3\). The corners are
+<span class="nb">\(1,3,7,9\);</span> the two "diametrically opposite" corner pairs (opposite through the centre square \(5\)) are
+\(\{1,9\}\) and <span class="nb">\(\{3,7\}\).</span></p>
+
+<p>Up to swapping the names of the two colours, the starting position is therefore</p>
+<p style="text-align:center"><strong>White on \(1\) and <span class="nb">\(9\),</span> &nbsp; Dark on \(3\) and <span class="nb">\(7\).</span></strong></p>
+<p>The required final position is: all four knights on corners, with
+\(\text{colour}(1)\neq\text{colour}(9)\) <em>and</em> \(\text{colour}(3)\neq\text{colour}(7)\).</p>
+
+<p>Define the <em>knight&#8209;move graph</em> <span class="nb">\(K\):</span> its vertices are the nine squares, and two squares are adjacent
+when they are one knight's move apart, i.e. when their (row, column) vectors differ by \((\pm1,\pm2)\) or
+\((\pm2,\pm1)\). A knight standing on a square may move exactly along an edge of <span class="nb">\(K\),</span> provided the target square
+is unoccupied. The complete list of moves is short enough to write down in full.</p>
+
+<figure><svg class="fig" viewBox="0 0 238 212" width="238" height="212" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="26" y="14" width="62" height="62" fill="#eef2f7" stroke="#1b1b1b" stroke-width="1.3"/><text x="77.00" y="30.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >1</text><rect x="88" y="14" width="62" height="62" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.3"/><text x="139.00" y="30.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >2</text><rect x="150" y="14" width="62" height="62" fill="#eef2f7" stroke="#1b1b1b" stroke-width="1.3"/><text x="201.00" y="30.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >3</text><rect x="26" y="76" width="62" height="62" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.3"/><text x="77.00" y="92.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >4</text><rect x="88" y="76" width="62" height="62" fill="#eef2f7" stroke="#1b1b1b" stroke-width="1.3"/><text x="139.00" y="92.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >5</text><rect x="150" y="76" width="62" height="62" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.3"/><text x="201.00" y="92.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >6</text><rect x="26" y="138" width="62" height="62" fill="#eef2f7" stroke="#1b1b1b" stroke-width="1.3"/><text x="77.00" y="154.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >7</text><rect x="88" y="138" width="62" height="62" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.3"/><text x="139.00" y="154.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >8</text><rect x="150" y="138" width="62" height="62" fill="#eef2f7" stroke="#1b1b1b" stroke-width="1.3"/><text x="201.00" y="154.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >9</text><line x1="57.00" y1="45.00" x2="181.00" y2="107.00" stroke="#1f4e79" stroke-width="1.7"/><line x1="57.00" y1="45.00" x2="119.00" y2="169.00" stroke="#1f4e79" stroke-width="1.7"/><line x1="119.00" y1="45.00" x2="57.00" y2="169.00" stroke="#1f4e79" stroke-width="1.7"/><line x1="119.00" y1="45.00" x2="181.00" y2="169.00" stroke="#1f4e79" stroke-width="1.7"/><line x1="181.00" y1="45.00" x2="57.00" y2="107.00" stroke="#1f4e79" stroke-width="1.7"/><line x1="181.00" y1="45.00" x2="119.00" y2="169.00" stroke="#1f4e79" stroke-width="1.7"/><line x1="57.00" y1="107.00" x2="181.00" y2="169.00" stroke="#1f4e79" stroke-width="1.7"/><line x1="181.00" y1="107.00" x2="57.00" y2="169.00" stroke="#1f4e79" stroke-width="1.7"/><circle cx="57.00" cy="45.00" r="13.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="57.00" y="49.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">1</text><circle cx="119.00" cy="45.00" r="13.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="119.00" y="49.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">2</text><circle cx="181.00" cy="45.00" r="13.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="181.00" y="49.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">3</text><circle cx="57.00" cy="107.00" r="13.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="57.00" y="111.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">4</text><circle cx="119.00" cy="107.00" r="13.5" fill="#f4d9d3" stroke="#1b1b1b" stroke-width="1.5"/><text x="119.00" y="111.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">5</text><circle cx="181.00" cy="107.00" r="13.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="181.00" y="111.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">6</text><circle cx="57.00" cy="169.00" r="13.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="57.00" y="173.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">7</text><circle cx="119.00" cy="169.00" r="13.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="119.00" y="173.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">8</text><circle cx="181.00" cy="169.00" r="13.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="181.00" y="173.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">9</text></g></svg><figcaption>The eight knight moves available on the \(3\times3\) board. The centre square \(5\) (shaded) is not the endpoint of any move.</figcaption></figure>
+
+<h3>Step 2. The usable squares form a single \(8\)&#8209;cycle</h3>
+<p>Reading off the table of moves:</p>
+
+<div class="tblock"><table class=""><thead><tr><th class="">square</th><th class="">(row, col)</th><th class="l">squares a knight can move to</th><th class="">degree</th></tr></thead><tbody><tr><td class=""><strong>1</strong></td><td class="">(0, 0)</td><td class="l">6, 8</td><td class="">2</td></tr><tr><td class=""><strong>2</strong></td><td class="">(0, 1)</td><td class="l">7, 9</td><td class="">2</td></tr><tr><td class=""><strong>3</strong></td><td class="">(0, 2)</td><td class="l">4, 8</td><td class="">2</td></tr><tr><td class=""><strong>4</strong></td><td class="">(1, 0)</td><td class="l">3, 9</td><td class="">2</td></tr><tr class="hl"><td class=""><strong>5</strong></td><td class="">(1, 1)</td><td class="l">&#8212; (none)</td><td class="">0</td></tr><tr><td class=""><strong>6</strong></td><td class="">(1, 2)</td><td class="l">1, 7</td><td class="">2</td></tr><tr><td class=""><strong>7</strong></td><td class="">(2, 0)</td><td class="l">2, 6</td><td class="">2</td></tr><tr><td class=""><strong>8</strong></td><td class="">(2, 1)</td><td class="l">1, 3</td><td class="">2</td></tr><tr><td class=""><strong>9</strong></td><td class="">(2, 2)</td><td class="l">2, 4</td><td class="">2</td></tr></tbody></table><p class="tcap">Table 1.1 &mdash; all knight moves on the 3&times;3 board. The centre square 5 is isolated; every other square has degree exactly 2.</p></div>
+
+<p>Two things are visible at once.</p>
+<ul>
+<li>The <strong>centre square \(5\) is isolated</strong> in <span class="nb">\(K\):</span> from \((1,1)\) every knight's move \((\pm1,\pm2)\)
+or \((\pm2,\pm1)\) leaves the \(3\times3\) board. Hence no knight can ever move to \(5\) or away from <span class="nb">\(5\).</span> Since
+the knights start on corners, square \(5\) is empty at the start and stays empty forever; we may delete it.</li>
+<li>Every one of the remaining eight squares has degree <strong>exactly \(2\)</strong>. So \(K-5\) is a
+\(2\)-regular graph on \(8\) vertices, and it is connected: starting at \(1\) and repeatedly walking to the
+not&#8209;yet&#8209;used neighbour gives
+\[ 1 \;-\; 6 \;-\; 7 \;-\; 2 \;-\; 9 \;-\; 4 \;-\; 3 \;-\; 8 \;-\; 1 , \]
+a closed walk through all eight squares. Therefore <span class="nb">\(K-5\cong C_8\).</span></li>
+</ul>
+
+<p>(This is the classical "straightening" of the puzzle: the tangle of knight moves on the board is really just a
+circle. It is also an instance of Problem&nbsp;3 below: a connected \(2\)-regular graph must be a cycle.)</p>
+
+<figure><svg class="fig" viewBox="0 0 330 292" width="330" height="292" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="165.00" y1="40.00" x2="230.05" y2="66.95" stroke="#1b1b1b" stroke-width="1.7"/><line x1="230.05" y1="66.95" x2="257.00" y2="132.00" stroke="#1b1b1b" stroke-width="1.7"/><line x1="257.00" y1="132.00" x2="230.05" y2="197.05" stroke="#1b1b1b" stroke-width="1.7"/><line x1="230.05" y1="197.05" x2="165.00" y2="224.00" stroke="#1b1b1b" stroke-width="1.7"/><line x1="165.00" y1="224.00" x2="99.95" y2="197.05" stroke="#1b1b1b" stroke-width="1.7"/><line x1="99.95" y1="197.05" x2="73.00" y2="132.00" stroke="#1b1b1b" stroke-width="1.7"/><line x1="73.00" y1="132.00" x2="99.95" y2="66.95" stroke="#1b1b1b" stroke-width="1.7"/><line x1="99.95" y1="66.95" x2="165.00" y2="40.00" stroke="#1b1b1b" stroke-width="1.7"/><circle cx="165.00" cy="40.00" r="14" fill="#dbe6f0" stroke="#1b1b1b" stroke-width="1.7"/><text x="165.00" y="44.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">1</text><circle cx="230.05" cy="66.95" r="14" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="230.05" y="71.27" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">6</text><circle cx="257.00" cy="132.00" r="14" fill="#dbe6f0" stroke="#1b1b1b" stroke-width="1.7"/><text x="257.00" y="136.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">7</text><circle cx="230.05" cy="197.05" r="14" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="230.05" y="201.37" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">2</text><circle cx="165.00" cy="224.00" r="14" fill="#dbe6f0" stroke="#1b1b1b" stroke-width="1.7"/><text x="165.00" y="228.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">9</text><circle cx="99.95" cy="197.05" r="14" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="99.95" y="201.37" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">4</text><circle cx="73.00" cy="132.00" r="14" fill="#dbe6f0" stroke="#1b1b1b" stroke-width="1.7"/><text x="73.00" y="136.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">3</text><circle cx="99.95" cy="66.95" r="14" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="99.95" y="71.27" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">8</text></g></svg>
+<figcaption>The eight usable squares, redrawn as the \(8\)-cycle <span class="nb">\(1\,6\,7\,2\,9\,4\,3\,8\).</span> The four corners
+(shaded) sit in <em>alternating</em> positions around the cycle.</figcaption></figure>
+
+<p>The crucial structural fact, plainly visible in the figure, is that the corners \(1,7,9,3\) occupy the four
+<em>alternate</em> vertices \(w_0,w_2,w_4,w_6\) of the cycle <span class="nb">\(w_0w_1\dots w_7 = 1\,6\,7\,2\,9\,4\,3\,8\).</span> In
+particular, when all four knights stand on corners, reading the cycle in its natural direction reads the corners in
+the cyclic order <span class="nb">\(1,\,7,\,9,\,3\).</span></p>
+
+<h3>Step 3. The invariant: four beads on a closed string</h3>
+
+<div class="env thm"><span class="h">Claim</span><span class="body">
+Assign to each position the cyclic word obtained by listing the colours of the occupied vertices in the cyclic order
+of \(C_8\) (a cyclic word of length \(4\) in the letters <span class="nb">\(\mathrm{W}, \mathrm{D}\),</span> with two of each). This
+<em>colour pattern</em> is unchanged by every legal move.</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+Fix a position. Let the four knights, listed in the cyclic order in which they occur along <span class="nb">\(C_8\),</span> be
+<span class="nb">\(k_1,k_2,k_3,k_4\),</span> and for \(j=1,2,3,4\) let \(a_j\ge 1\) be the number of cycle&#8209;edges on the arc that leads
+from \(k_j\) forward to \(k_{j+1}\) (indices mod \(4\)). The four arcs tile the cycle, so
+\[ a_1+a_2+a_3+a_4 \;=\; 8, \qquad a_j\ \ge\ 1 \ \text{ for all } j. \]
+A legal move takes one knight, say <span class="nb">\(k_j\),</span> to one of its two neighbours on <span class="nb">\(C_8\),</span> and that neighbour must be
+<em>unoccupied</em>.
+<ul class="tight">
+<li>If \(k_j\) steps <em>forward</em> (towards \(k_{j+1}\)), the square it steps onto is unoccupied exactly when the
+arc in front of it has length <span class="nb">\(a_j\ge 2\).</span> After the move \(a_j\) becomes \(a_j-1\ \ge 1\) and \(a_{j-1}\) becomes
+<span class="nb">\(a_{j-1}+1\).</span></li>
+<li>If \(k_j\) steps <em>backward</em>, symmetrically \(a_{j-1}\ge 2\) is required, and afterwards
+<span class="nb">\(a_{j-1}\mapsto a_{j-1}-1\ge 1\),</span> <span class="nb">\(a_j\mapsto a_j+1\).</span></li>
+</ul>
+In both cases all four arc lengths remain <span class="nb">\(\ge 1\).</span> An arc length of \(0\) is precisely what it would mean for one
+knight to catch up with and overtake the next one; since this never happens, the cyclic sequence
+\(k_1,k_2,k_3,k_4\) &#8212; and hence the cyclic sequence of their colours &#8212; is literally the same list after
+the move as before. <span class="qed">&#9633;</span></div>
+
+<p>Informally: the knights are four beads threaded on a closed loop of string. A bead may slide one step at a time,
+but it can never jump over another bead, so the cyclic order of the beads is frozen for all time.</p>
+
+<h3>Step 4. The two patterns disagree</h3>
+<p>By Step&nbsp;2, whenever all four knights stand on corners the colour pattern is read off the corners in the
+cyclic order <span class="nb">\(1,\,7,\,9,\,3\).</span></p>
+
+<p><strong>Starting position.</strong> \(\text{colour}(1)=\mathrm{W}\), \(\text{colour}(7)=\mathrm{D}\),
+\(\text{colour}(9)=\mathrm{W}\), \(\text{colour}(3)=\mathrm{D}\), giving the cyclic word</p>
+<p style="text-align:center">\(\mathrm{W\,D\,W\,D}\) &#8212; <em>the two whites are separated by a dark knight on
+both sides.</em></p>
+
+<p><strong>Any admissible target position.</strong> We need \(\text{colour}(1)\ne\text{colour}(9)\) and
+\(\text{colour}(3)\ne\text{colour}(7)\). As there are two knights of each colour this leaves exactly four
+possibilities, and all four give the same cyclic word:</p>
+
+<div class="tblock"><table class=""><thead><tr><th class="">colour(1)</th><th class="">colour(3)</th><th class="">colour(7)</th><th class="">colour(9)</th><th class="">read round the cycle: 1, 7, 9, 3</th><th class="">as a cyclic word</th></tr></thead><tbody><tr><td class="">W</td><td class="">W</td><td class="">D</td><td class="">D</td><td class="">W&#8201;D&#8201;D&#8201;W</td><td class="">WWDD</td></tr><tr><td class="">W</td><td class="">D</td><td class="">W</td><td class="">D</td><td class="">W&#8201;W&#8201;D&#8201;D</td><td class="">WWDD</td></tr><tr><td class="">D</td><td class="">W</td><td class="">D</td><td class="">W</td><td class="">D&#8201;D&#8201;W&#8201;W</td><td class="">WWDD</td></tr><tr><td class="">D</td><td class="">D</td><td class="">W</td><td class="">W</td><td class="">D&#8201;W&#8201;W&#8201;D</td><td class="">WWDD</td></tr></tbody></table><p class="tcap">Table 1.2 &mdash; the four corner positions in which diametrically opposite knights have different colours. All four give the same cyclic word WWDD.</p></div>
+
+<p style="text-align:center">In every case the target pattern is \(\mathrm{W\,W\,D\,D}\) &#8212; <em>the two whites
+are cyclically adjacent.</em></p>
+
+<p>The cyclic words \(\mathrm{WDWD}\) and \(\mathrm{WWDD}\) are different: in the first, each white knight has a
+dark knight on either side; in the second, the two whites are neighbours in the cyclic order. No rotation of
+\(\mathrm{WDWD}\) produces <span class="nb">\(\mathrm{WWDD}\).</span> By the Claim of Step&nbsp;3 the pattern never changes, so no sequence
+of legal moves can lead from the starting position to any admissible target position.</p>
+
+<figure><div class="figrow"><svg class="fig" viewBox="0 0 300 292" width="300" height="292" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="150.00" y1="40.00" x2="215.05" y2="66.95" stroke="#1b1b1b" stroke-width="1.7"/><line x1="215.05" y1="66.95" x2="242.00" y2="132.00" stroke="#1b1b1b" stroke-width="1.7"/><line x1="242.00" y1="132.00" x2="215.05" y2="197.05" stroke="#1b1b1b" stroke-width="1.7"/><line x1="215.05" y1="197.05" x2="150.00" y2="224.00" stroke="#1b1b1b" stroke-width="1.7"/><line x1="150.00" y1="224.00" x2="84.95" y2="197.05" stroke="#1b1b1b" stroke-width="1.7"/><line x1="84.95" y1="197.05" x2="58.00" y2="132.00" stroke="#1b1b1b" stroke-width="1.7"/><line x1="58.00" y1="132.00" x2="84.95" y2="66.95" stroke="#1b1b1b" stroke-width="1.7"/><line x1="84.95" y1="66.95" x2="150.00" y2="40.00" stroke="#1b1b1b" stroke-width="1.7"/><circle cx="150.00" cy="40.00" r="15" fill="#ffffff" stroke="#1b1b1b" stroke-width="2.2"/><text x="150.00" y="44.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="700">W</text><text x="150.00" y="16.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >1</text><circle cx="215.05" cy="66.95" r="9" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.4"/><text x="234.15" y="51.63" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >6</text><circle cx="242.00" cy="132.00" r="15" fill="#33383d" stroke="#1b1b1b" stroke-width="2.2"/><text x="242.00" y="136.14" font-size="11.5" fill="#ffffff" stroke="none" text-anchor="middle" font-weight="700">D</text><text x="269.00" y="135.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >7</text><circle cx="215.05" cy="197.05" r="9" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.4"/><text x="234.15" y="219.93" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >2</text><circle cx="150.00" cy="224.00" r="15" fill="#ffffff" stroke="#1b1b1b" stroke-width="2.2"/><text x="150.00" y="228.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="700">W</text><text x="150.00" y="254.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >9</text><circle cx="84.95" cy="197.05" r="9" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.4"/><text x="65.85" y="219.93" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >4</text><circle cx="58.00" cy="132.00" r="15" fill="#33383d" stroke="#1b1b1b" stroke-width="2.2"/><text x="58.00" y="136.14" font-size="11.5" fill="#ffffff" stroke="none" text-anchor="middle" font-weight="700">D</text><text x="31.00" y="135.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >3</text><circle cx="84.95" cy="66.95" r="9" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.4"/><text x="65.85" y="51.63" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >8</text><text x="150.00" y="273.96" font-size="11" fill="#8a8a8a" stroke="none" text-anchor="middle" >start: W&#8211;D&#8211;W&#8211;D (alternating)</text></g></svg><svg class="fig" viewBox="0 0 300 292" width="300" height="292" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="150.00" y1="40.00" x2="215.05" y2="66.95" stroke="#1b1b1b" stroke-width="1.7"/><line x1="215.05" y1="66.95" x2="242.00" y2="132.00" stroke="#1b1b1b" stroke-width="1.7"/><line x1="242.00" y1="132.00" x2="215.05" y2="197.05" stroke="#1b1b1b" stroke-width="1.7"/><line x1="215.05" y1="197.05" x2="150.00" y2="224.00" stroke="#1b1b1b" stroke-width="1.7"/><line x1="150.00" y1="224.00" x2="84.95" y2="197.05" stroke="#1b1b1b" stroke-width="1.7"/><line x1="84.95" y1="197.05" x2="58.00" y2="132.00" stroke="#1b1b1b" stroke-width="1.7"/><line x1="58.00" y1="132.00" x2="84.95" y2="66.95" stroke="#1b1b1b" stroke-width="1.7"/><line x1="84.95" y1="66.95" x2="150.00" y2="40.00" stroke="#1b1b1b" stroke-width="1.7"/><circle cx="150.00" cy="40.00" r="15" fill="#ffffff" stroke="#1b1b1b" stroke-width="2.2"/><text x="150.00" y="44.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="700">W</text><text x="150.00" y="16.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >1</text><circle cx="215.05" cy="66.95" r="9" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.4"/><text x="234.15" y="51.63" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >6</text><circle cx="242.00" cy="132.00" r="15" fill="#ffffff" stroke="#1b1b1b" stroke-width="2.2"/><text x="242.00" y="136.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="700">W</text><text x="269.00" y="135.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >7</text><circle cx="215.05" cy="197.05" r="9" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.4"/><text x="234.15" y="219.93" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >2</text><circle cx="150.00" cy="224.00" r="15" fill="#33383d" stroke="#1b1b1b" stroke-width="2.2"/><text x="150.00" y="228.14" font-size="11.5" fill="#ffffff" stroke="none" text-anchor="middle" font-weight="700">D</text><text x="150.00" y="254.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >9</text><circle cx="84.95" cy="197.05" r="9" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.4"/><text x="65.85" y="219.93" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >4</text><circle cx="58.00" cy="132.00" r="15" fill="#33383d" stroke="#1b1b1b" stroke-width="2.2"/><text x="58.00" y="136.14" font-size="11.5" fill="#ffffff" stroke="none" text-anchor="middle" font-weight="700">D</text><text x="31.00" y="135.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >3</text><circle cx="84.95" cy="66.95" r="9" fill="#ffffff" stroke="#8a8a8a" stroke-width="1.4"/><text x="65.85" y="51.63" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >8</text><text x="150.00" y="273.96" font-size="11" fill="#8a8a8a" stroke="none" text-anchor="middle" >target: W&#8211;W&#8211;D&#8211;D (not alternating)</text></g></svg></div>
+<figcaption>Left: the start, pattern <span class="nb">\(\mathrm{W\,D\,W\,D}\).</span> Right: a required final position, pattern
+<span class="nb">\(\mathrm{W\,W\,D\,D}\).</span> Small circles are empty squares. The two patterns are different cyclic words, and the
+pattern is invariant &#8212; hence the right&#8209;hand position is unreachable.</figcaption></figure>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>No, it is not possible.</strong> The eight squares a knight can ever use form a single \(8\)-cycle, on
+which the four knights behave like beads on a closed string: they can slide but never pass one another, so their
+cyclic order &#8212; and hence the cyclic pattern of their colours &#8212; is invariant. Starting from
+"identically coloured knights diametrically opposite" the pattern is <span class="nb">\(\mathrm{WDWD}\),</span> whereas every corner
+position with "diametrically opposite knights of different colours" has pattern <span class="nb">\(\mathrm{WWDD}\).</span></p></div>
+
+<h3>Step 5. Exhaustive verification</h3>
+<p>A breadth&#8209;first search over all positions confirms the argument and shows that the invariant is
+<em>complete</em>, i.e. it is the only obstruction.</p>
+
+<div class="tblock"><table class="wide"><thead><tr><th class="l">quantity</th><th class="">value</th></tr></thead><tbody><tr><td class="l">placements of 4 knights on the 8 usable squares (2 white, 2 dark)</td><td class="">420</td></tr><tr><td class="l">&#8230; of these, the ones whose colour pattern is W&#8201;D&#8201;W&#8201;D</td><td class=""><strong>140</strong></td></tr><tr><td class="l">positions actually reachable from the start by legal moves</td><td class=""><strong>140</strong> &#8212; exactly the ones above</td></tr><tr><td class="l">reachable positions with all four knights on corners</td><td class="">2</td></tr><tr class="hl"><td class="l">&#8230; of these, positions with opposite corners of <em>different</em> colour</td><td class=""><strong>0</strong></td></tr><tr><td class="l">shortest solution of Guarini's puzzle (see remark)</td><td class="">16 moves</td></tr></tbody></table><p class="tcap">Table 1.3 &mdash; exhaustive breadth-first search over all positions. The colour pattern is not merely an obstruction, it is a complete invariant: every position with the right pattern is reachable.</p></div>
+
+<p>The two reachable corner positions are the initial one and the one obtained from it by sliding all four knights
+two steps around the cycle (a \(90^\circ\) rotation of the board); in both, identically coloured knights are
+diametrically opposite, exactly as predicted. Moreover the number of reachable positions, <span class="nb">\(140\),</span> equals precisely
+the number of placements whose colour pattern is \(\mathrm{WDWD}\) &#8212; every position with the correct pattern is
+reachable, and no other.</p>
+
+<div class="note"><span class="h">Remark (what <em>is</em> possible)</span>
+Only the cyclic <em>order</em> is frozen; rotations are free. This is why the classical <em>Guarini puzzle</em>
+(1512) &#8212; white knights on the two top corners <span class="nb">\(1,3\),</span> dark knights on the two bottom corners <span class="nb">\(7,9\),</span> the task
+being to interchange them &#8212; <em>is</em> solvable: reading the corners in the cyclic order <span class="nb">\(1,7,9,3\),</span> the start
+is \(\mathrm{W\,D\,D\,W}\) and the target is <span class="nb">\(\mathrm{D\,W\,W\,D}\),</span> and as cyclic words both equal
+<span class="nb">\(\mathrm{WWDD}\).</span> A shortest solution takes \(16\) moves. Guarini's puzzle and the present problem differ only in
+the initial arrangement, and that single difference decides solvability.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 2</span><h2>Two degree sequences</h2>
+<span class="ptag">Havel&#8211;Hakimi, Erd&#337;s&#8211;Gallai, parity</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Are there simple graphs with degree sequence &nbsp;<strong>(a)</strong> <span class="nb">\(1,2,2,3,3,3\),</span> &nbsp;respectively
+&nbsp;<strong>(b)</strong> <span class="nb">\(1,1,2,2,3,4,4\)?</span></p></div>
+
+<p>A finite sequence of non&#8209;negative integers is called <em>graphical</em> if it is the degree sequence of some
+simple graph. Two necessary conditions are immediate for a sequence <span class="nb">\(d_1,\dots,d_n\):</span></p>
+<ul class="tight">
+<li><strong>(N1) Range.</strong> \(0\le d_i\le n-1\) for every <span class="nb">\(i\),</span> since in a simple graph a vertex has at most
+\(n-1\) distinct neighbours.</li>
+<li><strong>(N2) Parity.</strong> \(d_1+\dots+d_n\) is even, since by Lemma&nbsp;A it equals <span class="nb">\(2m\).</span></li>
+</ul>
+<p>These are not sufficient in general (for instance \(3,3,1,1\) satisfies both but is not graphical), so for part
+(a) we shall need a genuine criterion. We use the Havel&#8211;Hakimi reduction, which has the advantage of
+<em>building</em> the graph, and then double&#8209;check with the Erd&#337;s&#8211;Gallai inequalities.</p>
+
+<h3>Part (a): \(\;1,\,2,\,2,\,3,\,3,\,3\)</h3>
+
+<h4>The two necessary conditions</h4>
+<p>Here \(n=6\) and the largest entry is <span class="nb">\(3\le n-1=5\),</span> so (N1) holds. The sum is
+\[ 1+2+2+3+3+3 \;=\; 14, \]
+which is even, so (N2) holds and any such graph would have \(m=\tfrac{14}{2}=7\) edges. Both tests are passed; we
+now show the sequence really is graphical by constructing a graph.</p>
+
+<h4>The Havel&#8211;Hakimi reduction</h4>
+<div class="env thm"><span class="h">Theorem (Havel 1955, Hakimi 1962)</span><span class="body">
+Let \(d_1\ge d_2\ge\dots\ge d_n\ge 0\) with <span class="nb">\(d_1\le n-1\).</span> Then \(d_1,d_2,\dots,d_n\) is graphical if and only if
+the sequence obtained by deleting \(d_1\) and subtracting \(1\) from each of the next \(d_1\) entries,
+\[ d_2-1,\ d_3-1,\ \dots,\ d_{d_1+1}-1,\ d_{d_1+2},\ \dots,\ d_n , \]
+(re&#8209;sorted into non&#8209;increasing order) is graphical.</span></div>
+<p>The "if" direction &#8212; the only one we need &#8212; is constructive and obvious: given a graph realising the
+reduced sequence, add a new vertex and join it to the \(d_1\) vertices whose degrees were decreased. Applying the
+reduction repeatedly to our sequence, sorted as <span class="nb">\(3,3,3,2,2,1\):</span></p>
+
+<div class="tblock"><table class="wide"><thead><tr><th class="">round</th><th class="">current sequence</th><th class="l">operation</th><th class="">reduced sequence</th></tr></thead><tbody><tr><td class="">1</td><td class=""><span class="mono">(3, 3, 3, 2, 2, 1)</span></td><td class="l">delete the leading 3; subtract 1 from the next 3 entries</td><td class=""><span class="mono">(2, 2, 2, 1, 1)</span></td></tr><tr><td class="">2</td><td class=""><span class="mono">(2, 2, 2, 1, 1)</span></td><td class="l">delete the leading 2; subtract 1 from the next 2 entries</td><td class=""><span class="mono">(1, 1, 1, 1)</span></td></tr><tr><td class="">3</td><td class=""><span class="mono">(1, 1, 1, 1)</span></td><td class="l">delete the leading 1; subtract 1 from the next 1 entry</td><td class=""><span class="mono">(1, 1, 0)</span></td></tr><tr><td class="">4</td><td class=""><span class="mono">(1, 1, 0)</span></td><td class="l">delete the leading 1; subtract 1 from the next 1 entry</td><td class=""><span class="mono">(0, 0)</span></td></tr><tr><td class="">5</td><td class=""><span class="mono">(0, 0)</span></td><td class="l">all entries are 0 &#8212; realised by the edgeless graph</td><td class=""><strong>graphical &#10003;</strong></td></tr></tbody></table><p class="tcap">Table 2.1 &mdash; the Havel&ndash;Hakimi reduction of 3,&thinsp;3,&thinsp;3,&thinsp;2,&thinsp;2,&thinsp;1 terminates in the zero sequence, so the sequence is graphical.</p></div>
+
+<p>The reduction terminates in the all&#8209;zero sequence, which is realised by the edgeless graph. Hence
+\(1,2,2,3,3,3\) <strong>is graphical</strong>.</p>
+
+<h4>The graph the reduction produces</h4>
+<p>Reading the reduction backwards and naming the vertices \(u_1,\dots,u_6\) with target degrees
+\(3,3,3,2,2,1\) respectively, each round joins the current vertex of largest residual demand to the vertices of next
+largest residual demand:</p>
+<ul class="tight">
+<li><em>Round 1:</em> \(u_1\) (demand \(3\)) is joined to <span class="nb">\(u_2,u_3,u_4\).</span> Residual demands become
+\((u_2,u_3,u_4,u_5,u_6)=(2,2,1,2,1)\).</li>
+<li><em>Round 2:</em> \(u_2\) (demand \(2\)) is joined to \(u_3\) and <span class="nb">\(u_5\).</span> Residual demands become
+\((u_3,u_4,u_5,u_6)=(1,1,1,1)\).</li>
+<li><em>Round 3:</em> the four remaining demands are all <span class="nb">\(1\);</span> pair them off as \(u_3u_5\) and <span class="nb">\(u_4u_6\).</span></li>
+</ul>
+
+<p>This yields the graph \(G^\ast\) with \(V=\{u_1,\dots,u_6\}\) and the seven edges</p>
+\[ E(G^\ast)=\bigl\{\,u_1u_2,\; u_1u_3,\; u_1u_4,\; u_2u_3,\; u_2u_5,\; u_3u_5,\; u_4u_6\,\bigr\}. \]
+
+<figure><svg class="fig" viewBox="0 0 322 250" width="322" height="250" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="46.00" y1="52.00" x2="126.00" y2="52.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="126.00" y1="52.00" x2="206.00" y2="52.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="206.00" y1="52.00" x2="160.00" y2="132.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="206.00" y1="52.00" x2="252.00" y2="132.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="160.00" y1="132.00" x2="252.00" y2="132.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="160.00" y1="132.00" x2="206.00" y2="206.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="252.00" y1="132.00" x2="206.00" y2="206.00" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="46.00" cy="52.00" r="15" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="46.00" y="56.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" >u<tspan font-size="8.5" dy="2.5">6</tspan></text><text x="46.00" y="29.60" font-size="10" fill="#a33a2a" stroke="none" text-anchor="middle" >d = 1</text><circle cx="126.00" cy="52.00" r="15" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="126.00" y="56.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" >u<tspan font-size="8.5" dy="2.5">4</tspan></text><text x="126.00" y="29.60" font-size="10" fill="#a33a2a" stroke="none" text-anchor="middle" >d = 2</text><circle cx="206.00" cy="52.00" r="15" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="206.00" y="56.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" >u<tspan font-size="8.5" dy="2.5">1</tspan></text><text x="206.00" y="29.60" font-size="10" fill="#a33a2a" stroke="none" text-anchor="middle" >d = 3</text><circle cx="160.00" cy="132.00" r="15" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="160.00" y="136.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" >u<tspan font-size="8.5" dy="2.5">2</tspan></text><text x="124.00" y="121.60" font-size="10" fill="#a33a2a" stroke="none" text-anchor="middle" >d = 3</text><circle cx="252.00" cy="132.00" r="15" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="252.00" y="136.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" >u<tspan font-size="8.5" dy="2.5">3</tspan></text><text x="290.00" y="121.60" font-size="10" fill="#a33a2a" stroke="none" text-anchor="middle" >d = 3</text><circle cx="206.00" cy="206.00" r="15" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="206.00" y="210.32" font-size="12" fill="#1b1b1b" stroke="none" text-anchor="middle" >u<tspan font-size="8.5" dy="2.5">5</tspan></text><text x="206.00" y="239.60" font-size="10" fill="#a33a2a" stroke="none" text-anchor="middle" >d = 2</text></g></svg>
+<figcaption>A simple graph with degree sequence <span class="nb">\(1,2,2,3,3,3\):</span> the "diamond" \(K_4\) minus the edge \(u_1u_5\) on
+<span class="nb">\(\{u_1,u_2,u_3,u_5\}\),</span> with a pendant path \(u_1-u_4-u_6\) attached.</figcaption></figure>
+
+<h4>Verification, vertex by vertex</h4>
+<p>\(G^\ast\) is simple (the seven listed pairs are distinct and none is a loop) and has \(7=\tfrac{14}{2}\) edges,
+as required. The degrees are:</p>
+
+<div class="tblock"><table class=""><thead><tr><th class="">vertex</th><th class="l">its neighbours in <em>G</em>*</th><th class="">degree</th></tr></thead><tbody><tr><td class="">u<sub>1</sub></td><td class="l">u<sub>2</sub>, u<sub>3</sub>, u<sub>4</sub></td><td class="">3</td></tr><tr><td class="">u<sub>2</sub></td><td class="l">u<sub>1</sub>, u<sub>3</sub>, u<sub>5</sub></td><td class="">3</td></tr><tr><td class="">u<sub>3</sub></td><td class="l">u<sub>1</sub>, u<sub>2</sub>, u<sub>5</sub></td><td class="">3</td></tr><tr><td class="">u<sub>4</sub></td><td class="l">u<sub>1</sub>, u<sub>6</sub></td><td class="">2</td></tr><tr><td class="">u<sub>5</sub></td><td class="l">u<sub>2</sub>, u<sub>3</sub></td><td class="">2</td></tr><tr><td class="">u<sub>6</sub></td><td class="l">u<sub>4</sub></td><td class="">1</td></tr><tr class="hl"><td class=""><strong>total</strong></td><td class="l"></td><td class=""><strong>14 = 2 &middot; 7 &#10003;</strong></td></tr></tbody></table><p class="tcap">Table 2.2 &mdash; degrees in the constructed graph. Sorted, they read 1,&thinsp;2,&thinsp;2,&thinsp;3,&thinsp;3,&thinsp;3, and the degree sum 14 = 2&middot;7 confirms the edge count.</p></div>
+
+<p>Sorted, the degrees read \(1,2,2,3,3,3\) &#8212; exactly the prescribed sequence.</p>
+
+<h4>Independent check: the Erd&#337;s&#8211;Gallai inequalities</h4>
+<div class="env thm"><span class="h">Theorem (Erd&#337;s&#8211;Gallai 1960)</span><span class="body">
+A non&#8209;increasing sequence \(d_1\ge\dots\ge d_n\ge0\) with even sum is graphical if and only if for every
+\(k\in\{1,\dots,n\}\)
+\[ \sum_{i=1}^{k} d_i \;\le\; k(k-1) \;+\; \sum_{i=k+1}^{n}\min(d_i,\,k). \]</span></div>
+<p>With \(d=(3,3,3,2,2,1)\) all six inequalities hold, comfortably:</p>
+
+<div class="tblock"><table class=""><thead><tr><th class=""><em>k</em></th><th class="">&Sigma;<sub>i&le;k</sub> d<sub>i</sub></th><th class="l">k(k&minus;1) + &Sigma;<sub>i&gt;k</sub> min(d<sub>i</sub>, k)</th><th class="">holds?</th></tr></thead><tbody><tr><td class="">1</td><td class="">3</td><td class="l">0 + (1 + 1 + 1 + 1 + 1) = 5</td><td class="">&#10003;</td></tr><tr><td class="">2</td><td class="">6</td><td class="l">2 + (2 + 2 + 2 + 1) = 9</td><td class="">&#10003;</td></tr><tr><td class="">3</td><td class="">9</td><td class="l">6 + (2 + 2 + 1) = 11</td><td class="">&#10003;</td></tr><tr><td class="">4</td><td class="">11</td><td class="l">12 + (2 + 1) = 15</td><td class="">&#10003;</td></tr><tr><td class="">5</td><td class="">13</td><td class="l">20 + (1) = 21</td><td class="">&#10003;</td></tr><tr><td class="">6</td><td class="">14</td><td class="l">30 + (0) = 30</td><td class="">&#10003;</td></tr></tbody></table><p class="tcap">Table 2.3 &mdash; the six Erd&#337;s&ndash;Gallai inequalities for 3,&thinsp;3,&thinsp;3,&thinsp;2,&thinsp;2,&thinsp;1. All hold, independently confirming that the sequence is graphical.</p></div>
+
+<p>Both criteria agree, and we have an explicit graph. </p>
+
+<div class="answer"><span class="lab">Answer (a)</span>
+<p><strong>Yes.</strong> The sequence \(1,2,2,3,3,3\) is graphical. One realisation is
+\(E=\{u_1u_2,u_1u_3,u_1u_4,u_2u_3,u_2u_5,u_3u_5,u_4u_6\}\) on six vertices &#8212; a diamond
+(\(K_4\) minus one edge) with a pendant path of length \(2\) attached, drawn above.</p></div>
+
+<h3>Part (b): \(\;1,\,1,\,2,\,2,\,3,\,4,\,4\)</h3>
+
+<p>Here \(n=7\) and the largest entry is <span class="nb">\(4\le n-1=6\),</span> so condition (N1) is satisfied and nothing suspicious is
+visible at first glance. But look at the sum:</p>
+\[ 1+1+2+2+3+4+4 \;=\; 17 , \]
+<p>which is <strong>odd</strong>. By the handshake lemma (Lemma&nbsp;A, proved in Problem&nbsp;4), in every graph</p>
+\[ \sum_{v\in V(G)} d(v) \;=\; 2\,|E(G)| , \]
+<p>and the right&#8209;hand side is an even integer. A graph with this degree sequence would therefore satisfy
+<span class="nb">\(17=2m\),</span> i.e. <span class="nb">\(m=8.5\),</span> which is absurd since \(m\) is a non&#8209;negative integer. Hence <strong>no such graph
+exists</strong>.</p>
+
+<p>Two remarks on how robust this obstruction is.</p>
+<ul class="tight">
+<li>The argument never uses simplicity. Multiple edges are counted with multiplicity in the degree, and a loop
+contributes \(2\) to the degree of its vertex, so \(\sum_v d(v)=2m\) holds for multigraphs as well. So there is no
+<em>multigraph</em> with this degree sequence either &#8212; the sequence is unrealisable in the widest sense.</li>
+<li>Equivalently, one may invoke the corollary proved in Problem&nbsp;4: <em>the number of odd&#8209;degree vertices
+is even.</em> The odd entries of \(1,1,2,2,3,4,4\) are \(1,1,3\) &#8212; there are three of them, an odd number, which
+is impossible.</li>
+</ul>
+
+<div class="answer"><span class="lab">Answer (b)</span>
+<p><strong>No.</strong> The entries sum to <span class="nb">\(17\),</span> an odd number, while \(\sum_v d(v)=2|E|\) is always even.
+Equivalently, the sequence has three odd entries, whereas every graph has an even number of odd&#8209;degree
+vertices. No graph &#8212; simple or not &#8212; has degree sequence <span class="nb">\(1,1,2,2,3,4,4\).</span></p></div>
+
+<div class="note"><span class="h">Remark (parity is the <em>only</em> defect in (b))</span>
+The failure is genuinely arithmetic, not structural: repairing the parity by a single small change makes the
+sequence realisable. For example \(1,1,2,2,\mathbf{2},4,4\) (sum \(16\)) and \(1,1,2,2,\mathbf{3},4,\mathbf{5}\)
+(sum \(18\)) are both graphical, as the Havel&#8211;Hakimi reduction confirms. This is worth noticing because it shows
+condition (N2) doing real work: it is not a formality that some other property would have caught.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 3</span><h2>\(2\)-regular graphs, and graphs with \(\Delta(G)\le 2\)</h2>
+<span class="ptag">classification</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Determine the \(2\)-regular graphs. What are those graphs that satisfy \(\Delta(G)\le 2\)?</p></div>
+
+<p>Both classes admit a complete and very clean description:</p>
+<ul class="tight">
+<li>\(G\) is \(2\)-regular \(\iff\) \(G\) is a disjoint union of cycles;</li>
+<li>\(\Delta(G)\le 2\) \(\iff\) \(G\) is a disjoint union of paths and cycles.</li>
+</ul>
+<p>We prove both, in that order; the second builds on the first.</p>
+
+<h3>Part 1. The \(2\)-regular graphs</h3>
+
+<div class="env thm"><span class="h">Theorem 3.1</span><span class="body">
+A finite simple graph \(G\) is \(2\)-regular if and only if every component of \(G\) is a cycle; equivalently, if and
+only if \(G\) is a vertex&#8209;disjoint union
+\(G\cong C_{n_1}\,\dot\cup\, C_{n_2}\,\dot\cup\,\dots\,\dot\cup\, C_{n_k}\) of cycles, with \(k\ge1\) and every
+<span class="nb">\(n_i\ge 3\).</span></span></div>
+
+<div class="prf"><span class="h">Proof of "\(\Leftarrow\)".</span>
+In the cycle \(C_m\) every vertex has exactly the two neighbours adjacent to it along the cycle, so \(C_m\) is
+\(2\)-regular. Degrees are not affected by taking disjoint unions (a vertex acquires no new neighbours), so a
+disjoint union of cycles is \(2\)-regular. <span class="qed">&#9633;</span></div>
+
+<div class="prf"><span class="h">Proof of "\(\Rightarrow\)".</span>
+Let \(G\) be \(2\)-regular and let \(H\) be any component of <span class="nb">\(G\).</span> By Lemma&nbsp;D, \(d_H(x)=d_G(x)=2\) for every
+\(x\in V(H)\), so \(H\) is itself connected and \(2\)-regular. In particular \(\delta(H)=2\), so Lemma&nbsp;C gives a
+cycle <span class="nb">\(C\subseteq H\).</span>
+<p style="margin-top:.5em">We claim <span class="nb">\(H=C\).</span> First, \(V(H)=V(C)\). Suppose not; since \(H\) is connected and
+\(V(C)\neq\emptyset\), there is an edge \(xy\in E(H)\) with \(x\in V(C)\) and \(y\notin V(C)\). But \(x\) lies on the
+cycle <span class="nb">\(C\),</span> so its two neighbours along \(C\) are already two distinct neighbours of <span class="nb">\(x\),</span> both inside \(V(C)\);
+as \(d_H(x)=2\) these are <em>all</em> of its neighbours, and \(y\notin V(C)\) cannot be one of them &#8212; a
+contradiction. Hence \(V(H)=V(C)\).</p>
+<p>Second, \(E(H)=E(C)\). Each \(x\in V(C)\) already has its two \(C\)-neighbours, and \(d_H(x)=2\), so \(x\) is
+incident with no edge of \(H\) outside \(E(C)\). As this holds for every vertex, \(E(H)=E(C)\).</p>
+<p>Therefore \(H=C\) is a cycle, and \(G\) is the disjoint union of its components, each a cycle. Finally, in a
+<em>simple</em> graph a cycle has length at least \(3\) (a length-\(2\) "cycle" would be a repeated edge, a length-1
+one a loop), so every <span class="nb">\(n_i\ge3\).</span></p><span class="qed">&#9633;</span></div>
+
+<figure><svg class="fig" viewBox="0 0 460 172" width="460" height="172" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="72.00" y1="38.00" x2="111.84" y2="107.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="111.84" y1="107.00" x2="32.16" y2="107.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="32.16" y1="107.00" x2="72.00" y2="38.00" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="72.00" cy="38.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="111.84" cy="107.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="32.16" cy="107.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><text x="72.00" y="92.50" font-size="12.5" fill="#1f4e79" stroke="none" text-anchor="middle" font-style="italic">C&#8323;</text><line x1="210.00" y1="34.00" x2="260.00" y2="84.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="260.00" y1="84.00" x2="210.00" y2="134.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="210.00" y1="134.00" x2="160.00" y2="84.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="160.00" y1="84.00" x2="210.00" y2="34.00" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="210.00" cy="34.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="260.00" cy="84.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="210.00" cy="134.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="160.00" cy="84.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><text x="210.00" y="92.50" font-size="12.5" fill="#1f4e79" stroke="none" text-anchor="middle" font-style="italic">C&#8324;</text><line x1="360.00" y1="30.00" x2="411.36" y2="67.31" stroke="#1b1b1b" stroke-width="1.6"/><line x1="411.36" y1="67.31" x2="391.74" y2="127.69" stroke="#1b1b1b" stroke-width="1.6"/><line x1="391.74" y1="127.69" x2="328.26" y2="127.69" stroke="#1b1b1b" stroke-width="1.6"/><line x1="328.26" y1="127.69" x2="308.64" y2="67.31" stroke="#1b1b1b" stroke-width="1.6"/><line x1="308.64" y1="67.31" x2="360.00" y2="30.00" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="360.00" cy="30.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="411.36" cy="67.31" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="391.74" cy="127.69" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="328.26" cy="127.69" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="308.64" cy="67.31" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><text x="360.00" y="92.50" font-size="12.5" fill="#1f4e79" stroke="none" text-anchor="middle" font-style="italic">C&#8325;</text></g></svg>
+<figcaption>A typical \(2\)-regular graph. Every \(2\)-regular graph looks like this and nothing else.</figcaption></figure>
+
+<div class="note"><span class="h">A second, purely arithmetic proof of "\(\Rightarrow\)"</span>
+Let \(H\) be a component, \(|V(H)|=h\). By Lemma&nbsp;A applied to <span class="nb">\(H\),</span> \(2h=\sum_{v\in V(H)}d_H(v)=2|E(H)|\), so
+\(|E(H)|=h\): the component has exactly as many edges as vertices. A connected graph on \(h\) vertices has at least
+\(h-1\) edges, with equality exactly for trees; having \(h\) edges it contains exactly one cycle. Since
+\(\delta(H)=2\) forbids any vertex of degree <span class="nb">\(1\),</span> no tree&#8209;like appendage can hang off that cycle, so \(H\) is
+the cycle itself.</div>
+
+<div class="note"><span class="h">Corollary (counting)</span>
+A \(2\)-regular graph on \(n\) vertices has exactly \(n\) edges, and by Theorem&nbsp;3.1 the \(2\)-regular graphs on
+\(n\) vertices correspond bijectively (up to isomorphism) to the partitions of \(n\) into parts of size <span class="nb">\(\ge3\).</span>
+For \(n=3,\dots,9\) the counts are <span class="nb">\(1,1,1,2,2,3,4\);</span> e.g. for \(n=8\) the three graphs are <span class="nb">\(C_8\),</span>
+\(C_5\,\dot\cup\,C_3\) and <span class="nb">\(C_4\,\dot\cup\,C_4\).</span> In particular there is no \(2\)-regular simple graph on \(1\) or
+\(2\) vertices.</div>
+
+<h3>Part 2. The graphs with \(\Delta(G)\le 2\)</h3>
+
+<div class="env thm"><span class="h">Theorem 3.2</span><span class="body">
+A finite simple graph \(G\) satisfies \(\Delta(G)\le 2\) if and only if every component of \(G\) is a path (possibly
+the trivial path \(K_1\)) or a cycle. Equivalently: \(G\) is a vertex&#8209;disjoint union of paths and
+cycles.</span></div>
+
+<div class="prf"><span class="h">Proof of "\(\Leftarrow\)".</span>
+In \(P_k\) the two end vertices have degree \(1\) and all others degree \(2\) (in \(P_1=K_1\) the only vertex has
+degree \(0\)); in \(C_m\) every degree is <span class="nb">\(2\).</span> All these are <span class="nb">\(\le2\),</span> and disjoint unions do not change degrees.
+<span class="qed">&#9633;</span></div>
+
+<div class="prf"><span class="h">Proof of "\(\Rightarrow\)".</span>
+Let \(H\) be a component of <span class="nb">\(G\);</span> by Lemma&nbsp;D every vertex of \(H\) has <span class="nb">\(d_H=d_G\le 2\).</span> We distinguish two
+cases.
+<p style="margin-top:.5em"><strong>Case 1: every vertex of \(H\) has degree exactly <span class="nb">\(2\).</span></strong> Then \(H\) is a
+connected \(2\)-regular graph, so by Theorem&nbsp;3.1 it is a cycle.</p>
+<p><strong>Case 2: some vertex \(z\in V(H)\) has \(d_H(z)\le 1\).</strong> We show \(H\) is a path. If
+\(|V(H)|=1\) then <span class="nb">\(H=K_1\),</span> the trivial path, and we are done; so assume \(|V(H)|\ge2\), whence \(d_H(z)=1\) (a
+vertex of degree \(0\) would be a component by itself). Build a walk greedily:
+\[ z=x_0,\quad x_1:=\text{the unique neighbour of } x_0, \quad
+   x_{i+1}:=\text{the neighbour of } x_i \text{ other than } x_{i-1} \ \ (i\ge1), \]
+continuing as long as \(x_i\) has a second neighbour, i.e. as long as \(d_H(x_i)=2\). The walk never revisits a
+vertex: if \(x_j=x_i\) were the first repetition with <span class="nb">\(i \lt j\),</span> then \(x_i\) would be incident with the three
+<em>distinct</em> edges \(x_{i-1}x_i,\ x_ix_{i+1},\ x_{j-1}x_j\) &#8212; distinct because \(x_{j-1}\ne x_{i-1}\) and
+\(x_{j-1}\ne x_{i+1}\) by the minimality of \(j\) &#8212; contradicting \(d_H(x_i)\le 2\). Hence the walk visits
+distinct vertices, and since \(H\) is finite it must stop, at a vertex \(x_k\) with \(d_H(x_k)=1\). So
+\(P:=x_0x_1\dots x_k\) is a path in <span class="nb">\(H\).</span></p>
+<p>Finally <span class="nb">\(H=P\).</span> Every vertex of \(P\) has all of its \(H\)-neighbours on <span class="nb">\(P\):</span> the interior vertices
+\(x_1,\dots,x_{k-1}\) have degree \(2\) with both neighbours \(x_{i-1},x_{i+1}\) on <span class="nb">\(P\),</span> and the two ends
+\(x_0,x_k\) have degree \(1\) with their unique neighbour on <span class="nb">\(P\).</span> Therefore no edge leaves \(V(P)\); since \(H\)
+is connected this forces \(V(H)=V(P)\), and then \(E(H)=E(P)\) because every vertex of \(P\) has already used up its
+degree inside <span class="nb">\(P\).</span> So \(H=P\) is a path.</p><span class="qed">&#9633;</span></div>
+
+<figure><svg class="fig" viewBox="0 0 460 178" width="460" height="178" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="70.00" y1="34.00" x2="108.04" y2="61.64" stroke="#1b1b1b" stroke-width="1.6"/><line x1="108.04" y1="61.64" x2="93.51" y2="106.36" stroke="#1b1b1b" stroke-width="1.6"/><line x1="93.51" y1="106.36" x2="46.49" y2="106.36" stroke="#1b1b1b" stroke-width="1.6"/><line x1="46.49" y1="106.36" x2="31.96" y2="61.64" stroke="#1b1b1b" stroke-width="1.6"/><line x1="31.96" y1="61.64" x2="70.00" y2="34.00" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="70.00" cy="34.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="108.04" cy="61.64" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="93.51" cy="106.36" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="46.49" cy="106.36" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="31.96" cy="61.64" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><text x="70.00" y="144.50" font-size="12.5" fill="#1f4e79" stroke="none" text-anchor="middle" font-style="italic">C&#8325; (a cycle)</text><line x1="150.00" y1="60.00" x2="194.00" y2="60.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="194.00" y1="60.00" x2="238.00" y2="60.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="238.00" y1="60.00" x2="282.00" y2="60.00" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="150.00" cy="60.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="194.00" cy="60.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="238.00" cy="60.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="282.00" cy="60.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><text x="216.00" y="94.50" font-size="12.5" fill="#1f4e79" stroke="none" text-anchor="middle" font-style="italic">P&#8324; (a path)</text><line x1="150.00" y1="128.00" x2="194.00" y2="128.00" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="150.00" cy="128.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="194.00" cy="128.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><text x="172.00" y="162.50" font-size="12.5" fill="#1f4e79" stroke="none" text-anchor="middle" font-style="italic">P&#8322;</text><circle cx="330.00" cy="128.00" r="8" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.6"/><text x="330.00" y="162.50" font-size="12.5" fill="#1f4e79" stroke="none" text-anchor="middle" font-style="italic">K&#8321;</text></g></svg>
+<figcaption>A typical graph with \(\Delta(G)\le2\): components are paths (including isolated vertices) and cycles.
+Here \(\Delta(G)=2\) and \(\delta(G)=0\).</figcaption></figure>
+
+<div class="note"><span class="h">The counting version of Case 2</span>
+There is a slicker way to see that a tree \(T\) with \(\Delta(T)\le2\) is a path. Being acyclic and connected,
+\(T\) has \(|E(T)|=|V(T)|-1\); if \(|V(T)|\ge2\) then no degree is <span class="nb">\(0\),</span> so every degree is \(1\) or <span class="nb">\(2\).</span> Writing
+\(\ell\) for the number of degree&#8209;\(1\) vertices, Lemma&nbsp;A gives
+\[ \ell + 2\bigl(|V(T)|-\ell\bigr) \;=\; \sum_{v}d(v) \;=\; 2|E(T)| \;=\; 2|V(T)|-2 ,\]
+i.e. \(2|V(T)|-\ell = 2|V(T)|-2\), so \(\ell=2\) exactly: a tree with maximum degree \(\le 2\) has precisely two
+leaves and is a path. (Case&nbsp;2 of the proof above first checks that \(H\) is acyclic: a cycle in \(H\) would
+already use up both available degrees at each of its vertices, making \(H\) a cycle by the argument of
+Theorem&nbsp;3.1 and contradicting the existence of \(z\) with \(d_H(z)\le1\).)</div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>\(2\)-regular graphs</strong> are exactly the vertex&#8209;disjoint unions of cycles
+<span class="nb">\(C_{n_1}\dot\cup\dots\dot\cup C_{n_k}\),</span> <span class="nb">\(n_i\ge3\);</span> equivalently, graphs all of whose components are cycles. Such
+a graph has as many edges as vertices.</p>
+<p><strong>Graphs with \(\Delta(G)\le 2\)</strong> are exactly the vertex&#8209;disjoint unions of paths and cycles
+&#8212; every component is a path (an isolated vertex being the trivial path) or a cycle. Comparing the two
+statements: \(G\) is \(2\)-regular precisely when \(\Delta(G)\le2\) <em>and</em> \(\delta(G)\ge2\); relaxing
+\(\Delta\le2\) from regularity is exactly what admits the path components.</p></div>
+
+<div class="note"><span class="h">Remark (infinite graphs)</span>
+If infinite graphs are allowed the classification acquires two extra items. A connected \(2\)-regular graph may also
+be a <em>double ray</em> <span class="nb">\(\dots\,v_{-2}v_{-1}v_0v_1v_2\,\dots\),</span> the two&#8209;way infinite path; and a connected
+graph with \(\Delta\le2\) may in addition be a <em>ray</em> \(v_0v_1v_2\dots\) (one&#8209;way infinite), whose initial
+vertex has degree <span class="nb">\(1\).</span> So in general: components of a \(2\)-regular graph are cycles or double rays, and components
+of a graph with \(\Delta\le2\) are finite paths, cycles, rays, or double rays. The ray reappears in Problem&nbsp;4 as
+the counterexample to the odd&#8209;degree theorem.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 4</span><h2>The number of odd&#8209;degree vertices is even</h2>
+<span class="ptag">handshake lemma; the infinite case</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Show that the number of odd&#8209;degree vertices of a finite graph is even. Show that this is not necessarily
+true for infinite graphs.</p></div>
+
+<h3>Step 1. The handshake lemma</h3>
+
+<div class="env thm"><span class="h">Theorem 4.1 (handshake lemma; Euler 1736)</span><span class="body">
+For every finite graph \(G=(V,E)\),
+\[ \sum_{v\in V} d(v) \;=\; 2\,|E| . \]</span></div>
+
+<div class="prf"><span class="h">Proof (double counting).</span>
+Consider the set of <em>incidences</em>
+\[ I \;=\; \bigl\{\,(v,e)\in V\times E \;:\; v \text{ is an endpoint of } e \,\bigr\}, \]
+and count <span class="nb">\(|I|\),</span> which is a finite number, in two different ways.
+<p style="margin-top:.5em"><em>Grouping by edges.</em> Every edge \(e=xy\in E\) has exactly two endpoints, \(x\) and
+<span class="nb">\(y\),</span> and they are distinct because \(G\) has no loops. So each edge contributes exactly \(2\) pairs to <span class="nb">\(I\),</span> and
+\[ |I| \;=\; \sum_{e\in E} 2 \;=\; 2|E| . \]</p>
+<p><em>Grouping by vertices.</em> For a fixed vertex <span class="nb">\(v\),</span> the pairs \((v,e)\in I\) correspond exactly to the edges
+incident with <span class="nb">\(v\),</span> and there are \(d(v)\) of them &#8212; this is the definition of the degree (in a simple graph
+the edges at \(v\) are in bijection with the neighbours of \(v\)). So
+\[ |I| \;=\; \sum_{v\in V} d(v) . \]</p>
+<p>The two counts evaluate the same finite number, which gives the identity.</p><span class="qed">&#9633;</span></div>
+
+<p>The name comes from the standard reformulation: at a party, the total number of hands shaken, counted over all
+guests, is twice the number of handshakes &#8212; because each handshake involves exactly two hands. The lemma also
+holds verbatim for multigraphs (parallel edges are counted with multiplicity at both endpoints), and for graphs with
+loops under the usual convention that a loop at \(v\) contributes \(2\) to \(d(v)\) &#8212; which is precisely the
+convention that keeps the double count correct, since a loop yields two incidences at its single vertex.</p>
+
+<h3>Step 2. The parity corollary</h3>
+
+<div class="env cor"><span class="h">Corollary 4.2</span><span class="body">
+In every finite graph \(G\) the number of vertices of odd degree is even.</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+Partition the vertex set according to the parity of the degree,
+\[ V \;=\; V_{\mathrm{odd}} \,\dot\cup\, V_{\mathrm{even}}, \qquad
+   V_{\mathrm{odd}}=\{v: d(v) \text{ odd}\}, \quad V_{\mathrm{even}}=\{v: d(v) \text{ even}\}, \]
+and split the sum of Theorem&nbsp;4.1 accordingly:
+\[ 2|E| \;=\; \sum_{v\in V}d(v) \;=\; \underbrace{\sum_{v\in V_{\mathrm{odd}}}d(v)}_{=:S_{\mathrm{odd}}}
+   \;+\; \underbrace{\sum_{v\in V_{\mathrm{even}}}d(v)}_{=:S_{\mathrm{even}}} . \]
+Now \(2|E|\) is even, and \(S_{\mathrm{even}}\) is a finite sum of even numbers, hence even. Therefore
+\[ S_{\mathrm{odd}} \;=\; 2|E| - S_{\mathrm{even}} \]
+is even as well. On the other hand \(S_{\mathrm{odd}}\) is a sum of \(|V_{\mathrm{odd}}|\) <em>odd</em> numbers, so
+reducing modulo <span class="nb">\(2\),</span> where every odd number is <span class="nb">\(\equiv 1\),</span>
+\[ 0 \;\equiv\; S_{\mathrm{odd}} \;=\!\!\sum_{v\in V_{\mathrm{odd}}}\!\! d(v)
+   \;\equiv\; \sum_{v\in V_{\mathrm{odd}}} 1 \;=\; |V_{\mathrm{odd}}| \pmod 2 . \]
+Hence \(|V_{\mathrm{odd}}|\) is even. <span class="qed">&#9633;</span></div>
+
+<p>Three quick illustrations: \(K_4\) has all four degrees equal to <span class="nb">\(3\),</span> and \(4\) is even; the path \(P_3\) has
+degrees <span class="nb">\(1,2,1\),</span> so two odd vertices; the sequence \(1,1,2,2,3,4,4\) of Problem&nbsp;2(b) has the three odd entries
+<span class="nb">\(1,1,3\),</span> an odd number of them &#8212; which is exactly why no graph realises it.</p>
+
+<h3>Step 3. Infinite graphs: a counterexample</h3>
+
+<p>Corollary&nbsp;4.2 fails for infinite graphs, and the smallest possible example already does the job.</p>
+
+<div class="env defn"><span class="h">The ray \(R\)</span><span class="body">
+Let \(V(R)=\{v_0,v_1,v_2,\dots\}\) be a countably infinite vertex set and
+\(E(R)=\{\,v_iv_{i+1} : i\ge 0\,\}\). This one&#8209;way infinite path is called a <em>ray</em>.</span></div>
+
+<figure><svg class="fig" viewBox="0 0 470 108" width="470" height="108" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="46.00" y1="52.00" x2="108.00" y2="52.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="108.00" y1="52.00" x2="170.00" y2="52.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="170.00" y1="52.00" x2="232.00" y2="52.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="232.00" y1="52.00" x2="294.00" y2="52.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="294.00" y1="52.00" x2="356.00" y2="52.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="356.00" y1="52.00" x2="390.00" y2="52.00" stroke="#1b1b1b" stroke-width="1.6" stroke-dasharray="3 5"/><circle cx="46.00" cy="52.00" r="11" fill="#dbe6f0" stroke="#1b1b1b" stroke-width="1.7"/><text x="46.00" y="56.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" >v<tspan font-size="8.5" dy="2.5">0</tspan></text><circle cx="108.00" cy="52.00" r="11" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="108.00" y="56.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" >v<tspan font-size="8.5" dy="2.5">1</tspan></text><circle cx="170.00" cy="52.00" r="11" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="170.00" y="56.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" >v<tspan font-size="8.5" dy="2.5">2</tspan></text><circle cx="232.00" cy="52.00" r="11" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="232.00" y="56.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" >v<tspan font-size="8.5" dy="2.5">3</tspan></text><circle cx="294.00" cy="52.00" r="11" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="294.00" y="56.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" >v<tspan font-size="8.5" dy="2.5">4</tspan></text><circle cx="356.00" cy="52.00" r="11" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="356.00" y="56.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" >v<tspan font-size="8.5" dy="2.5">5</tspan></text><text x="412.00" y="61.40" font-size="15" fill="#1b1b1b" stroke="none" text-anchor="middle" >&#8943;</text><text x="46.00" y="95.78" font-size="10.5" fill="#a33a2a" stroke="none" text-anchor="middle" >degree 1 (odd)</text><text x="232.00" y="95.78" font-size="10.5" fill="#8a8a8a" stroke="none" text-anchor="middle" >every other vertex has degree 2</text></g></svg>
+<figcaption>The ray <span class="nb">\(R\):</span> a connected infinite graph with exactly one vertex of odd degree.</figcaption></figure>
+
+<p>The degrees are immediate from the definition:</p>
+\[ d(v_0)=1 \quad(\text{only the neighbour } v_1), \qquad\qquad
+   d(v_i)=2 \quad(\text{the neighbours } v_{i-1},v_{i+1}) \ \text{ for } i\ge1 . \]
+<p>Hence \(V_{\mathrm{odd}}(R)=\{v_0\}\) and</p>
+\[ |V_{\mathrm{odd}}(R)| \;=\; 1, \]
+<p>which is <strong>odd</strong>. So the number of odd&#8209;degree vertices of an infinite graph need not be even.
+\(R\) is even connected and locally finite (all degrees are finite), so no pathology beyond infiniteness itself is
+being exploited.</p>
+
+<h4>Where exactly does the proof break down?</h4>
+<p>In \(R\) both sides of the handshake identity are infinite: \(|E(R)|=\aleph_0\) and
+\(\sum_{v}d(v)=1+2+2+2+\cdots=\infty\). The identity is not <em>false</em> &#8212; as cardinal arithmetic it still
+reads \(\aleph_0 = 2\cdot\aleph_0\) &#8212; it has simply become <em>vacuous</em>. The proof of Corollary&nbsp;4.2 used
+the finiteness of \(2|E|\) in an essential way, at the step "\(2|E|\) is an even integer, and
+\(S_{\mathrm{odd}}=2|E|-S_{\mathrm{even}}\)": one cannot subtract infinite quantities, and an infinite cardinal is
+neither even nor odd. Every trace of parity information is lost.</p>
+
+<h4>Counterexamples with any odd number of odd vertices</h4>
+<p>The construction generalises immediately. For \(k\ge1\) let \(R^{(k)}\) be the disjoint union of \(k\) copies of
+the ray <span class="nb">\(R\).</span> Each copy contributes exactly one vertex of degree <span class="nb">\(1\),</span> so \(R^{(k)}\) has exactly \(k\) vertices of
+odd degree. Choosing \(k\) odd gives infinitely many counterexamples; choosing \(k=1\) gives the connected one
+above.</p>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>Finite case.</strong> By double counting the vertex&#8211;edge incidences, \(\sum_v d(v)=2|E|\) is even.
+Splitting this sum over the odd&#8209;degree and even&#8209;degree vertices, the even&#8209;degree part is even,
+so the odd&#8209;degree part is even too; being a sum of \(|V_{\mathrm{odd}}|\) odd numbers, it is
+<span class="nb">\(\equiv|V_{\mathrm{odd}}| \pmod 2\).</span> Hence \(|V_{\mathrm{odd}}|\) is even.</p>
+<p><strong>Infinite case.</strong> False in general. The ray \(v_0v_1v_2\dots\) has \(d(v_0)=1\) and \(d(v_i)=2\) for
+<span class="nb">\(i\ge1\),</span> so it has exactly <em>one</em> vertex of odd degree. The proof collapses because \(\sum_v d(v)=2|E|=\infty\)
+carries no parity information.</p></div>
+
+<div class="note"><span class="h">Remark (what survives)</span>
+It is the infinitude of the <em>edge</em> set, not of the vertex set, that destroys the result. If \(G\) is an
+arbitrary graph &#8212; possibly with infinitely many vertices &#8212; but with only <em>finitely many edges</em>, then
+Corollary&nbsp;4.2 still holds: only finitely many vertices are incident with an edge, all other vertices have degree
+\(0\) (even), and applying the corollary to the finite subgraph spanned by the edges settles the matter. The ray, by
+contrast, has infinitely many edges.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 5</span><h2>An odd&#8209;degree vertex is joined to another one</h2>
+<span class="ptag">consequence of Problem 4</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Prove that if the degree of a vertex \(u\in V(G)\) is odd, then there exists a \(u\)&#8211;\(v\) path in \(G\) such
+that \(u\ne v\) and the degree of \(v\) is also odd.</p></div>
+
+<p>The point of the statement is that a vertex of odd degree cannot be "odd in isolation": somewhere in its own
+connected component there must be a second odd&#8209;degree vertex, and being in the same component it is reachable
+by a path. The proof is Corollary&nbsp;4.2 applied not to \(G\) but to a single component of \(G\) &#8212; and
+Lemma&nbsp;D is what makes that legitimate.</p>
+
+<div class="env thm"><span class="h">Theorem 5.1</span><span class="body">
+Let \(G\) be a finite graph and let \(u\in V(G)\) have odd degree. Then there is a vertex \(v\in V(G)\) with
+\(v\ne u\) and \(d_G(v)\) odd, and a \(u\)&#8211;\(v\) path in <span class="nb">\(G\).</span></span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+Let \(H\) be the connected component of \(G\) that contains <span class="nb">\(u\).</span> Since \(G\) is finite, so is <span class="nb">\(H\),</span> and \(H\) is a
+graph in its own right, so Corollary&nbsp;4.2 applies to it:
+\[ \bigl|\{\,x\in V(H) \;:\; d_H(x) \text{ is odd}\,\}\bigr| \ \text{ is even.} \tag{5.1} \]
+<p style="margin-top:.5em"><em>Degrees in \(H\) are degrees in <span class="nb">\(G\).</span></em> By Lemma&nbsp;D, every neighbour in \(G\) of
+a vertex \(x\in V(H)\) again lies in <span class="nb">\(H\);</span> hence \(d_H(x)=d_G(x)\) for all \(x\in V(H)\). So the set counted in
+(5.1) is exactly
+\[ A \;:=\; \{\,x\in V(H) : d_G(x) \text{ is odd}\,\}, \qquad\text{and } |A| \text{ is even.} \]</p>
+<p><em>\(A\) is non&#8209;empty, hence has at least two elements.</em> Indeed \(u\in V(H)\) and \(d_G(u)\) is odd by
+hypothesis, so \(u\in A\) and <span class="nb">\(|A|\ge 1\).</span> But \(|A|\) is even while \(1\) is odd, so <span class="nb">\(|A|\neq 1\);</span> hence
+<span class="nb">\(|A|\ge 2\).</span> Choose any <span class="nb">\(v\in A\setminus\{u\}\).</span> Then \(v\ne u\) and \(d_G(v)\) is
+odd.</p>
+<p><em>There is a \(u\)&#8211;\(v\) path.</em> Both \(u\) and \(v\) lie in \(V(H)\), and \(H\) is connected, so there
+is a \(u\)&#8211;\(v\) walk inside <span class="nb">\(H\).</span> By Lemma&nbsp;B that walk contains a \(u\)&#8211;\(v\) path, which is a path
+of <span class="nb">\(H\subseteq G\),</span> hence a path of <span class="nb">\(G\).</span></p>
+<p>This produces the required vertex \(v\) and the required path.</p><span class="qed">&#9633;</span></div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p>Apply Corollary&nbsp;4.2 to the <em>component</em> \(H\) containing <span class="nb">\(u\),</span> not to \(G\) as a whole. Since a
+component contains all neighbours of each of its vertices, degrees inside \(H\) coincide with degrees in <span class="nb">\(G\),</span> so
+\(H\) has an even number of odd&#8209;degree vertices. That number is at least \(1\) because \(u\) is one of them;
+being even it is at least <span class="nb">\(2\),</span> so \(H\) contains a second odd&#8209;degree vertex <span class="nb">\(v\ne u\).</span> Since \(H\) is
+connected there is a \(u\)&#8211;\(v\) walk in <span class="nb">\(H\),</span> and every walk contains a path (Lemma&nbsp;B). This gives the
+required \(u\)&#8211;\(v\) path with both endpoints of odd degree.</p></div>
+
+<h3>Comments on the hypotheses</h3>
+
+<div class="note"><span class="h">Why "\(u\neq v\)" is the whole content</span>
+Without the requirement \(v\ne u\) the statement would be trivial: take \(v=u\) and the path of length <span class="nb">\(0\).</span> The
+substance of the theorem is that a <em>second</em>, different odd vertex must exist, and that it can be reached
+without leaving the component.</div>
+
+<div class="note"><span class="h">Why passing to the component is necessary</span>
+It would not be enough to apply Corollary&nbsp;4.2 to \(G\) itself. That gives another odd&#8209;degree vertex
+\(v\ne u\) somewhere in <span class="nb">\(G\),</span> but there is no reason for it to be joined to \(u\) by a path: consider
+<span class="nb">\(G=P_2\,\dot\cup\,P_2\),</span> two disjoint edges. All four vertices have odd degree <span class="nb">\(1\),</span> but the two odd vertices in
+the "other" copy are unreachable from <span class="nb">\(u\).</span> Localising the counting argument to the component of \(u\) is exactly
+what rules this out.</div>
+
+<div class="note"><span class="h">Finiteness is essential</span>
+As in Problem&nbsp;4, the statement fails for infinite graphs, and the ray \(R=v_0v_1v_2\dots\) is again the
+counterexample. \(R\) is connected, \(u=v_0\) has odd degree <span class="nb">\(1\),</span> and \(v_0\) is joined by a path to every other
+vertex &#8212; yet <em>every</em> other vertex has degree <span class="nb">\(2\),</span> which is even. So no \(v\) as in the theorem
+exists.</div>
+
+<div class="note"><span class="h">A classical strengthening</span>
+The proof shows a little more than it claims: in <em>each</em> component the odd&#8209;degree vertices occur in even
+number, so the odd&#8209;degree vertices of a finite graph can be split into pairs, each pair joined by a path inside
+its own component. A well&#8209;known theorem of Euler&#8211;Listing type sharpens this considerably: a connected graph
+with exactly \(2k \gt 0\) vertices of odd degree can be decomposed into \(k\) pairwise <em>edge&#8209;disjoint</em>
+trails, each of which joins two odd&#8209;degree vertices. For \(k=0\) this is the Euler&#8209;circuit theorem, and for
+\(k=1\) the Euler&#8209;trail theorem. We do not need &#8212; and do not prove &#8212; this sharper statement here; it
+is mentioned only to place Theorem&nbsp;5.1 in context.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 6</span><h2>Which of the three drawings are isomorphic?</h2>
+<span class="ptag">circulant graphs; a counting invariant</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Determine which of the three graphs shown in the figure are isomorphic to each other.</p></div>
+
+<h3>Step 1. Reading the three drawings</h3>
+<p>Each of the three pictures shows \(9\) vertices drawn at the corners of a regular nonagon. Label the positions
+\(0,1,\dots,8\) clockwise, starting at the top vertex, and identify the label set with the cyclic group
+\(\mathbb{Z}_9=\{0,1,\dots,8\}\) of residues modulo <span class="nb">\(9\).</span> For two positions \(i,j\) call</p>
+\[ \operatorname{dist}(i,j) \;=\; \min\bigl(\,(j-i)\bmod 9,\ (i-j)\bmod 9\,\bigr) \ \in\ \{1,2,3,4\} \]
+<p>their <em>circular distance</em>; it is the number of steps between them around the nonagon, and it is exactly what
+determines how a chord looks in the drawing. Reading off each picture, every drawn edge joins two vertices at a fixed
+pair of circular distances, and each of the three graphs turns out to be a <strong>circulant graph</strong>: writing
+\[ C_9(s,t) \;=\; \bigl(\ \mathbb{Z}_9,\ \{\,ij : \operatorname{dist}(i,j)\in\{s,t\}\,\}\ \bigr), \]
+the three drawings are</p>
+
+<div class="tblock"><table class="wide"><thead><tr><th class="">drawing</th><th class="">name</th><th class="l">what the picture shows</th><th class="">circular distances</th><th class="">graph</th></tr></thead><tbody><tr><td class="">first (left)</td><td class=""><em>G</em><sub>1</sub></td><td class="l">the nonagon + the 9 chords skipping one vertex</td><td class="">{1, 2}</td><td class=""><em>C</em><sub>9</sub>(1,&thinsp;2)</td></tr><tr><td class="">second (middle)</td><td class=""><em>G</em><sub>2</sub></td><td class="l">the nonagon + the 9 chords skipping two vertices (three triangles)</td><td class="">{1, 3}</td><td class=""><em>C</em><sub>9</sub>(1,&thinsp;3)</td></tr><tr><td class="">third (right)</td><td class=""><em>G</em><sub>3</sub></td><td class="l">the nonagon + the 9 long chords skipping three vertices</td><td class="">{1, 4}</td><td class=""><em>C</em><sub>9</sub>(1,&thinsp;4)</td></tr></tbody></table><p class="tcap">Table 6.1 &mdash; identifying the three drawings as circulant graphs on ℤ<sub>9</sub>.</p></div>
+
+<p>Indeed the first drawing consists of the nonagon itself (the \(9\) edges of distance \(1\)) together with the
+\(9\) "short" chords skipping one vertex (distance \(2\)); the second has the nonagon plus the \(9\) chords of
+distance <span class="nb">\(3\),</span> which form three large superimposed triangles; the third has the nonagon plus the \(9\) long chords
+of distance <span class="nb">\(4\),</span> which pass close to the centre and produce the star pattern.</p>
+
+<figure><div class="figrow"><svg class="fig" viewBox="0 0 260 272" width="260" height="272" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="130.00" y1="26.00" x2="189.14" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="220.60" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="189.14" y1="47.52" x2="220.60" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="189.14" y1="47.52" x2="209.67" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="189.14" y1="47.52" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="220.60" y1="102.02" x2="209.67" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="220.60" y1="102.02" x2="161.47" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="209.67" y1="164.00" x2="161.47" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="209.67" y1="164.00" x2="98.53" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="161.47" y1="204.45" x2="98.53" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="161.47" y1="204.45" x2="50.33" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="98.53" y1="204.45" x2="50.33" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="98.53" y1="204.45" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="50.33" y1="164.00" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="50.33" y1="164.00" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="39.40" y1="102.02" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><circle cx="130.00" cy="26.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="130.00" y="30.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">0</text><circle cx="189.14" cy="47.52" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="189.14" y="51.66" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">1</text><circle cx="220.60" cy="102.02" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="220.60" y="106.16" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">2</text><circle cx="209.67" cy="164.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="209.67" y="168.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">3</text><circle cx="161.47" cy="204.45" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="161.47" y="208.59" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">4</text><circle cx="98.53" cy="204.45" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="98.53" y="208.59" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">5</text><circle cx="50.33" cy="164.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="50.33" y="168.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">6</text><circle cx="39.40" cy="102.02" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="39.40" y="106.16" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">7</text><circle cx="70.86" cy="47.52" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="70.86" y="51.66" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">8</text><text x="130.00" y="258.14" font-size="11.5" fill="#1f4e79" stroke="none" text-anchor="middle" >G&#8321; = C&#8329;(1,2)</text></g></svg><svg class="fig" viewBox="0 0 260 272" width="260" height="272" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="130.00" y1="26.00" x2="189.14" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="209.67" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="50.33" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="189.14" y1="47.52" x2="220.60" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="189.14" y1="47.52" x2="161.47" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="189.14" y1="47.52" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="220.60" y1="102.02" x2="209.67" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="220.60" y1="102.02" x2="98.53" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="220.60" y1="102.02" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="209.67" y1="164.00" x2="161.47" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="209.67" y1="164.00" x2="50.33" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="161.47" y1="204.45" x2="98.53" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="161.47" y1="204.45" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="98.53" y1="204.45" x2="50.33" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="98.53" y1="204.45" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="50.33" y1="164.00" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="39.40" y1="102.02" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><circle cx="130.00" cy="26.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="130.00" y="30.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">0</text><circle cx="189.14" cy="47.52" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="189.14" y="51.66" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">1</text><circle cx="220.60" cy="102.02" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="220.60" y="106.16" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">2</text><circle cx="209.67" cy="164.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="209.67" y="168.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">3</text><circle cx="161.47" cy="204.45" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="161.47" y="208.59" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">4</text><circle cx="98.53" cy="204.45" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="98.53" y="208.59" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">5</text><circle cx="50.33" cy="164.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="50.33" y="168.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">6</text><circle cx="39.40" cy="102.02" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="39.40" y="106.16" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">7</text><circle cx="70.86" cy="47.52" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="70.86" y="51.66" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">8</text><text x="130.00" y="258.14" font-size="11.5" fill="#1f4e79" stroke="none" text-anchor="middle" >G&#8322; = C&#8329;(1,3)</text></g></svg><svg class="fig" viewBox="0 0 260 272" width="260" height="272" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="130.00" y1="26.00" x2="189.14" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="161.47" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="98.53" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="189.14" y1="47.52" x2="220.60" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="189.14" y1="47.52" x2="98.53" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="189.14" y1="47.52" x2="50.33" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="220.60" y1="102.02" x2="209.67" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="220.60" y1="102.02" x2="50.33" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="220.60" y1="102.02" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="209.67" y1="164.00" x2="161.47" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="209.67" y1="164.00" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="209.67" y1="164.00" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="161.47" y1="204.45" x2="98.53" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="161.47" y1="204.45" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="98.53" y1="204.45" x2="50.33" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="50.33" y1="164.00" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="39.40" y1="102.02" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><circle cx="130.00" cy="26.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="130.00" y="30.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">0</text><circle cx="189.14" cy="47.52" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="189.14" y="51.66" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">1</text><circle cx="220.60" cy="102.02" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="220.60" y="106.16" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">2</text><circle cx="209.67" cy="164.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="209.67" y="168.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">3</text><circle cx="161.47" cy="204.45" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="161.47" y="208.59" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">4</text><circle cx="98.53" cy="204.45" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="98.53" y="208.59" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">5</text><circle cx="50.33" cy="164.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="50.33" y="168.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">6</text><circle cx="39.40" cy="102.02" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="39.40" y="106.16" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">7</text><circle cx="70.86" cy="47.52" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="70.86" y="51.66" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">8</text><text x="130.00" y="258.14" font-size="11.5" fill="#1f4e79" stroke="none" text-anchor="middle" >G&#8323; = C&#8329;(1,4)</text></g></svg></div>
+<figcaption>The three graphs redrawn with vertices labelled \(0,\dots,8\) clockwise from the top. Each is
+\(4\)-regular on \(9\) vertices with \(18\) edges.</figcaption></figure>
+
+<p>The complete edge lists, sorted by circular distance, are:</p>
+<div class="tblock"><table class="wide"><thead><tr><th class="">graph</th><th class="l">the 9 edges of distance 1 (the nonagon)</th><th class="l">the 9 chords</th><th class="">|<em>E</em>|</th></tr></thead><tbody><tr><td class=""><em>G</em><sub>1</sub></td><td class="l"><span class="mono">01 08 12 23 34 45 56 67 78</span></td><td class="l"><span class="mono">02 07 13 18 24 35 46 57 68</span></td><td class="">18</td></tr><tr><td class=""><em>G</em><sub>2</sub></td><td class="l"><span class="mono">01 08 12 23 34 45 56 67 78</span></td><td class="l"><span class="mono">03 06 14 17 25 28 36 47 58</span></td><td class="">18</td></tr><tr><td class=""><em>G</em><sub>3</sub></td><td class="l"><span class="mono">01 08 12 23 34 45 56 67 78</span></td><td class="l"><span class="mono">04 05 15 16 26 27 37 38 48</span></td><td class="">18</td></tr></tbody></table><p class="tcap">Table 6.2 &mdash; complete edge lists; the pair <span class='mono'>ij</span> denotes the edge {i,&thinsp;j}. Each graph has 18 edges, so each is 4-regular.</p></div>
+
+<h3>Step 2. The cheap invariants do not separate them</h3>
+<p>In each \(C_9(s,t)\) with \(s\neq t\) and <span class="nb">\(s,t\in\{1,2,3,4\}\),</span> every vertex \(i\) has exactly the four
+neighbours <span class="nb">\(i\pm s,\ i\pm t\),</span> which are pairwise distinct modulo <span class="nb">\(9\).</span> Hence all three graphs are \(4\)-regular
+with</p>
+\[ |V| = 9, \qquad |E| \;=\; \tfrac{1}{2}\sum_{v} d(v) \;=\; \tfrac{9\cdot 4}{2} \;=\; 18 . \]
+<p>All three are connected (each contains the spanning nonagon of distance-\(1\) edges) and each contains a triangle,
+so girth \(=3\) throughout. Every one of the usual first&#8209;line invariants therefore agrees, and we must look
+harder.</p>
+
+<div class="tblock"><table class="wide"><thead><tr><th class="l">graph</th><th class="">|V|</th><th class="">|E|</th><th class="">degrees</th><th class="">connected</th><th class="">girth</th><th class="">triangles</th><th class="">4-cycles</th></tr></thead><tbody><tr><td class="l"><em>G</em><sub>1</sub> = <em>C</em><sub>9</sub>(1,2)</td><td class="">9</td><td class="">18</td><td class="">4-regular</td><td class="">yes</td><td class="">3</td><td class=""><strong>9</strong></td><td class=""><strong>9</strong></td></tr><tr class="hl"><td class="l"><em>G</em><sub>2</sub> = <em>C</em><sub>9</sub>(1,3)</td><td class="">9</td><td class="">18</td><td class="">4-regular</td><td class="">yes</td><td class="">3</td><td class=""><strong>3</strong></td><td class=""><strong>18</strong></td></tr><tr><td class="l"><em>G</em><sub>3</sub> = <em>C</em><sub>9</sub>(1,4)</td><td class="">9</td><td class="">18</td><td class="">4-regular</td><td class="">yes</td><td class="">3</td><td class=""><strong>9</strong></td><td class=""><strong>9</strong></td></tr></tbody></table><p class="tcap">Table 6.3 &mdash; the first six invariants agree for all three graphs; the triangle count (and the 4-cycle count) is what finally separates G<sub>2</sub> from the other two.</p></div>
+
+<h3>Step 3. <span class="nb">\(G_1\cong G_3\):</span> an explicit isomorphism</h3>
+
+<div class="env thm"><span class="h">Theorem 6.1</span><span class="body">
+The map <span class="nb">\(\varphi:\mathbb{Z}_9\to\mathbb{Z}_9\),</span> \(\varphi(i)=4i \bmod 9\), is an isomorphism
+\(G_1=C_9(1,2)\ \longrightarrow\ G_3=C_9(1,4)\).</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+<p><em>(i) \(\varphi\) is a bijection.</em> Since \(\gcd(4,9)=1\), the residue \(4\) is invertible modulo <span class="nb">\(9\);</span>
+concretely <span class="nb">\(4\cdot 7=28=3\cdot 9+1\equiv 1 \pmod 9\),</span> so \(\varphi^{-1}(j)=7j \bmod 9\). Explicitly:</p>
+<div class="tblock"><table class="wide rule-top"><tbody><tr><td class="l"><em>i</em></td><td class="">0</td><td class="">1</td><td class="">2</td><td class="">3</td><td class="">4</td><td class="">5</td><td class="">6</td><td class="">7</td><td class="">8</td></tr><tr><td class="l">&phi;(<em>i</em>) = 4<em>i</em> mod 9</td><td class=""><strong>0</strong></td><td class=""><strong>4</strong></td><td class=""><strong>8</strong></td><td class=""><strong>3</strong></td><td class=""><strong>7</strong></td><td class=""><strong>2</strong></td><td class=""><strong>6</strong></td><td class=""><strong>1</strong></td><td class=""><strong>5</strong></td></tr><tr><td class="l">&phi;<sup>&minus;1</sup>(<em>i</em>) = 7<em>i</em> mod 9</td><td class="">0</td><td class="">7</td><td class="">5</td><td class="">3</td><td class="">1</td><td class="">8</td><td class="">6</td><td class="">4</td><td class="">2</td></tr></tbody></table><p class="tcap">Table 6.4 &mdash; the isomorphism &phi; and its inverse, as permutations of ℤ<sub>9</sub>. Note &phi; fixes 0, 3 and 6.</p></div>
+<p><em>(ii) \(\varphi\) maps edges to edges.</em> Let \(ij\in E(G_1)\), i.e. \(j-i\equiv \pm1\) or <span class="nb">\(\pm2 \pmod 9\).</span>
+Multiplying by <span class="nb">\(4\),</span>
+\[ \varphi(j)-\varphi(i) \;=\; 4(j-i) \;\equiv\;
+\begin{cases}
+\pm 4 \pmod 9, & \text{if } j-i\equiv\pm1,\\[2pt]
+\pm 8 \equiv \mp 1 \pmod 9, & \text{if } j-i\equiv\pm2,
+\end{cases} \]
+using <span class="nb">\(8\equiv-1\).</span> In both cases the difference is \(\pm1\) or <span class="nb">\(\pm4\),</span> i.e. the circular distance of
+\(\varphi(i)\) and \(\varphi(j)\) lies in <span class="nb">\(\{1,4\}\),</span> so \(\varphi(i)\varphi(j)\in E(G_3)\). Note also
+\(\varphi(i)\neq\varphi(j)\) by (i), so no edge degenerates.</p>
+<p><em>(iii) \(\varphi\) maps edges onto <strong>all</strong> edges.</em> By (i) and (ii) the induced map
+\(E(G_1)\to E(G_3)\), \(\{i,j\}\mapsto\{\varphi(i),\varphi(j)\}\), is injective; since
+\(|E(G_1)|=|E(G_3)|=18\) is finite, it is a bijection. (Alternatively, argue directly with
+<span class="nb">\(\varphi^{-1}\):</span> \(7\cdot(\pm1)=\pm7\equiv\mp2\) and \(7\cdot(\pm4)=\pm28\equiv\pm1\), so \(\varphi^{-1}\) carries
+distances \(\{1,4\}\) back to distances <span class="nb">\(\{2,1\}\).</span>)</p>
+<p>A bijection of vertex sets that maps the edge set onto the edge set is an isomorphism.</p>
+<span class="qed">&#9633;</span></div>
+
+<p>Because the problem asks for every step, here is the induced map on all \(18\) edges of <span class="nb">\(G_1\),</span> each verified to
+land on an edge of <span class="nb">\(G_3\):</span></p>
+
+<div class="tblock"><table class="wide"><thead><tr><th class="">edge of <em>G</em><sub>1</sub></th><th class="">d</th><th class=""></th><th class="">image</th><th class="">d</th><th class="">in <em>G</em><sub>3</sub>?</th><th class="">edge of <em>G</em><sub>1</sub></th><th class="">d</th><th class=""></th><th class="">image</th><th class="">d</th><th class="">in <em>G</em><sub>3</sub>?</th></tr></thead><tbody><tr><td class=""><span class="mono">{0,1}</span></td><td class="">1</td><td class="">&rarr;</td><td class=""><span class="mono">{0,4}</span></td><td class="">4</td><td class="">&#10003;</td><td class=""><span class="mono">{3,4}</span></td><td class="">1</td><td class="">&rarr;</td><td class=""><span class="mono">{3,7}</span></td><td class="">4</td><td class="">&#10003;</td></tr><tr><td class=""><span class="mono">{0,2}</span></td><td class="">2</td><td class="">&rarr;</td><td class=""><span class="mono">{0,8}</span></td><td class="">1</td><td class="">&#10003;</td><td class=""><span class="mono">{3,5}</span></td><td class="">2</td><td class="">&rarr;</td><td class=""><span class="mono">{2,3}</span></td><td class="">1</td><td class="">&#10003;</td></tr><tr><td class=""><span class="mono">{0,7}</span></td><td class="">2</td><td class="">&rarr;</td><td class=""><span class="mono">{0,1}</span></td><td class="">1</td><td class="">&#10003;</td><td class=""><span class="mono">{4,5}</span></td><td class="">1</td><td class="">&rarr;</td><td class=""><span class="mono">{2,7}</span></td><td class="">4</td><td class="">&#10003;</td></tr><tr><td class=""><span class="mono">{0,8}</span></td><td class="">1</td><td class="">&rarr;</td><td class=""><span class="mono">{0,5}</span></td><td class="">4</td><td class="">&#10003;</td><td class=""><span class="mono">{4,6}</span></td><td class="">2</td><td class="">&rarr;</td><td class=""><span class="mono">{6,7}</span></td><td class="">1</td><td class="">&#10003;</td></tr><tr><td class=""><span class="mono">{1,2}</span></td><td class="">1</td><td class="">&rarr;</td><td class=""><span class="mono">{4,8}</span></td><td class="">4</td><td class="">&#10003;</td><td class=""><span class="mono">{5,6}</span></td><td class="">1</td><td class="">&rarr;</td><td class=""><span class="mono">{2,6}</span></td><td class="">4</td><td class="">&#10003;</td></tr><tr><td class=""><span class="mono">{1,3}</span></td><td class="">2</td><td class="">&rarr;</td><td class=""><span class="mono">{3,4}</span></td><td class="">1</td><td class="">&#10003;</td><td class=""><span class="mono">{5,7}</span></td><td class="">2</td><td class="">&rarr;</td><td class=""><span class="mono">{1,2}</span></td><td class="">1</td><td class="">&#10003;</td></tr><tr><td class=""><span class="mono">{1,8}</span></td><td class="">2</td><td class="">&rarr;</td><td class=""><span class="mono">{4,5}</span></td><td class="">1</td><td class="">&#10003;</td><td class=""><span class="mono">{6,7}</span></td><td class="">1</td><td class="">&rarr;</td><td class=""><span class="mono">{1,6}</span></td><td class="">4</td><td class="">&#10003;</td></tr><tr><td class=""><span class="mono">{2,3}</span></td><td class="">1</td><td class="">&rarr;</td><td class=""><span class="mono">{3,8}</span></td><td class="">4</td><td class="">&#10003;</td><td class=""><span class="mono">{6,8}</span></td><td class="">2</td><td class="">&rarr;</td><td class=""><span class="mono">{5,6}</span></td><td class="">1</td><td class="">&#10003;</td></tr><tr><td class=""><span class="mono">{2,4}</span></td><td class="">2</td><td class="">&rarr;</td><td class=""><span class="mono">{7,8}</span></td><td class="">1</td><td class="">&#10003;</td><td class=""><span class="mono">{7,8}</span></td><td class="">1</td><td class="">&rarr;</td><td class=""><span class="mono">{1,5}</span></td><td class="">4</td><td class="">&#10003;</td></tr></tbody></table><p class="tcap">Table 6.6 &mdash; every one of the 18 edges of G<sub>1</sub>, and its image under &phi;. Distance 1 becomes distance 4, distance 2 becomes distance 8 &equiv; &minus;1: in all cases an edge of G<sub>3</sub> = C<sub>9</sub>(1,&thinsp;4).</p></div>
+
+<p>All \(18\) images are distinct edges of <span class="nb">\(G_3\),</span> and \(G_3\) has exactly \(18\) edges &#8212; so the edge sets
+correspond perfectly.</p>
+
+<figure><div class="figrow"><svg class="fig" viewBox="0 0 260 272" width="260" height="272" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="130.00" y1="26.00" x2="189.14" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="220.60" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="189.14" y1="47.52" x2="220.60" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="189.14" y1="47.52" x2="209.67" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="189.14" y1="47.52" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="220.60" y1="102.02" x2="209.67" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="220.60" y1="102.02" x2="161.47" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="209.67" y1="164.00" x2="161.47" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="209.67" y1="164.00" x2="98.53" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="161.47" y1="204.45" x2="98.53" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="161.47" y1="204.45" x2="50.33" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="98.53" y1="204.45" x2="50.33" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="98.53" y1="204.45" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="50.33" y1="164.00" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="50.33" y1="164.00" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="39.40" y1="102.02" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><circle cx="130.00" cy="26.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="130.00" y="30.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">0</text><circle cx="189.14" cy="47.52" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="189.14" y="51.66" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">1</text><circle cx="220.60" cy="102.02" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="220.60" y="106.16" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">2</text><circle cx="209.67" cy="164.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="209.67" y="168.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">3</text><circle cx="161.47" cy="204.45" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="161.47" y="208.59" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">4</text><circle cx="98.53" cy="204.45" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="98.53" y="208.59" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">5</text><circle cx="50.33" cy="164.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="50.33" y="168.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">6</text><circle cx="39.40" cy="102.02" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="39.40" y="106.16" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">7</text><circle cx="70.86" cy="47.52" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="70.86" y="51.66" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">8</text><text x="130.00" y="258.14" font-size="11.5" fill="#1f4e79" stroke="none" text-anchor="middle" >G&#8321; drawn as usual</text></g></svg><svg class="fig" viewBox="0 0 260 272" width="260" height="272" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="130.00" y1="26.00" x2="161.47" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="189.14" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="130.00" y1="26.00" x2="98.53" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="161.47" y1="204.45" x2="70.86" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="161.47" y1="204.45" x2="209.67" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="161.47" y1="204.45" x2="98.53" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="70.86" y1="47.52" x2="209.67" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="70.86" y1="47.52" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="209.67" y1="164.00" x2="39.40" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="209.67" y1="164.00" x2="220.60" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="39.40" y1="102.02" x2="220.60" y2="102.02" stroke="#1b1b1b" stroke-width="1.55"/><line x1="39.40" y1="102.02" x2="50.33" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="220.60" y1="102.02" x2="50.33" y2="164.00" stroke="#1b1b1b" stroke-width="1.55"/><line x1="220.60" y1="102.02" x2="189.14" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="50.33" y1="164.00" x2="189.14" y2="47.52" stroke="#1b1b1b" stroke-width="1.55"/><line x1="50.33" y1="164.00" x2="98.53" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><line x1="189.14" y1="47.52" x2="98.53" y2="204.45" stroke="#1b1b1b" stroke-width="1.55"/><circle cx="130.00" cy="26.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="130.00" y="30.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">0</text><circle cx="161.47" cy="204.45" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="161.47" y="208.59" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">1</text><circle cx="70.86" cy="47.52" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="70.86" y="51.66" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">2</text><circle cx="209.67" cy="164.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="209.67" y="168.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">3</text><circle cx="39.40" cy="102.02" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="39.40" y="106.16" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">4</text><circle cx="220.60" cy="102.02" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="220.60" y="106.16" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">5</text><circle cx="50.33" cy="164.00" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="50.33" y="168.14" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">6</text><circle cx="189.14" cy="47.52" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="189.14" y="51.66" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">7</text><circle cx="98.53" cy="204.45" r="12.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="98.53" y="208.59" font-size="11.5" fill="#1b1b1b" stroke="none" text-anchor="middle" font-weight="600">8</text><text x="130.00" y="258.14" font-size="11.5" fill="#1f4e79" stroke="none" text-anchor="middle" >the same G&#8321;, vertex i placed at position 4i</text></g></svg></div>
+<figcaption>The isomorphism made visible. Left: \(G_1=C_9(1,2)\) drawn with vertex \(i\) in position <span class="nb">\(i\).</span> Right:
+the <em>same graph</em> <span class="nb">\(G_1\),</span> with vertex \(i\) drawn in position \(\varphi(i)=4i\). The right&#8209;hand picture
+is the drawing of \(G_3=C_9(1,4)\) &#8212; only the labels have travelled.</figcaption></figure>
+
+<h3>Step 4. \(G_2\) is isomorphic to neither: counting triangles</h3>
+
+<p>The number of triangles (subgraphs isomorphic to \(K_3\)) is an isomorphism invariant: an isomorphism
+\(f:G\to G'\) maps any triangle \(\{x,y,z\}\) of \(G\) to a triangle \(\{f(x),f(y),f(z)\}\) of <span class="nb">\(G'\),</span> and \(f^{-1}\)
+maps triangles back, so the two collections of triangles are in bijection. We count the triangles of each
+\(C_9(s,t)\) by hand.</p>
+
+<p><strong>The method.</strong> Let \(S\subseteq \mathbb{Z}_9\setminus\{0\}\) be the <em>connection set</em>, i.e.
+<span class="nb">\(i\sim j \iff j-i\in S\);</span> note <span class="nb">\(S=-S\).</span> For \(C_9(1,2)\), \(C_9(1,3)\), \(C_9(1,4)\) these are, as residues,
+\[ S_1=\{1,2,7,8\}, \qquad S_2=\{1,3,6,8\}, \qquad S_3=\{1,4,5,8\} \]
+(recall \(-1\equiv8,\ -2\equiv7,\ -3\equiv6,\ -4\equiv5\)). A triangle is a set <span class="nb">\(\{x,y,z\}\);</span> writing
+\(a=y-x,\ b=z-y,\ c=x-z\) we must have
+\[ a,b,c\in S \qquad\text{and}\qquad a+b+c\equiv 0 \pmod 9 . \]
+Since <span class="nb">\(a,b,c\in\{1,\dots,8\}\),</span> the integer \(a+b+c\) lies between \(3\) and <span class="nb">\(24\),</span> so the congruence means
+<span class="nb">\(a+b+c\in\{9,18\}\).</span> So we must list the multisets \(\{a,b,c\}\) drawn from \(S\) whose sum is \(9\) or <span class="nb">\(18\).</span></p>
+
+<p><strong>Sum 18 comes free.</strong> Because <span class="nb">\(S=-S\),</span> the map \(x\mapsto 9-x\) is a bijection of \(S\) onto
+itself, and it turns a solution \(\{a,b,c\}\) with \(a+b+c=9\) into the solution \(\{9-a,9-b,9-c\}\) with sum
+<span class="nb">\(27-9=18\),</span> and back again. So the sum-\(18\) solutions are exactly the negatives of the sum-\(9\) solutions, and they
+describe the same triangles traversed the other way round. It is therefore enough to solve <span class="nb">\(a+b+c=9\).</span></p>
+
+<p><strong>Solving <span class="nb">\(a+b+c=9\).</span></strong> Fix one element <span class="nb">\(a\in S\);</span> the other two must be elements of \(S\) summing
+to <span class="nb">\(9-a\).</span> So we first list, once and for all, which numbers arise as a sum of two elements of \(S\) (repetitions
+allowed):</p>
+
+<div class="tblock"><table class="wide"><thead><tr><th class="">graph</th><th class="">connection set <em>S</em></th><th class="l">all sums <em>b</em>&thinsp;+&thinsp;<em>c</em> with <em>b</em>,&thinsp;<em>c</em> &isin; <em>S</em></th><th class="l">required partner sums 9&nbsp;&minus;&nbsp;<em>a</em>, <em>a</em> &isin; <em>S</em></th></tr></thead><tbody><tr><td class=""><em>G</em><sub>1</sub></td><td class=""><span class="mono">{1, 2, 7, 8}</span></td><td class="l"><span class="mono">2, 3, 4, 8, 9, 10, 14, 15, 16</span></td><td class="l"><span class="mono">8, 7, 2, 1</span></td></tr><tr><td class=""><em>G</em><sub>2</sub></td><td class=""><span class="mono">{1, 3, 6, 8}</span></td><td class="l"><span class="mono">2, 4, 6, 7, 9, 11, 12, 14, 16</span></td><td class="l"><span class="mono">8, 6, 3, 1</span></td></tr><tr><td class=""><em>G</em><sub>3</sub></td><td class=""><span class="mono">{1, 4, 5, 8}</span></td><td class="l"><span class="mono">2, 5, 6, 8, 9, 10, 12, 13, 16</span></td><td class="l"><span class="mono">8, 5, 4, 1</span></td></tr></tbody></table><p class="tcap">Table 6.5 &mdash; a triangle needs a + b + c &equiv; 0 (mod 9) with a, b, c &isin; S. Comparing the third column with the fourth decides every case at a glance.</p></div>
+
+<p>Now run through \(a\in S\) in each case.</p>
+<ul>
+<li><strong><span class="nb">\(G_1\),</span> <span class="nb">\(S_1=\{1,2,7,8\}\).</span></strong> The required partner sums \(9-a\) are \(8,7,2,1\) for
+<span class="nb">\(a=1,2,7,8\).</span> Comparing with the achievable list <span class="nb">\(\{2,3,4,8,9,10,14,15,16\}\):</span> \(8\) is achievable (as \(1+7\)),
+\(7\) is not, \(2\) is achievable (as \(1+1\)), \(1\) is not. The two hits give the multisets \(\{1,1,7\}\) and
+\(\{7,1,1\}\) &#8212; the same multiset. So \(\{1,1,7\}\) is the only solution. It realises the triangles
+<span class="nb">\(\{x,\,x+1,\,x+2\}\):</span> the three differences are <span class="nb">\(1\),</span> \(1\) and \(x-(x+2)=-2\equiv 7\). As \(x\) runs through
+\(\mathbb{Z}_9\) these nine sets of three consecutive residues are pairwise distinct. <strong>9 triangles.</strong></li>
+
+<li><strong><span class="nb">\(G_2\),</span> <span class="nb">\(S_2=\{1,3,6,8\}\).</span></strong> The required partner sums are \(8,6,3,1\) for <span class="nb">\(a=1,3,6,8\).</span>
+The achievable list is <span class="nb">\(\{2,4,6,7,9,11,12,14,16\}\):</span> \(8\) no, \(6\) yes (as \(3+3\)), \(3\) no, \(1\) no. The single
+hit gives <span class="nb">\(\{3,3,3\}\),</span> realising the triangles <span class="nb">\(\{x,\,x+3,\,x+6\}\).</span> But here the nine values of \(x\) produce only
+<em>three</em> distinct sets, namely \(\{0,3,6\},\{1,4,7\},\{2,5,8\}\) &#8212; the cosets of the subgroup
+<span class="nb">\(\{0,3,6\}\le\mathbb{Z}_9\),</span> each of which is counted three times as \(x\) runs over it.
+<strong>3 triangles.</strong></li>
+
+<li><strong><span class="nb">\(G_3\),</span> <span class="nb">\(S_3=\{1,4,5,8\}\).</span></strong> The required partner sums are \(8,5,4,1\) for <span class="nb">\(a=1,4,5,8\).</span>
+The achievable list is <span class="nb">\(\{2,5,6,8,9,10,12,13,16\}\):</span> \(8\) yes (as \(4+4\)), \(5\) yes (as \(1+4\)), \(4\) no,
+\(1\) no. Both hits give the same multiset <span class="nb">\(\{1,4,4\}\),</span> realising the triangles <span class="nb">\(\{x,\,x+1,\,x+5\}\):</span> the
+differences are <span class="nb">\(1\),</span> \(4\) and \(x-(x+5)=-5\equiv 4\). These nine sets are pairwise distinct (they are not unions of
+cosets of any subgroup: \(\{0,1,5\},\{1,2,6\},\dots\) all differ). <strong>9 triangles.</strong></li>
+</ul>
+
+<p>The decisive difference is visible in the middle case: in \(G_2\) the connection distance \(3\) is a
+<em>zero&#8209;divisor</em> modulo \(9\) &#8212; the element \(3\) generates only the three&#8209;element subgroup
+\(\{0,3,6\}\) instead of all of \(\mathbb{Z}_9\) &#8212; so the nine "triangle translates" collapse onto just three
+sets. In \(G_1\) and \(G_3\) no such collapse occurs.</p>
+
+<div class="tblock"><table class="wide"><thead><tr><th class="l">graph</th><th class="">connection set <em>S</em></th><th class="">multisets in <em>S</em><br>with sum 9</th><th class="">&#8230; with sum 18</th><th class="">the triangles</th><th class="">how many</th></tr></thead><tbody><tr><td class="l"><em>G</em><sub>1</sub> = <em>C</em><sub>9</sub>(1,2)</td><td class=""><span class="mono">{1, 2, 7, 8}</span></td><td class=""><span class="mono">{1, 1, 7}</span></td><td class=""><span class="mono">{2, 8, 8}</span></td><td class="">{x, x+1, x+2}</td><td class=""><strong>9</strong></td></tr><tr class="hl"><td class="l"><em>G</em><sub>2</sub> = <em>C</em><sub>9</sub>(1,3)</td><td class=""><span class="mono">{1, 3, 6, 8}</span></td><td class=""><span class="mono">{3, 3, 3}</span></td><td class=""><span class="mono">{6, 6, 6}</span></td><td class="">{x, x+3, x+6}</td><td class=""><strong>3</strong></td></tr><tr><td class="l"><em>G</em><sub>3</sub> = <em>C</em><sub>9</sub>(1,4)</td><td class=""><span class="mono">{1, 4, 5, 8}</span></td><td class=""><span class="mono">{1, 4, 4}</span></td><td class=""><span class="mono">{5, 5, 8}</span></td><td class="">{x, x+1, x+5}</td><td class=""><strong>9</strong></td></tr></tbody></table><p class="tcap">Table 6.7 &mdash; solving a + b + c &equiv; 0 (mod 9) with a, b, c &isin; S. In G<sub>2</sub> the only solution is {3,3,3}, and {x, x+3, x+6} takes just three distinct values &mdash; the cosets of {0, 3, 6}. In the other two graphs the nine values are all distinct.</p></div>
+
+<figure><div class="figrow"><svg class="fig" viewBox="0 0 250 264" width="250" height="264" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="125.00" y1="26.00" x2="181.57" y2="46.59" stroke="#c9cdd2" stroke-width="1.4"/><line x1="125.00" y1="26.00" x2="211.66" y2="98.72" stroke="#c9cdd2" stroke-width="1.4"/><line x1="125.00" y1="26.00" x2="38.34" y2="98.72" stroke="#c9cdd2" stroke-width="1.4"/><line x1="125.00" y1="26.00" x2="68.43" y2="46.59" stroke="#c9cdd2" stroke-width="1.4"/><line x1="181.57" y1="46.59" x2="211.66" y2="98.72" stroke="#c9cdd2" stroke-width="1.4"/><line x1="181.57" y1="46.59" x2="201.21" y2="158.00" stroke="#c9cdd2" stroke-width="1.4"/><line x1="181.57" y1="46.59" x2="68.43" y2="46.59" stroke="#c9cdd2" stroke-width="1.4"/><line x1="211.66" y1="98.72" x2="201.21" y2="158.00" stroke="#c9cdd2" stroke-width="1.4"/><line x1="211.66" y1="98.72" x2="155.10" y2="196.69" stroke="#c9cdd2" stroke-width="1.4"/><line x1="201.21" y1="158.00" x2="155.10" y2="196.69" stroke="#c9cdd2" stroke-width="1.4"/><line x1="201.21" y1="158.00" x2="94.90" y2="196.69" stroke="#c9cdd2" stroke-width="1.4"/><line x1="155.10" y1="196.69" x2="94.90" y2="196.69" stroke="#c9cdd2" stroke-width="1.4"/><line x1="155.10" y1="196.69" x2="48.79" y2="158.00" stroke="#c9cdd2" stroke-width="1.4"/><line x1="94.90" y1="196.69" x2="48.79" y2="158.00" stroke="#c9cdd2" stroke-width="1.4"/><line x1="94.90" y1="196.69" x2="38.34" y2="98.72" stroke="#c9cdd2" stroke-width="1.4"/><line x1="48.79" y1="158.00" x2="38.34" y2="98.72" stroke="#c9cdd2" stroke-width="1.4"/><line x1="48.79" y1="158.00" x2="68.43" y2="46.59" stroke="#c9cdd2" stroke-width="1.4"/><line x1="38.34" y1="98.72" x2="68.43" y2="46.59" stroke="#c9cdd2" stroke-width="1.4"/><line x1="125.00" y1="26.00" x2="181.57" y2="46.59" stroke="#a33a2a" stroke-width="2.4"/><line x1="181.57" y1="46.59" x2="211.66" y2="98.72" stroke="#a33a2a" stroke-width="2.4"/><line x1="211.66" y1="98.72" x2="125.00" y2="26.00" stroke="#a33a2a" stroke-width="2.4"/><line x1="201.21" y1="158.00" x2="155.10" y2="196.69" stroke="#a33a2a" stroke-width="2.4"/><line x1="155.10" y1="196.69" x2="94.90" y2="196.69" stroke="#a33a2a" stroke-width="2.4"/><line x1="94.90" y1="196.69" x2="201.21" y2="158.00" stroke="#a33a2a" stroke-width="2.4"/><line x1="48.79" y1="158.00" x2="38.34" y2="98.72" stroke="#a33a2a" stroke-width="2.4"/><line x1="38.34" y1="98.72" x2="68.43" y2="46.59" stroke="#a33a2a" stroke-width="2.4"/><line x1="68.43" y1="46.59" x2="48.79" y2="158.00" stroke="#a33a2a" stroke-width="2.4"/><circle cx="125.00" cy="26.00" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="125.00" y="29.96" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >0</text><circle cx="181.57" cy="46.59" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="181.57" y="50.55" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >1</text><circle cx="211.66" cy="98.72" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="211.66" y="102.68" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >2</text><circle cx="201.21" cy="158.00" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="201.21" y="161.96" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >3</text><circle cx="155.10" cy="196.69" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="155.10" y="200.65" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >4</text><circle cx="94.90" cy="196.69" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="94.90" y="200.65" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >5</text><circle cx="48.79" cy="158.00" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="48.79" y="161.96" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >6</text><circle cx="38.34" cy="98.72" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="38.34" y="102.68" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >7</text><circle cx="68.43" cy="46.59" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="68.43" y="50.55" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >8</text><text x="125.00" y="248.14" font-size="11.5" fill="#1f4e79" stroke="none" text-anchor="middle" >G&#8321;: 9 triangles (3 of them shown)</text></g></svg><svg class="fig" viewBox="0 0 250 264" width="250" height="264" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="125.00" y1="26.00" x2="181.57" y2="46.59" stroke="#c9cdd2" stroke-width="1.4"/><line x1="125.00" y1="26.00" x2="201.21" y2="158.00" stroke="#c9cdd2" stroke-width="1.4"/><line x1="125.00" y1="26.00" x2="48.79" y2="158.00" stroke="#c9cdd2" stroke-width="1.4"/><line x1="125.00" y1="26.00" x2="68.43" y2="46.59" stroke="#c9cdd2" stroke-width="1.4"/><line x1="181.57" y1="46.59" x2="211.66" y2="98.72" stroke="#c9cdd2" stroke-width="1.4"/><line x1="181.57" y1="46.59" x2="155.10" y2="196.69" stroke="#c9cdd2" stroke-width="1.4"/><line x1="181.57" y1="46.59" x2="38.34" y2="98.72" stroke="#c9cdd2" stroke-width="1.4"/><line x1="211.66" y1="98.72" x2="201.21" y2="158.00" stroke="#c9cdd2" stroke-width="1.4"/><line x1="211.66" y1="98.72" x2="94.90" y2="196.69" stroke="#c9cdd2" stroke-width="1.4"/><line x1="211.66" y1="98.72" x2="68.43" y2="46.59" stroke="#c9cdd2" stroke-width="1.4"/><line x1="201.21" y1="158.00" x2="155.10" y2="196.69" stroke="#c9cdd2" stroke-width="1.4"/><line x1="201.21" y1="158.00" x2="48.79" y2="158.00" stroke="#c9cdd2" stroke-width="1.4"/><line x1="155.10" y1="196.69" x2="94.90" y2="196.69" stroke="#c9cdd2" stroke-width="1.4"/><line x1="155.10" y1="196.69" x2="38.34" y2="98.72" stroke="#c9cdd2" stroke-width="1.4"/><line x1="94.90" y1="196.69" x2="48.79" y2="158.00" stroke="#c9cdd2" stroke-width="1.4"/><line x1="94.90" y1="196.69" x2="68.43" y2="46.59" stroke="#c9cdd2" stroke-width="1.4"/><line x1="48.79" y1="158.00" x2="38.34" y2="98.72" stroke="#c9cdd2" stroke-width="1.4"/><line x1="38.34" y1="98.72" x2="68.43" y2="46.59" stroke="#c9cdd2" stroke-width="1.4"/><line x1="125.00" y1="26.00" x2="201.21" y2="158.00" stroke="#a33a2a" stroke-width="2.4"/><line x1="201.21" y1="158.00" x2="48.79" y2="158.00" stroke="#a33a2a" stroke-width="2.4"/><line x1="48.79" y1="158.00" x2="125.00" y2="26.00" stroke="#a33a2a" stroke-width="2.4"/><line x1="181.57" y1="46.59" x2="155.10" y2="196.69" stroke="#a33a2a" stroke-width="2.4"/><line x1="155.10" y1="196.69" x2="38.34" y2="98.72" stroke="#a33a2a" stroke-width="2.4"/><line x1="38.34" y1="98.72" x2="181.57" y2="46.59" stroke="#a33a2a" stroke-width="2.4"/><line x1="211.66" y1="98.72" x2="94.90" y2="196.69" stroke="#a33a2a" stroke-width="2.4"/><line x1="94.90" y1="196.69" x2="68.43" y2="46.59" stroke="#a33a2a" stroke-width="2.4"/><line x1="68.43" y1="46.59" x2="211.66" y2="98.72" stroke="#a33a2a" stroke-width="2.4"/><circle cx="125.00" cy="26.00" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="125.00" y="29.96" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >0</text><circle cx="181.57" cy="46.59" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="181.57" y="50.55" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >1</text><circle cx="211.66" cy="98.72" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="211.66" y="102.68" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >2</text><circle cx="201.21" cy="158.00" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="201.21" y="161.96" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >3</text><circle cx="155.10" cy="196.69" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="155.10" y="200.65" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >4</text><circle cx="94.90" cy="196.69" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="94.90" y="200.65" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >5</text><circle cx="48.79" cy="158.00" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="48.79" y="161.96" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >6</text><circle cx="38.34" cy="98.72" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="38.34" y="102.68" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >7</text><circle cx="68.43" cy="46.59" r="11.5" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.5"/><text x="68.43" y="50.55" font-size="11" fill="#1b1b1b" stroke="none" text-anchor="middle" >8</text><text x="125.00" y="248.14" font-size="11.5" fill="#1f4e79" stroke="none" text-anchor="middle" >G&#8322;: only 3 triangles &#8212; all shown</text></g></svg></div>
+<figcaption>Left: \(G_1\) contains the nine triangles \(\{x,x+1,x+2\}\) (three are highlighted). Right: all of
+\(G_2\)'s triangles &#8212; just the three cosets of <span class="nb">\(\{0,3,6\}\).</span> Nine versus three: the graphs cannot be
+isomorphic.</figcaption></figure>
+
+<div class="env cor"><span class="h">Corollary 6.2</span><span class="body">
+\(G_2\not\cong G_1\) and <span class="nb">\(G_2\not\cong G_3\).</span></span></div>
+<div class="prf"><span class="h">Proof.</span>
+\(G_1\) and \(G_3\) contain \(9\) triangles each, while \(G_2\) contains only <span class="nb">\(3\).</span> Since the number of triangles is
+preserved by isomorphism and <span class="nb">\(9\ne3\),</span> neither \(G_1\) nor \(G_3\) can be isomorphic to <span class="nb">\(G_2\).</span>
+<span class="qed">&#9633;</span></div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>The first and the third graphs are isomorphic; the second is isomorphic to neither.</strong> Labelling the
+nine vertices \(0,\dots,8\) clockwise from the top, the drawings are the circulant graphs \(G_1=C_9(1,2)\),
+\(G_2=C_9(1,3)\) and \(G_3=C_9(1,4)\). An explicit isomorphism \(G_1\to G_3\) is multiplication by \(4\) modulo
+<span class="nb">\(9\),</span>
+\[ \varphi(i)=4i \bmod 9: \quad 0\mapsto0,\ 1\mapsto4,\ 2\mapsto8,\ 3\mapsto3,\ 4\mapsto7,\ 5\mapsto2,\ 6\mapsto6,\
+7\mapsto1,\ 8\mapsto5, \]
+which turns distances \(1\) into \(4\) and distances \(2\) into <span class="nb">\(8\equiv-1\).</span> And \(G_2\) is different from both
+because it contains only \(3\) triangles, whereas \(G_1\) and \(G_3\) contain <span class="nb">\(9\).</span></p></div>
+
+<h3>Further remarks</h3>
+
+<div class="note"><span class="h">The general principle behind \(\varphi\)</span>
+For any \(n\) and any unit <span class="nb">\(u\in\mathbb{Z}_n^{\times}\),</span> the multiplication map \(x\mapsto ux\) is an isomorphism
+\(C_n(S)\to C_n(uS)\) &#8212; it is an automorphism of the group <span class="nb">\(\mathbb{Z}_n\),</span> so it turns differences into
+\(u\)&#8209;multiples of differences. Here <span class="nb">\(n=9\),</span> <span class="nb">\(u=4\),</span> and <span class="nb">\(4\cdot\{1,2\}=\{4,8\}\),</span> which as circular
+distances is <span class="nb">\(\{4,1\}\).</span> The units modulo \(9\) are <span class="nb">\(\{1,2,4,5,7,8\}\),</span> and applying each to \(\{1,3\}\) yields
+only <span class="nb">\(\{1,3\},\{2,3\},\{3,4\}\):</span> the distance \(3\) is never removed, because \(\gcd(3,9)=3\neq1\) means \(3\)
+generates the proper subgroup \(\{0,3,6\}\) &#8212; which is precisely the source of \(G_2\)'s three triangles. (Note
+that this observation alone only shows that no <em>multiplier</em> works; the triangle count in Step&nbsp;4 is what
+proves that no isomorphism whatsoever exists.)</div>
+
+<div class="note"><span class="h">A second separating invariant, and a curiosity</span>
+Triangles are not the only witness: counting \(4\)-cycles gives \(9,\,18,\,9\) for \(G_1,G_2,G_3\) respectively,
+separating \(G_2\) just as well. Finally, a pleasant coincidence: the complement of \(G_1\) is
+\(C_9(3,4)\), and multiplying by the unit \(2\) sends \(\{3,4\}\) to <span class="nb">\(\{6,8\}=\{-3,-1\}\),</span> i.e. to distances
+<span class="nb">\(\{1,3\}\).</span> So \(\overline{G_1}\cong C_9(1,3)=G_2\): the odd one out is exactly the complement of the other two
+(which is consistent with \(4\)-regularity, since \(9-1-4=4\)).</div>
+
+<div class="note"><span class="h">Exhaustive machine check</span>
+All \(9!=362\,880\) bijections \(V\to V\) were tested for each of the three pairs. The result confirms the
+conclusions above: \(G_1\cong G_3\) with exactly \(18\) distinct isomorphisms between them (so
+\(|\mathrm{Aut}(G_1)|=18\), the dihedral group of the nonagon, of order \(2\cdot9\)), and no isomorphism at all in
+the pairs \((G_1,G_2)\) and \((G_2,G_3)\). The map \(\varphi(i)=4i\) is among the <span class="nb">\(18\).</span></div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 7</span><h2>Minimum degree \(n/2\) forces connectivity</h2>
+<span class="ptag">two proofs; sharpness</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Let \(G\) be a simple graph and assume that \(d(v)\ge \frac{n}{2}\) holds for all of its vertices. Prove that
+\(G\) is connected.</p></div>
+
+<p>Here \(n=|V(G)|\) is the number of vertices, so the hypothesis is \(\delta(G)\ge n/2\). We give two proofs. The
+first is the shortest; the second costs one extra line and yields the stronger conclusion
+\(\operatorname{diam}(G)\le2\) &#8212; any two vertices are joined by a path of length at most <span class="nb">\(2\).</span></p>
+
+<div class="env thm"><span class="h">Theorem 7.1</span><span class="body">
+Let \(G\) be a simple graph on \(n\ge1\) vertices with \(d(v)\ge n/2\) for every \(v\in V(G)\). Then \(G\) is
+connected, and moreover \(\operatorname{diam}(G)\le 2\).</span></div>
+
+<h3>Proof 1 &#8212; via the size of a smallest component</h3>
+<div class="prf"><span class="h">Proof.</span>
+Suppose, for contradiction, that \(G\) is <em>not</em> connected. Then \(G\) has at least two components; let
+\(H_1\) and \(H_2\) be two distinct ones and let \(H\) be the smaller of the two, say with \(h=|V(H)|\) vertices.
+Distinct components are vertex&#8209;disjoint subsets of \(V(G)\), so
+\[ 2h \;\le\; |V(H_1)|+|V(H_2)| \;\le\; n , \qquad\text{i.e.}\qquad h \;\le\; \frac{n}{2}. \]
+Pick any vertex \(v\in V(H)\). By Lemma&nbsp;D all neighbours of \(v\) lie in <span class="nb">\(H\),</span> and \(v\) is not its own
+neighbour (\(G\) is simple, so there are no loops); hence
+\[ d(v) \;=\; d_H(v) \;\le\; |V(H)|-1 \;=\; h-1 \;\le\; \frac{n}{2}-1 \; \lt \; \frac{n}{2} . \]
+This contradicts the hypothesis \(d(v)\ge n/2\). Therefore \(G\) is connected. <span class="qed">&#9633;</span></div>
+
+<h3>Proof 2 &#8212; via a common neighbour</h3>
+<div class="prf"><span class="h">Proof.</span>
+Let \(u\ne v\) be any two vertices of <span class="nb">\(G\);</span> we exhibit a \(u\)&#8211;\(v\) path of length at most <span class="nb">\(2\).</span>
+<p style="margin-top:.5em"><em>Case 1: \(uv\in E(G)\).</em> Then \(uv\) is itself a \(u\)&#8211;\(v\) path of length
+<span class="nb">\(1\).</span></p>
+<p><em>Case 2: \(uv\notin E(G)\).</em> We claim \(N(u)\cap N(v)\neq\emptyset\). First locate the two
+neighbourhoods. Since \(G\) is simple there are no loops, so \(u\notin N(u)\) and \(v\notin N(v)\); and since
+\(uv\notin E(G)\) we also have \(v\notin N(u)\) and \(u\notin N(v)\). Hence both \(N(u)\) and \(N(v)\) are contained
+in \(V(G)\setminus\{u,v\}\), and therefore
+\[ \bigl|N(u)\cup N(v)\bigr| \;\le\; n-2 . \]
+By inclusion&#8211;exclusion and the degree hypothesis,
+\[ \bigl|N(u)\cap N(v)\bigr| \;=\; |N(u)|+|N(v)| - \bigl|N(u)\cup N(v)\bigr|
+   \;\ge\; \frac{n}{2}+\frac{n}{2}-(n-2) \;=\; 2 \; \gt \; 0 . \]
+So there exists (in fact there exist at least two) \(w\in N(u)\cap N(v)\), and \(u\,w\,v\) is a \(u\)&#8211;\(v\)
+path of length \(2\) (it is a path because \(w\notin\{u,v\}\)).</p>
+<p>In both cases \(\operatorname{dist}(u,v)\le 2 \lt \infty\). As \(u,v\) were arbitrary, every pair of vertices is
+joined by a path, i.e. \(G\) is connected, and \(\operatorname{diam}(G)\le2\).</p><span class="qed">&#9633;</span></div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>\(G\) is connected.</strong> If it were not, its smallest component \(H\) would satisfy
+\(|V(H)|\le n/2\), and any vertex \(v\) of \(H\) would have all its neighbours inside <span class="nb">\(H\),</span> giving
+\(d(v)\le |V(H)|-1\le n/2-1 \lt n/2\) &#8212; contradicting the hypothesis. The second proof shows more: for
+non&#8209;adjacent \(u,v\) the sets \(N(u),N(v)\) both live in the \((n-2)\)-element set \(V\setminus\{u,v\}\) while
+\(|N(u)|+|N(v)|\ge n\), so they must meet; any common neighbour \(w\) gives a path <span class="nb">\(u\,w\,v\).</span> Hence in fact
+\(\operatorname{diam}(G)\le 2\).</p></div>
+
+<h3>The hypothesis is sharp</h3>
+
+<p>The constant \(n/2\) cannot be lowered. For even <span class="nb">\(n\),</span> let</p>
+\[ G_0 \;=\; K_{n/2} \ \dot\cup\ K_{n/2} \]
+<p>be the disjoint union of two complete graphs of \(n/2\) vertices each. Every vertex of \(G_0\) is adjacent to all
+the other \(n/2-1\) vertices of its own clique and to nothing else, so</p>
+\[ d(v) \;=\; \frac{n}{2}-1 \qquad \text{for every } v, \]
+<p>which is only \(1\) less than required &#8212; and \(G_0\) is disconnected. So the implication genuinely fails as
+soon as the bound is weakened by one.</p>
+
+<figure><svg class="fig" viewBox="0 0 410 196" width="410" height="196" xmlns="http://www.w3.org/2000/svg" role="img"><g fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="108.00" y1="48.00" x2="160.00" y2="100.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="108.00" y1="48.00" x2="108.00" y2="152.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="108.00" y1="48.00" x2="56.00" y2="100.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="160.00" y1="100.00" x2="108.00" y2="152.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="160.00" y1="100.00" x2="56.00" y2="100.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="108.00" y1="152.00" x2="56.00" y2="100.00" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="108.00" cy="48.00" r="11" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><circle cx="160.00" cy="100.00" r="11" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><circle cx="108.00" cy="152.00" r="11" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><circle cx="56.00" cy="100.00" r="11" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="108.00" y="182.50" font-size="12.5" fill="#1f4e79" stroke="none" text-anchor="middle" font-style="italic">K&#8324;</text><line x1="300.00" y1="48.00" x2="352.00" y2="100.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="300.00" y1="48.00" x2="300.00" y2="152.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="300.00" y1="48.00" x2="248.00" y2="100.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="352.00" y1="100.00" x2="300.00" y2="152.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="352.00" y1="100.00" x2="248.00" y2="100.00" stroke="#1b1b1b" stroke-width="1.6"/><line x1="300.00" y1="152.00" x2="248.00" y2="100.00" stroke="#1b1b1b" stroke-width="1.6"/><circle cx="300.00" cy="48.00" r="11" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><circle cx="352.00" cy="100.00" r="11" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><circle cx="300.00" cy="152.00" r="11" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><circle cx="248.00" cy="100.00" r="11" fill="#ffffff" stroke="#1b1b1b" stroke-width="1.7"/><text x="300.00" y="182.50" font-size="12.5" fill="#1f4e79" stroke="none" text-anchor="middle" font-style="italic">K&#8324;</text></g></svg>
+<figcaption><span class="nb">\(K_4\ \dot\cup\ K_4\):</span> with <span class="nb">\(n=8\),</span> every degree equals <span class="nb">\(3=\frac{n}{2}-1\),</span> yet the graph is
+disconnected. The threshold in Theorem&nbsp;7.1 is therefore best possible.</figcaption></figure>
+
+<div class="note"><span class="h">The exact threshold</span>
+Degrees are integers, so for <em>odd</em> \(n\) the hypothesis \(d(v)\ge n/2\) really says \(d(v)\ge\lceil n/2\rceil
+=\frac{n+1}{2}\), which is more than necessary. Repeating Proof&nbsp;1 for odd <span class="nb">\(n\):</span> a smallest component satisfies
+<span class="nb">\(2h\le n\),</span> hence \(h\le\frac{n-1}{2}\) and \(d(v)\le\frac{n-3}{2}\); so already
+\(\delta(G)\ge\frac{n-1}{2}=\lfloor n/2\rfloor\) forces connectivity. Combining the two parities, the sharp
+statement is:
+\[ \delta(G)\ \ge\ \Bigl\lfloor \tfrac{n}{2} \Bigr\rfloor \ \Longrightarrow\ G \text{ is connected,} \]
+and this is best possible for every <span class="nb">\(n\):</span> the graph \(K_{\lfloor n/2\rfloor}\ \dot\cup\ K_{\lceil n/2\rceil}\) has
+\(\delta=\lfloor n/2\rfloor-1\) and is disconnected.</div>
+
+<div class="note"><span class="h">Context: Dirac's theorem</span>
+Theorem&nbsp;7.1 is the easy shadow of a much deeper result with the same hypothesis. <em>Dirac's theorem</em> (1952)
+states that if \(n\ge3\) and \(\delta(G)\ge n/2\) then \(G\) is <em>Hamiltonian</em>: it contains a cycle through all
+\(n\) vertices. A Hamiltonian graph is obviously connected, so Dirac's theorem implies Problem&nbsp;7 &#8212; but
+"connected" is the part one can prove in three lines, as above. It is instructive that the same threshold \(n/2\) is
+sharp for both statements, and for the same reason: two disjoint cliques.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 8</span><h2>A directed degree count</h2>
+<span class="ptag">directed handshake lemma</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Let us assume that the outdegree of every vertex of a directed graph is <span class="nb">\(22\).</span> It is also known that the
+indegree of each vertex, except for three special vertices, is <span class="nb">\(22\);</span> furthermore the indegree of two of the three
+exceptional vertices is <span class="nb">\(12\).</span> What is the indegree of the third exceptional vertex?</p></div>
+
+<h3>Step 1. The directed handshake lemma</h3>
+
+<p>Let \(D=(V,A)\) be a directed graph: \(A\) is a set of <em>arcs</em>, each arc \(a\) being an ordered pair
+\((x,y)\) with <em>tail</em> \(x\) and <em>head</em> <span class="nb">\(y\).</span> For \(v\in V\) write</p>
+\[ d^{+}(v) \;=\; \#\{\,a\in A : a \text{ has tail } v\,\} \quad(\text{the \textit{outdegree}}), \qquad
+   d^{-}(v) \;=\; \#\{\,a\in A : a \text{ has head } v\,\} \quad(\text{the \textit{indegree}}). \]
+
+<div class="env thm"><span class="h">Theorem 8.1 (directed handshake lemma)</span><span class="body">
+For every finite directed graph \(D=(V,A)\),
+\[ \sum_{v\in V} d^{+}(v) \;=\; |A| \;=\; \sum_{v\in V} d^{-}(v) . \]</span></div>
+
+<div class="prf"><span class="h">Proof (double counting).</span>
+Count the arcs of \(D\) by grouping them according to their tail. Every arc has exactly one tail, so the sets
+<span class="nb">\(\{a: a \text{ has tail } v\}\),</span> for <span class="nb">\(v\in V\),</span> partition <span class="nb">\(A\);</span> summing their sizes gives
+\(\sum_v d^{+}(v)=|A|\). Grouping instead by heads: every arc has exactly one head, so the sets
+\(\{a : a\text{ has head } v\}\) also partition <span class="nb">\(A\),</span> and \(\sum_v d^{-}(v)=|A|\).
+<span class="qed">&#9633;</span></div>
+
+<p>In words: every arc leaves exactly one vertex and enters exactly one vertex, so the total number of departures,
+the total number of arrivals, and the number of arcs all coincide. (Unlike the undirected Lemma&nbsp;A there is no
+factor \(2\) here: an undirected edge has two <em>endpoints</em>, whereas an arc has one tail and one head, counted in
+two different sums.)</p>
+
+<h3>Step 2. Setting up the equation</h3>
+
+<p>Let \(n=|V|\) be the number of vertices, and denote the three exceptional vertices by <span class="nb">\(w_1,w_2,w_3\),</span> where</p>
+\[ d^{-}(w_1)=d^{-}(w_2)=12, \qquad d^{-}(w_3)=x \ \text{ (the unknown)} . \]
+<p>The data of the problem are then:</p>
+<ul class="tight">
+<li>\(d^{+}(v)=22\) for <em>every</em> one of the \(n\) vertices;</li>
+<li>\(d^{-}(v)=22\) for the \(n-3\) vertices other than <span class="nb">\(w_1,w_2,w_3\).</span></li>
+</ul>
+
+<p>Compute \(|A|\) twice, using Theorem&nbsp;8.1. <strong>From the outdegrees:</strong></p>
+\[ |A| \;=\; \sum_{v\in V} d^{+}(v) \;=\; \underbrace{22+22+\dots+22}_{n \text{ terms}} \;=\; 22n . \]
+<p><strong>From the indegrees</strong>, splitting the sum into the ordinary vertices and the three exceptional
+ones:</p>
+\[ |A| \;=\; \sum_{v\in V} d^{-}(v)
+      \;=\; \underbrace{22(n-3)}_{\text{the } n-3 \text{ ordinary vertices}} \;+\; \underbrace{12+12}_{w_1,\,w_2}
+      \;+\; \underbrace{x}_{w_3}
+      \;=\; 22n-66+24+x \;=\; 22n-42+x . \]
+
+<h3>Step 3. Solving</h3>
+<p>Equating the two expressions for the same number <span class="nb">\(|A|\):</span></p>
+\[ 22n \;=\; 22n-42+x . \]
+<p>The term \(22n\) cancels from both sides &#8212; note that the answer therefore does not depend on how many
+vertices the digraph has &#8212; leaving</p>
+\[ 0 \;=\; -42 + x, \qquad\text{that is}\qquad \boxed{\,x \;=\; 42\,}. \]
+
+<p>A useful way to see the same thing without any algebra is as a <em>balance of deficits and surpluses</em>. If
+every vertex had indegree <span class="nb">\(22\),</span> the total indegree would be <span class="nb">\(22n\),</span> exactly matching the total outdegree. The two
+vertices with indegree \(12\) each fall short of \(22\) by <span class="nb">\(22-12=10\),</span> a combined deficit of <span class="nb">\(20\).</span> The third
+exceptional vertex must make up the whole of this deficit on top of its own nominal <span class="nb">\(22\):</span></p>
+\[ x \;=\; 22 + 2\cdot(22-12) \;=\; 22+20 \;=\; 42 . \]
+
+<div class="answer"><span class="lab">Answer</span>
+<p>The indegree of the third exceptional vertex is <strong>\(42\)</strong>.</p>
+<p>Reason: in any digraph the total outdegree and the total indegree both count the arcs, so they are equal. Here
+the total outdegree is <span class="nb">\(22n\),</span> while the total indegree is \(22(n-3)+12+12+x=22n-42+x\). Equating gives <span class="nb">\(x=42\),</span>
+independently of the number \(n\) of vertices.</p></div>
+
+<h3>Consistency: does such a digraph exist?</h3>
+
+<p>The counting argument determines \(x\) but does not by itself guarantee that a digraph with these degrees exists;
+it is worth checking that the answer is not vacuous. If \(D\) is required to be a <em>simple</em> digraph (no loops,
+and at most one arc in each direction between any two vertices), then every degree is bounded by <span class="nb">\(n-1\),</span> so we
+need</p>
+\[ d^{-}(w_3)=42\le n-1 \quad\text{and}\quad d^{+}(v)=22\le n-1, \qquad\text{i.e.}\qquad n\ \ge\ 43 . \]
+<p>And \(n\ge43\) is not merely necessary but sufficient: realising the prescribed pairs of degrees is a bipartite
+degree&#8209;sequence (transportation) problem, and solving it as a max&#8209;flow instance produces explicit
+digraphs. For \(n=43\) the resulting digraph has</p>
+\[ |A| \;=\; 22\cdot 43 \;=\; 946 \ \text{arcs}, \qquad
+   d^{+}\equiv 22, \qquad
+   d^{-} = \bigl(\underbrace{22,\dots,22}_{40},\,12,\,12,\,42\bigr), \]
+<p>with no loops &#8212; and analogous digraphs were constructed for \(n=44\) and <span class="nb">\(n=60\).</span> So the situation described
+in the problem is genuinely realisable, and \(42\) is the answer for every admissible size. (If loops or parallel
+arcs are permitted, the bound \(n\ge43\) disappears and only the counting constraint remains.)</p>
+
+<div class="note"><span class="h">Sanity checks on the answer</span>
+Two small consistency observations. First, <span class="nb">\(42\ne22\),</span> so \(w_3\) really is "exceptional", as the problem asserts
+&#8212; had the arithmetic produced \(22\) the hypotheses would have been contradictory. Second, the average indegree
+must equal the average outdegree, namely <span class="nb">\(22\);</span> and indeed the three exceptional values average out correctly,
+since <span class="nb">\(12+12+42=66=3\cdot22\).</span></div>
+</section>
+</body></html>

@@ -1,0 +1,146 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 1</span><h2>Knights on the \(3\times 3\) board</h2>
+<span class="ptag">a cyclic-order invariant</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Place two white and two dark knights in the corners of a \(3\times 3\) chessboard so that the identically
+coloured knights are on diametrically opposite corners. The knights move in the usual way known from chess, and two
+knights cannot stand on the same square at the same time. Is it possible to move the knights so that they stand in
+the corners at the end, but the diametrically opposite ones are of different colours?</p></div>
+
+<p>The answer is <strong>no</strong>. We prove it by exhibiting a quantity &#8212; the cyclic order in which the four
+knights appear around a certain \(8\)-cycle &#8212; that no legal move can ever change, and which differs between the
+starting position and every admissible target position.</p>
+
+<h3>Step 1. Set&#8209;up and the knight&#8209;move graph</h3>
+<p>Number the squares of the board</p>
+<p class="board">1&nbsp;2&nbsp;3<br>4&nbsp;5&nbsp;6<br>7&nbsp;8&nbsp;9</p>
+<p>so that square \(s\) sits in row \(\lfloor (s-1)/3\rfloor\) and column \((s-1)\bmod 3\). The corners are
+\(1,3,7,9\); the two "diametrically opposite" corner pairs (opposite through the centre square \(5\)) are
+\(\{1,9\}\) and \(\{3,7\}\).</p>
+
+<p>Up to swapping the names of the two colours, the starting position is therefore</p>
+<p style="text-align:center"><strong>White on \(1\) and \(9\), &nbsp; Dark on \(3\) and \(7\).</strong></p>
+<p>The required final position is: all four knights on corners, with
+\(\text{colour}(1)\neq\text{colour}(9)\) <em>and</em> \(\text{colour}(3)\neq\text{colour}(7)\).</p>
+
+<p>Define the <em>knight&#8209;move graph</em> \(K\): its vertices are the nine squares, and two squares are adjacent
+when they are one knight's move apart, i.e. when their (row, column) vectors differ by \((\pm1,\pm2)\) or
+\((\pm2,\pm1)\). A knight standing on a square may move exactly along an edge of \(K\), provided the target square
+is unoccupied. The complete list of moves is short enough to write down in full.</p>
+
+<figure>{{FIG:BOARD}}<figcaption>The eight knight moves available on the \(3\times3\) board. The centre square \(5\) (shaded) is not the endpoint of any move.</figcaption></figure>
+
+<h3>Step 2. The usable squares form a single \(8\)&#8209;cycle</h3>
+<p>Reading off the table of moves:</p>
+
+{{TBL:KNIGHT}}
+
+<p>Two things are visible at once.</p>
+<ul>
+<li>The <strong>centre square \(5\) is isolated</strong> in \(K\): from \((1,1)\) every knight's move \((\pm1,\pm2)\)
+or \((\pm2,\pm1)\) leaves the \(3\times3\) board. Hence no knight can ever move to \(5\) or away from \(5\). Since
+the knights start on corners, square \(5\) is empty at the start and stays empty forever; we may delete it.</li>
+<li>Every one of the remaining eight squares has degree <strong>exactly \(2\)</strong>. So \(K-5\) is a
+\(2\)-regular graph on \(8\) vertices, and it is connected: starting at \(1\) and repeatedly walking to the
+not&#8209;yet&#8209;used neighbour gives
+\[ 1 \;-\; 6 \;-\; 7 \;-\; 2 \;-\; 9 \;-\; 4 \;-\; 3 \;-\; 8 \;-\; 1 , \]
+a closed walk through all eight squares. Therefore \(K-5\cong C_8\).</li>
+</ul>
+
+<p>(This is the classical "straightening" of the puzzle: the tangle of knight moves on the board is really just a
+circle. It is also an instance of Problem&nbsp;3 below: a connected \(2\)-regular graph must be a cycle.)</p>
+
+<figure>{{FIG:CYCLE8}}
+<figcaption>The eight usable squares, redrawn as the \(8\)-cycle \(1\,6\,7\,2\,9\,4\,3\,8\). The four corners
+(shaded) sit in <em>alternating</em> positions around the cycle.</figcaption></figure>
+
+<p>The crucial structural fact, plainly visible in the figure, is that the corners \(1,7,9,3\) occupy the four
+<em>alternate</em> vertices \(w_0,w_2,w_4,w_6\) of the cycle \(w_0w_1\dots w_7 = 1\,6\,7\,2\,9\,4\,3\,8\). In
+particular, when all four knights stand on corners, reading the cycle in its natural direction reads the corners in
+the cyclic order \(1,\,7,\,9,\,3\).</p>
+
+<h3>Step 3. The invariant: four beads on a closed string</h3>
+
+<div class="env thm"><span class="h">Claim</span><span class="body">
+Assign to each position the cyclic word obtained by listing the colours of the occupied vertices in the cyclic order
+of \(C_8\) (a cyclic word of length \(4\) in the letters \(\mathrm{W}, \mathrm{D}\), with two of each). This
+<em>colour pattern</em> is unchanged by every legal move.</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+Fix a position. Let the four knights, listed in the cyclic order in which they occur along \(C_8\), be
+\(k_1,k_2,k_3,k_4\), and for \(j=1,2,3,4\) let \(a_j\ge 1\) be the number of cycle&#8209;edges on the arc that leads
+from \(k_j\) forward to \(k_{j+1}\) (indices mod \(4\)). The four arcs tile the cycle, so
+\[ a_1+a_2+a_3+a_4 \;=\; 8, \qquad a_j\ \ge\ 1 \ \text{ for all } j. \]
+A legal move takes one knight, say \(k_j\), to one of its two neighbours on \(C_8\), and that neighbour must be
+<em>unoccupied</em>.
+<ul class="tight">
+<li>If \(k_j\) steps <em>forward</em> (towards \(k_{j+1}\)), the square it steps onto is unoccupied exactly when the
+arc in front of it has length \(a_j\ge 2\). After the move \(a_j\) becomes \(a_j-1\ \ge 1\) and \(a_{j-1}\) becomes
+\(a_{j-1}+1\).</li>
+<li>If \(k_j\) steps <em>backward</em>, symmetrically \(a_{j-1}\ge 2\) is required, and afterwards
+\(a_{j-1}\mapsto a_{j-1}-1\ge 1\), \(a_j\mapsto a_j+1\).</li>
+</ul>
+In both cases all four arc lengths remain \(\ge 1\). An arc length of \(0\) is precisely what it would mean for one
+knight to catch up with and overtake the next one; since this never happens, the cyclic sequence
+\(k_1,k_2,k_3,k_4\) &#8212; and hence the cyclic sequence of their colours &#8212; is literally the same list after
+the move as before. <span class="qed">&#9633;</span></div>
+
+<p>Informally: the knights are four beads threaded on a closed loop of string. A bead may slide one step at a time,
+but it can never jump over another bead, so the cyclic order of the beads is frozen for all time.</p>
+
+<h3>Step 4. The two patterns disagree</h3>
+<p>By Step&nbsp;2, whenever all four knights stand on corners the colour pattern is read off the corners in the
+cyclic order \(1,\,7,\,9,\,3\).</p>
+
+<p><strong>Starting position.</strong> \(\text{colour}(1)=\mathrm{W}\), \(\text{colour}(7)=\mathrm{D}\),
+\(\text{colour}(9)=\mathrm{W}\), \(\text{colour}(3)=\mathrm{D}\), giving the cyclic word</p>
+<p style="text-align:center">\(\mathrm{W\,D\,W\,D}\) &#8212; <em>the two whites are separated by a dark knight on
+both sides.</em></p>
+
+<p><strong>Any admissible target position.</strong> We need \(\text{colour}(1)\ne\text{colour}(9)\) and
+\(\text{colour}(3)\ne\text{colour}(7)\). As there are two knights of each colour this leaves exactly four
+possibilities, and all four give the same cyclic word:</p>
+
+{{TBL:P1TARGET}}
+
+<p style="text-align:center">In every case the target pattern is \(\mathrm{W\,W\,D\,D}\) &#8212; <em>the two whites
+are cyclically adjacent.</em></p>
+
+<p>The cyclic words \(\mathrm{WDWD}\) and \(\mathrm{WWDD}\) are different: in the first, each white knight has a
+dark knight on either side; in the second, the two whites are neighbours in the cyclic order. No rotation of
+\(\mathrm{WDWD}\) produces \(\mathrm{WWDD}\). By the Claim of Step&nbsp;3 the pattern never changes, so no sequence
+of legal moves can lead from the starting position to any admissible target position.</p>
+
+<figure>{{FIG:P1PAIR}}
+<figcaption>Left: the start, pattern \(\mathrm{W\,D\,W\,D}\). Right: a required final position, pattern
+\(\mathrm{W\,W\,D\,D}\). Small circles are empty squares. The two patterns are different cyclic words, and the
+pattern is invariant &#8212; hence the right&#8209;hand position is unreachable.</figcaption></figure>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>No, it is not possible.</strong> The eight squares a knight can ever use form a single \(8\)-cycle, on
+which the four knights behave like beads on a closed string: they can slide but never pass one another, so their
+cyclic order &#8212; and hence the cyclic pattern of their colours &#8212; is invariant. Starting from
+"identically coloured knights diametrically opposite" the pattern is \(\mathrm{WDWD}\), whereas every corner
+position with "diametrically opposite knights of different colours" has pattern \(\mathrm{WWDD}\).</p></div>
+
+<h3>Step 5. Exhaustive verification</h3>
+<p>A breadth&#8209;first search over all positions confirms the argument and shows that the invariant is
+<em>complete</em>, i.e. it is the only obstruction.</p>
+
+{{TBL:P1BFS}}
+
+<p>The two reachable corner positions are the initial one and the one obtained from it by sliding all four knights
+two steps around the cycle (a \(90^\circ\) rotation of the board); in both, identically coloured knights are
+diametrically opposite, exactly as predicted. Moreover the number of reachable positions, \(140\), equals precisely
+the number of placements whose colour pattern is \(\mathrm{WDWD}\) &#8212; every position with the correct pattern is
+reachable, and no other.</p>
+
+<div class="note"><span class="h">Remark (what <em>is</em> possible)</span>
+Only the cyclic <em>order</em> is frozen; rotations are free. This is why the classical <em>Guarini puzzle</em>
+(1512) &#8212; white knights on the two top corners \(1,3\), dark knights on the two bottom corners \(7,9\), the task
+being to interchange them &#8212; <em>is</em> solvable: reading the corners in the cyclic order \(1,7,9,3\), the start
+is \(\mathrm{W\,D\,D\,W}\) and the target is \(\mathrm{D\,W\,W\,D}\), and as cyclic words both equal
+\(\mathrm{WWDD}\). A shortest solution takes \(16\) moves. Guarini's puzzle and the present problem differ only in
+the initial arrangement, and that single difference decides solvability.</div>
+</section>

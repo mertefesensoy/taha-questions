@@ -1,0 +1,84 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 7</span><h2>Minimum degree \(n/2\) forces connectivity</h2>
+<span class="ptag">two proofs; sharpness</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Let \(G\) be a simple graph and assume that \(d(v)\ge \frac{n}{2}\) holds for all of its vertices. Prove that
+\(G\) is connected.</p></div>
+
+<p>Here \(n=|V(G)|\) is the number of vertices, so the hypothesis is \(\delta(G)\ge n/2\). We give two proofs. The
+first is the shortest; the second costs one extra line and yields the stronger conclusion
+\(\operatorname{diam}(G)\le2\) &#8212; any two vertices are joined by a path of length at most \(2\).</p>
+
+<div class="env thm"><span class="h">Theorem 7.1</span><span class="body">
+Let \(G\) be a simple graph on \(n\ge1\) vertices with \(d(v)\ge n/2\) for every \(v\in V(G)\). Then \(G\) is
+connected, and moreover \(\operatorname{diam}(G)\le 2\).</span></div>
+
+<h3>Proof 1 &#8212; via the size of a smallest component</h3>
+<div class="prf"><span class="h">Proof.</span>
+Suppose, for contradiction, that \(G\) is <em>not</em> connected. Then \(G\) has at least two components; let
+\(H_1\) and \(H_2\) be two distinct ones and let \(H\) be the smaller of the two, say with \(h=|V(H)|\) vertices.
+Distinct components are vertex&#8209;disjoint subsets of \(V(G)\), so
+\[ 2h \;\le\; |V(H_1)|+|V(H_2)| \;\le\; n , \qquad\text{i.e.}\qquad h \;\le\; \frac{n}{2}. \]
+Pick any vertex \(v\in V(H)\). By Lemma&nbsp;D all neighbours of \(v\) lie in \(H\), and \(v\) is not its own
+neighbour (\(G\) is simple, so there are no loops); hence
+\[ d(v) \;=\; d_H(v) \;\le\; |V(H)|-1 \;=\; h-1 \;\le\; \frac{n}{2}-1 \; \lt \; \frac{n}{2} . \]
+This contradicts the hypothesis \(d(v)\ge n/2\). Therefore \(G\) is connected. <span class="qed">&#9633;</span></div>
+
+<h3>Proof 2 &#8212; via a common neighbour</h3>
+<div class="prf"><span class="h">Proof.</span>
+Let \(u\ne v\) be any two vertices of \(G\); we exhibit a \(u\)&#8211;\(v\) path of length at most \(2\).
+<p style="margin-top:.5em"><em>Case 1: \(uv\in E(G)\).</em> Then \(uv\) is itself a \(u\)&#8211;\(v\) path of length
+\(1\).</p>
+<p><em>Case 2: \(uv\notin E(G)\).</em> We claim \(N(u)\cap N(v)\neq\emptyset\). First locate the two
+neighbourhoods. Since \(G\) is simple there are no loops, so \(u\notin N(u)\) and \(v\notin N(v)\); and since
+\(uv\notin E(G)\) we also have \(v\notin N(u)\) and \(u\notin N(v)\). Hence both \(N(u)\) and \(N(v)\) are contained
+in \(V(G)\setminus\{u,v\}\), and therefore
+\[ \bigl|N(u)\cup N(v)\bigr| \;\le\; n-2 . \]
+By inclusion&#8211;exclusion and the degree hypothesis,
+\[ \bigl|N(u)\cap N(v)\bigr| \;=\; |N(u)|+|N(v)| - \bigl|N(u)\cup N(v)\bigr|
+   \;\ge\; \frac{n}{2}+\frac{n}{2}-(n-2) \;=\; 2 \; \gt \; 0 . \]
+So there exists (in fact there exist at least two) \(w\in N(u)\cap N(v)\), and \(u\,w\,v\) is a \(u\)&#8211;\(v\)
+path of length \(2\) (it is a path because \(w\notin\{u,v\}\)).</p>
+<p>In both cases \(\operatorname{dist}(u,v)\le 2 \lt \infty\). As \(u,v\) were arbitrary, every pair of vertices is
+joined by a path, i.e. \(G\) is connected, and \(\operatorname{diam}(G)\le2\).</p><span class="qed">&#9633;</span></div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>\(G\) is connected.</strong> If it were not, its smallest component \(H\) would satisfy
+\(|V(H)|\le n/2\), and any vertex \(v\) of \(H\) would have all its neighbours inside \(H\), giving
+\(d(v)\le |V(H)|-1\le n/2-1 \lt n/2\) &#8212; contradicting the hypothesis. The second proof shows more: for
+non&#8209;adjacent \(u,v\) the sets \(N(u),N(v)\) both live in the \((n-2)\)-element set \(V\setminus\{u,v\}\) while
+\(|N(u)|+|N(v)|\ge n\), so they must meet; any common neighbour \(w\) gives a path \(u\,w\,v\). Hence in fact
+\(\operatorname{diam}(G)\le 2\).</p></div>
+
+<h3>The hypothesis is sharp</h3>
+
+<p>The constant \(n/2\) cannot be lowered. For even \(n\), let</p>
+\[ G_0 \;=\; K_{n/2} \ \dot\cup\ K_{n/2} \]
+<p>be the disjoint union of two complete graphs of \(n/2\) vertices each. Every vertex of \(G_0\) is adjacent to all
+the other \(n/2-1\) vertices of its own clique and to nothing else, so</p>
+\[ d(v) \;=\; \frac{n}{2}-1 \qquad \text{for every } v, \]
+<p>which is only \(1\) less than required &#8212; and \(G_0\) is disconnected. So the implication genuinely fails as
+soon as the bound is weakened by one.</p>
+
+<figure>{{FIG:P7SHARP}}
+<figcaption>\(K_4\ \dot\cup\ K_4\): with \(n=8\), every degree equals \(3=\frac{n}{2}-1\), yet the graph is
+disconnected. The threshold in Theorem&nbsp;7.1 is therefore best possible.</figcaption></figure>
+
+<div class="note"><span class="h">The exact threshold</span>
+Degrees are integers, so for <em>odd</em> \(n\) the hypothesis \(d(v)\ge n/2\) really says \(d(v)\ge\lceil n/2\rceil
+=\frac{n+1}{2}\), which is more than necessary. Repeating Proof&nbsp;1 for odd \(n\): a smallest component satisfies
+\(2h\le n\), hence \(h\le\frac{n-1}{2}\) and \(d(v)\le\frac{n-3}{2}\); so already
+\(\delta(G)\ge\frac{n-1}{2}=\lfloor n/2\rfloor\) forces connectivity. Combining the two parities, the sharp
+statement is:
+\[ \delta(G)\ \ge\ \Bigl\lfloor \tfrac{n}{2} \Bigr\rfloor \ \Longrightarrow\ G \text{ is connected,} \]
+and this is best possible for every \(n\): the graph \(K_{\lfloor n/2\rfloor}\ \dot\cup\ K_{\lceil n/2\rceil}\) has
+\(\delta=\lfloor n/2\rfloor-1\) and is disconnected.</div>
+
+<div class="note"><span class="h">Context: Dirac's theorem</span>
+Theorem&nbsp;7.1 is the easy shadow of a much deeper result with the same hypothesis. <em>Dirac's theorem</em> (1952)
+states that if \(n\ge3\) and \(\delta(G)\ge n/2\) then \(G\) is <em>Hamiltonian</em>: it contains a cycle through all
+\(n\) vertices. A Hamiltonian graph is obviously connected, so Dirac's theorem implies Problem&nbsp;7 &#8212; but
+"connected" is the part one can prove in three lines, as above. It is instructive that the same threshold \(n/2\) is
+sharp for both statements, and for the same reason: two disjoint cliques.</div>
+</section>

@@ -1,0 +1,188 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 6</span><h2>Which of the three drawings are isomorphic?</h2>
+<span class="ptag">circulant graphs; a counting invariant</span></div>
+
+<div class="statement"><span class="lab">Problem</span>
+<p>Determine which of the three graphs shown in the figure are isomorphic to each other.</p></div>
+
+<h3>Step 1. Reading the three drawings</h3>
+<p>Each of the three pictures shows \(9\) vertices drawn at the corners of a regular nonagon. Label the positions
+\(0,1,\dots,8\) clockwise, starting at the top vertex, and identify the label set with the cyclic group
+\(\mathbb{Z}_9=\{0,1,\dots,8\}\) of residues modulo \(9\). For two positions \(i,j\) call</p>
+\[ \operatorname{dist}(i,j) \;=\; \min\bigl(\,(j-i)\bmod 9,\ (i-j)\bmod 9\,\bigr) \ \in\ \{1,2,3,4\} \]
+<p>their <em>circular distance</em>; it is the number of steps between them around the nonagon, and it is exactly what
+determines how a chord looks in the drawing. Reading off each picture, every drawn edge joins two vertices at a fixed
+pair of circular distances, and each of the three graphs turns out to be a <strong>circulant graph</strong>: writing
+\[ C_9(s,t) \;=\; \bigl(\ \mathbb{Z}_9,\ \{\,ij : \operatorname{dist}(i,j)\in\{s,t\}\,\}\ \bigr), \]
+the three drawings are</p>
+
+{{TBL:P6ID}}
+
+<p>Indeed the first drawing consists of the nonagon itself (the \(9\) edges of distance \(1\)) together with the
+\(9\) "short" chords skipping one vertex (distance \(2\)); the second has the nonagon plus the \(9\) chords of
+distance \(3\), which form three large superimposed triangles; the third has the nonagon plus the \(9\) long chords
+of distance \(4\), which pass close to the centre and produce the star pattern.</p>
+
+<figure>{{FIG:P6THREE}}
+<figcaption>The three graphs redrawn with vertices labelled \(0,\dots,8\) clockwise from the top. Each is
+\(4\)-regular on \(9\) vertices with \(18\) edges.</figcaption></figure>
+
+<p>The complete edge lists, sorted by circular distance, are:</p>
+{{TBL:P6EDGES}}
+
+<h3>Step 2. The cheap invariants do not separate them</h3>
+<p>In each \(C_9(s,t)\) with \(s\neq t\) and \(s,t\in\{1,2,3,4\}\), every vertex \(i\) has exactly the four
+neighbours \(i\pm s,\ i\pm t\), which are pairwise distinct modulo \(9\). Hence all three graphs are \(4\)-regular
+with</p>
+\[ |V| = 9, \qquad |E| \;=\; \tfrac{1}{2}\sum_{v} d(v) \;=\; \tfrac{9\cdot 4}{2} \;=\; 18 . \]
+<p>All three are connected (each contains the spanning nonagon of distance-\(1\) edges) and each contains a triangle,
+so girth \(=3\) throughout. Every one of the usual first&#8209;line invariants therefore agrees, and we must look
+harder.</p>
+
+{{TBL:P6INV}}
+
+<h3>Step 3. \(G_1\cong G_3\): an explicit isomorphism</h3>
+
+<div class="env thm"><span class="h">Theorem 6.1</span><span class="body">
+The map \(\varphi:\mathbb{Z}_9\to\mathbb{Z}_9\), \(\varphi(i)=4i \bmod 9\), is an isomorphism
+\(G_1=C_9(1,2)\ \longrightarrow\ G_3=C_9(1,4)\).</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+<p><em>(i) \(\varphi\) is a bijection.</em> Since \(\gcd(4,9)=1\), the residue \(4\) is invertible modulo \(9\);
+concretely \(4\cdot 7=28=3\cdot 9+1\equiv 1 \pmod 9\), so \(\varphi^{-1}(j)=7j \bmod 9\). Explicitly:</p>
+{{TBL:P6MAP}}
+<p><em>(ii) \(\varphi\) maps edges to edges.</em> Let \(ij\in E(G_1)\), i.e. \(j-i\equiv \pm1\) or \(\pm2 \pmod 9\).
+Multiplying by \(4\),
+\[ \varphi(j)-\varphi(i) \;=\; 4(j-i) \;\equiv\;
+\begin{cases}
+\pm 4 \pmod 9, & \text{if } j-i\equiv\pm1,\\[2pt]
+\pm 8 \equiv \mp 1 \pmod 9, & \text{if } j-i\equiv\pm2,
+\end{cases} \]
+using \(8\equiv-1\). In both cases the difference is \(\pm1\) or \(\pm4\), i.e. the circular distance of
+\(\varphi(i)\) and \(\varphi(j)\) lies in \(\{1,4\}\), so \(\varphi(i)\varphi(j)\in E(G_3)\). Note also
+\(\varphi(i)\neq\varphi(j)\) by (i), so no edge degenerates.</p>
+<p><em>(iii) \(\varphi\) maps edges onto <strong>all</strong> edges.</em> By (i) and (ii) the induced map
+\(E(G_1)\to E(G_3)\), \(\{i,j\}\mapsto\{\varphi(i),\varphi(j)\}\), is injective; since
+\(|E(G_1)|=|E(G_3)|=18\) is finite, it is a bijection. (Alternatively, argue directly with
+\(\varphi^{-1}\): \(7\cdot(\pm1)=\pm7\equiv\mp2\) and \(7\cdot(\pm4)=\pm28\equiv\pm1\), so \(\varphi^{-1}\) carries
+distances \(\{1,4\}\) back to distances \(\{2,1\}\).)</p>
+<p>A bijection of vertex sets that maps the edge set onto the edge set is an isomorphism.</p>
+<span class="qed">&#9633;</span></div>
+
+<p>Because the problem asks for every step, here is the induced map on all \(18\) edges of \(G_1\), each verified to
+land on an edge of \(G_3\):</p>
+
+{{TBL:P6EDGEMAP}}
+
+<p>All \(18\) images are distinct edges of \(G_3\), and \(G_3\) has exactly \(18\) edges &#8212; so the edge sets
+correspond perfectly.</p>
+
+<figure>{{FIG:P6ISO}}
+<figcaption>The isomorphism made visible. Left: \(G_1=C_9(1,2)\) drawn with vertex \(i\) in position \(i\). Right:
+the <em>same graph</em> \(G_1\), with vertex \(i\) drawn in position \(\varphi(i)=4i\). The right&#8209;hand picture
+is the drawing of \(G_3=C_9(1,4)\) &#8212; only the labels have travelled.</figcaption></figure>
+
+<h3>Step 4. \(G_2\) is isomorphic to neither: counting triangles</h3>
+
+<p>The number of triangles (subgraphs isomorphic to \(K_3\)) is an isomorphism invariant: an isomorphism
+\(f:G\to G'\) maps any triangle \(\{x,y,z\}\) of \(G\) to a triangle \(\{f(x),f(y),f(z)\}\) of \(G'\), and \(f^{-1}\)
+maps triangles back, so the two collections of triangles are in bijection. We count the triangles of each
+\(C_9(s,t)\) by hand.</p>
+
+<p><strong>The method.</strong> Let \(S\subseteq \mathbb{Z}_9\setminus\{0\}\) be the <em>connection set</em>, i.e.
+\(i\sim j \iff j-i\in S\); note \(S=-S\). For \(C_9(1,2)\), \(C_9(1,3)\), \(C_9(1,4)\) these are, as residues,
+\[ S_1=\{1,2,7,8\}, \qquad S_2=\{1,3,6,8\}, \qquad S_3=\{1,4,5,8\} \]
+(recall \(-1\equiv8,\ -2\equiv7,\ -3\equiv6,\ -4\equiv5\)). A triangle is a set \(\{x,y,z\}\); writing
+\(a=y-x,\ b=z-y,\ c=x-z\) we must have
+\[ a,b,c\in S \qquad\text{and}\qquad a+b+c\equiv 0 \pmod 9 . \]
+Since \(a,b,c\in\{1,\dots,8\}\), the integer \(a+b+c\) lies between \(3\) and \(24\), so the congruence means
+\(a+b+c\in\{9,18\}\). So we must list the multisets \(\{a,b,c\}\) drawn from \(S\) whose sum is \(9\) or \(18\).</p>
+
+<p><strong>Sum 18 comes free.</strong> Because \(S=-S\), the map \(x\mapsto 9-x\) is a bijection of \(S\) onto
+itself, and it turns a solution \(\{a,b,c\}\) with \(a+b+c=9\) into the solution \(\{9-a,9-b,9-c\}\) with sum
+\(27-9=18\), and back again. So the sum-\(18\) solutions are exactly the negatives of the sum-\(9\) solutions, and they
+describe the same triangles traversed the other way round. It is therefore enough to solve \(a+b+c=9\).</p>
+
+<p><strong>Solving \(a+b+c=9\).</strong> Fix one element \(a\in S\); the other two must be elements of \(S\) summing
+to \(9-a\). So we first list, once and for all, which numbers arise as a sum of two elements of \(S\) (repetitions
+allowed):</p>
+
+{{TBL:P6PAIRS}}
+
+<p>Now run through \(a\in S\) in each case.</p>
+<ul>
+<li><strong>\(G_1\), \(S_1=\{1,2,7,8\}\).</strong> The required partner sums \(9-a\) are \(8,7,2,1\) for
+\(a=1,2,7,8\). Comparing with the achievable list \(\{2,3,4,8,9,10,14,15,16\}\): \(8\) is achievable (as \(1+7\)),
+\(7\) is not, \(2\) is achievable (as \(1+1\)), \(1\) is not. The two hits give the multisets \(\{1,1,7\}\) and
+\(\{7,1,1\}\) &#8212; the same multiset. So \(\{1,1,7\}\) is the only solution. It realises the triangles
+\(\{x,\,x+1,\,x+2\}\): the three differences are \(1\), \(1\) and \(x-(x+2)=-2\equiv 7\). As \(x\) runs through
+\(\mathbb{Z}_9\) these nine sets of three consecutive residues are pairwise distinct. <strong>9 triangles.</strong></li>
+
+<li><strong>\(G_2\), \(S_2=\{1,3,6,8\}\).</strong> The required partner sums are \(8,6,3,1\) for \(a=1,3,6,8\).
+The achievable list is \(\{2,4,6,7,9,11,12,14,16\}\): \(8\) no, \(6\) yes (as \(3+3\)), \(3\) no, \(1\) no. The single
+hit gives \(\{3,3,3\}\), realising the triangles \(\{x,\,x+3,\,x+6\}\). But here the nine values of \(x\) produce only
+<em>three</em> distinct sets, namely \(\{0,3,6\},\{1,4,7\},\{2,5,8\}\) &#8212; the cosets of the subgroup
+\(\{0,3,6\}\le\mathbb{Z}_9\), each of which is counted three times as \(x\) runs over it.
+<strong>3 triangles.</strong></li>
+
+<li><strong>\(G_3\), \(S_3=\{1,4,5,8\}\).</strong> The required partner sums are \(8,5,4,1\) for \(a=1,4,5,8\).
+The achievable list is \(\{2,5,6,8,9,10,12,13,16\}\): \(8\) yes (as \(4+4\)), \(5\) yes (as \(1+4\)), \(4\) no,
+\(1\) no. Both hits give the same multiset \(\{1,4,4\}\), realising the triangles \(\{x,\,x+1,\,x+5\}\): the
+differences are \(1\), \(4\) and \(x-(x+5)=-5\equiv 4\). These nine sets are pairwise distinct (they are not unions of
+cosets of any subgroup: \(\{0,1,5\},\{1,2,6\},\dots\) all differ). <strong>9 triangles.</strong></li>
+</ul>
+
+<p>The decisive difference is visible in the middle case: in \(G_2\) the connection distance \(3\) is a
+<em>zero&#8209;divisor</em> modulo \(9\) &#8212; the element \(3\) generates only the three&#8209;element subgroup
+\(\{0,3,6\}\) instead of all of \(\mathbb{Z}_9\) &#8212; so the nine "triangle translates" collapse onto just three
+sets. In \(G_1\) and \(G_3\) no such collapse occurs.</p>
+
+{{TBL:P6TRIS}}
+
+<figure>{{FIG:P6TRI}}
+<figcaption>Left: \(G_1\) contains the nine triangles \(\{x,x+1,x+2\}\) (three are highlighted). Right: all of
+\(G_2\)'s triangles &#8212; just the three cosets of \(\{0,3,6\}\). Nine versus three: the graphs cannot be
+isomorphic.</figcaption></figure>
+
+<div class="env cor"><span class="h">Corollary 6.2</span><span class="body">
+\(G_2\not\cong G_1\) and \(G_2\not\cong G_3\).</span></div>
+<div class="prf"><span class="h">Proof.</span>
+\(G_1\) and \(G_3\) contain \(9\) triangles each, while \(G_2\) contains only \(3\). Since the number of triangles is
+preserved by isomorphism and \(9\ne3\), neither \(G_1\) nor \(G_3\) can be isomorphic to \(G_2\).
+<span class="qed">&#9633;</span></div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>The first and the third graphs are isomorphic; the second is isomorphic to neither.</strong> Labelling the
+nine vertices \(0,\dots,8\) clockwise from the top, the drawings are the circulant graphs \(G_1=C_9(1,2)\),
+\(G_2=C_9(1,3)\) and \(G_3=C_9(1,4)\). An explicit isomorphism \(G_1\to G_3\) is multiplication by \(4\) modulo
+\(9\),
+\[ \varphi(i)=4i \bmod 9: \quad 0\mapsto0,\ 1\mapsto4,\ 2\mapsto8,\ 3\mapsto3,\ 4\mapsto7,\ 5\mapsto2,\ 6\mapsto6,\
+7\mapsto1,\ 8\mapsto5, \]
+which turns distances \(1\) into \(4\) and distances \(2\) into \(8\equiv-1\). And \(G_2\) is different from both
+because it contains only \(3\) triangles, whereas \(G_1\) and \(G_3\) contain \(9\).</p></div>
+
+<h3>Further remarks</h3>
+
+<div class="note"><span class="h">The general principle behind \(\varphi\)</span>
+For any \(n\) and any unit \(u\in\mathbb{Z}_n^{\times}\), the multiplication map \(x\mapsto ux\) is an isomorphism
+\(C_n(S)\to C_n(uS)\) &#8212; it is an automorphism of the group \(\mathbb{Z}_n\), so it turns differences into
+\(u\)&#8209;multiples of differences. Here \(n=9\), \(u=4\), and \(4\cdot\{1,2\}=\{4,8\}\), which as circular
+distances is \(\{4,1\}\). The units modulo \(9\) are \(\{1,2,4,5,7,8\}\), and applying each to \(\{1,3\}\) yields
+only \(\{1,3\},\{2,3\},\{3,4\}\): the distance \(3\) is never removed, because \(\gcd(3,9)=3\neq1\) means \(3\)
+generates the proper subgroup \(\{0,3,6\}\) &#8212; which is precisely the source of \(G_2\)'s three triangles. (Note
+that this observation alone only shows that no <em>multiplier</em> works; the triangle count in Step&nbsp;4 is what
+proves that no isomorphism whatsoever exists.)</div>
+
+<div class="note"><span class="h">A second separating invariant, and a curiosity</span>
+Triangles are not the only witness: counting \(4\)-cycles gives \(9,\,18,\,9\) for \(G_1,G_2,G_3\) respectively,
+separating \(G_2\) just as well. Finally, a pleasant coincidence: the complement of \(G_1\) is
+\(C_9(3,4)\), and multiplying by the unit \(2\) sends \(\{3,4\}\) to \(\{6,8\}=\{-3,-1\}\), i.e. to distances
+\(\{1,3\}\). So \(\overline{G_1}\cong C_9(1,3)=G_2\): the odd one out is exactly the complement of the other two
+(which is consistent with \(4\)-regularity, since \(9-1-4=4\)).</div>
+
+<div class="note"><span class="h">Exhaustive machine check</span>
+All \(9!=362\,880\) bijections \(V\to V\) were tested for each of the three pairs. The result confirms the
+conclusions above: \(G_1\cong G_3\) with exactly \(18\) distinct isomorphisms between them (so
+\(|\mathrm{Aut}(G_1)|=18\), the dihedral group of the nonagon, of order \(2\cdot9\)), and no isomorphism at all in
+the pairs \((G_1,G_2)\) and \((G_2,G_3)\). The map \(\varphi(i)=4i\) is among the \(18\).</div>
+</section>
