@@ -37,6 +37,22 @@ The computational claims in the document were checked exhaustively; the scripts 
 * `verify8.py` — max-flow realisation showing digraphs with the prescribed degrees exist for n ≥ 43
 * `verify_rest.py`, `verify_extra.py` — degree-sequence realisability, Guarini's puzzle, partition counts
 
+An independent audit suite re-checks every claim by different methods than those that produced it:
+
+* `audit.py` — exhaustive enumeration: both classification theorems of Problem 3 over all 33,867
+  graphs on ≤ 6 vertices; the parity results of Problems 4 and 5 per graph and per component; the
+  connectivity threshold of Problem 7 over all graphs on ≤ 7 vertices, confirming that the largest
+  minimum degree of a *disconnected* graph is exactly ⌊n/2⌋ − 1; and an exhaustive search over all
+  2²¹ graphs on 7 vertices confirming that no graph has degree sequence 1,1,2,2,3,4,4
+* `audit2.py` — Problem 1's invariant checked on every outgoing move of every reachable state (not
+  just reachability), and shown to be *complete*; Problem 6 settled by canonical form rather than by
+  trying all 9! permutations, with the triangle multisets enumerated independently of the hand argument
+* `audit_img.py` — re-reads the three drawings at a different ink threshold and sampling density,
+  measuring the vertex centres; reports the separation between edges and non-edges (every true edge
+  scores 1.000, the strongest non-edge 0.141, so the reading is unambiguous)
+
+Run them with `python3 src/verify/audit.py` etc. All checks pass.
+
 ## Rebuilding the PDF
 
 ```sh

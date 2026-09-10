@@ -79,11 +79,27 @@ connected \(2\)-regular graph, so by Theorem&nbsp;3.1 it is a cycle.</p>
 vertex of degree \(0\) would be a component by itself). Build a walk greedily:
 \[ z=x_0,\quad x_1:=\text{the unique neighbour of } x_0, \quad
    x_{i+1}:=\text{the neighbour of } x_i \text{ other than } x_{i-1} \ \ (i\ge1), \]
-continuing as long as \(x_i\) has a second neighbour, i.e. as long as \(d_H(x_i)=2\). The walk never revisits a
-vertex: if \(x_j=x_i\) were the first repetition with \(i \lt j\), then \(x_i\) would be incident with the three
-<em>distinct</em> edges \(x_{i-1}x_i,\ x_ix_{i+1},\ x_{j-1}x_j\) &#8212; distinct because \(x_{j-1}\ne x_{i-1}\) and
-\(x_{j-1}\ne x_{i+1}\) by the minimality of \(j\) &#8212; contradicting \(d_H(x_i)\le 2\). Hence the walk visits
-distinct vertices, and since \(H\) is finite it must stop, at a vertex \(x_k\) with \(d_H(x_k)=1\). So
+continuing as long as \(x_i\) has a second neighbour, i.e. as long as \(d_H(x_i)=2\).</p>
+
+<p><em>The walk never revisits a vertex.</em> Suppose it did, and let \(j\) be the <em>least</em> index with
+\(x_j\in\{x_0,\dots,x_{j-1}\}\), say \(x_j=x_i\) where \(i \lt j\). Note first that \(j\ge i+2\): the vertex
+\(x_{i+1}\) is a neighbour of \(x_i\) and \(H\) has no loops, so \(x_{i+1}\ne x_i\) and \(j\ne i+1\). Now the
+edge \(x_{j-1}x_j\) is incident with \(x_j=x_i\), so \(x_{j-1}\) is a neighbour of \(x_i\); we rule out every
+possibility for it.</p>
+<ul>
+<li><strong>\(i=0\).</strong> Here \(d_H(x_0)=1\) and the only neighbour of \(x_0\) is \(x_1\), so
+\(x_{j-1}=x_1\). If \(j=2\) this reads \(x_2=x_0\), contradicting the choice of \(x_2\) as the neighbour of
+\(x_1\) <em>other than</em> \(x_0\). If \(j\gt 2\) then \(x_{j-1}=x_1\) is itself a repetition, at the index
+\(j-1\lt j\), contradicting the minimality of \(j\).</li>
+<li><strong>\(i\ge 1\).</strong> The walk reached \(x_{i+1}\), so \(d_H(x_i)=2\) and \(x_i\) has exactly the two
+neighbours \(x_{i-1}\) and \(x_{i+1}\); hence \(x_{j-1}\) is one of them. If \(x_{j-1}=x_{i+1}\), then either
+\(j-1=i+1\), which reads \(x_{i+2}=x_i\) and contradicts the choice of \(x_{i+2}\) as the neighbour of
+\(x_{i+1}\) other than \(x_i\); or \(j-1\gt i+1\), and then \(x_{j-1}=x_{i+1}\) is a repetition at the index
+\(j-1\lt j\). If instead \(x_{j-1}=x_{i-1}\), then since \(j-1\ge i+1\gt i-1\) this is again a repetition at the
+index \(j-1\lt j\).</li>
+</ul>
+<p>Every case contradicts either the construction of the walk or the minimality of \(j\), so no vertex repeats.
+Since \(H\) is finite the walk must therefore stop, and it stops at a vertex \(x_k\) with \(d_H(x_k)=1\). So
 \(P:=x_0x_1\dots x_k\) is a path in \(H\).</p>
 <p>Finally \(H=P\). Every vertex of \(P\) has all of its \(H\)-neighbours on \(P\): the interior vertices
 \(x_1,\dots,x_{k-1}\) have degree \(2\) with both neighbours \(x_{i-1},x_{i+1}\) on \(P\), and the two ends
