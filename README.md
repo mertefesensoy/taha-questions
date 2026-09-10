@@ -1,72 +1,101 @@
 # taha-questions
 
-Worked solutions to an eight-problem introductory graph theory set.
+Worked solutions to the FCS Practice Session 1 graph theory sheet — all 26 problems, plus the
+starred bonus problem.
 
-**Deliverable: [`graph-theory-solutions.pdf`](graph-theory-solutions.pdf)** — 19 pages, with full
-proofs, constructions, diagrams and data tables.
+| Deliverable | Covers | Pages |
+|---|---|---|
+| **[`graph-theory-solutions.pdf`](graph-theory-solutions.pdf)** | Problems 1–8 | 19 |
+| **[`graph-theory-solutions-2.pdf`](graph-theory-solutions-2.pdf)** | Problems 9–26 and the starred problem | 27 |
 
-Every problem is solved by graph-theoretic means. Two of them are not posed in the language of graphs
-at all — Problem 1 is a chess puzzle, Problem 8 a counting riddle about a network — and in each the
-first step is a reduction: replace the object by a graph whose structure answers the question. The
-appendix records, problem by problem, which graph-theoretic objects each solution works with and
-which results are applied to them.
+Both are self-contained: full proofs, explicit constructions, diagrams, and data tables. Every
+problem is solved by graph-theoretic means; where a problem is not posed in the language of graphs
+— a chess puzzle, a pencil-and-paper game, a table of numbers, a party, a tiled rectangle — the
+first step is a reduction, replacing the object by a graph whose structure answers the question.
 
-## The problems and their answers
+The original sheet is kept here as [`practice-session-1.pdf`](practice-session-1.pdf), and the photo
+of problems 1–8 as [`problem-set.jpg`](problem-set.jpg).
+
+## Answers
+
+### Volume 1 — problems 1–8
 
 | # | Problem | Answer |
 |---|---------|--------|
-| 1 | Knights on a 3×3 board: can the diametrically opposite ones end up differently coloured? | **No** — the eight usable squares form one 8-cycle, and the knights' cyclic order is invariant |
-| 2 | Are 1,2,2,3,3,3 and 1,1,2,2,3,4,4 degree sequences of simple graphs? | **(a) yes** (graph constructed); **(b) no** — the entries sum to 17, which is odd |
-| 3 | Determine the 2-regular graphs, and those with Δ(G) ≤ 2 | disjoint unions of **cycles**; disjoint unions of **paths and cycles** |
-| 4 | The number of odd-degree vertices of a finite graph is even; not so for infinite graphs | handshake lemma; the **ray** has exactly one odd-degree vertex |
-| 5 | An odd-degree vertex u is joined by a path to another odd-degree vertex | apply the parity count to u's **component** |
-| 6 | Which of the three drawings are isomorphic? | **1st ≅ 3rd** via φ(i) = 4i mod 9; the **2nd is neither** (3 triangles vs 9) |
-| 7 | d(v) ≥ n/2 for all v implies G is connected | proved twice; in fact **diam(G) ≤ 2**, and the bound is sharp |
-| 8 | Directed graph degree count: the third exceptional indegree | **42** |
+| 1 | Knights on a 3×3 board | **No** — the usable squares form one 8-cycle, and the knights' cyclic order is invariant |
+| 2 | Degree sequences 1,2,2,3,3,3 and 1,1,2,2,3,4,4 | **(a) yes**; **(b) no** — the entries sum to 17, which is odd |
+| 3 | 2-regular graphs; Δ(G) ≤ 2 | disjoint unions of **cycles**; of **paths and cycles** |
+| 4 | Odd-degree vertices | even in number; the **ray** is an infinite counterexample |
+| 5 | An odd vertex reaches another | apply the parity count to u's **component** |
+| 6 | Which of three drawings are isomorphic | **1st ≅ 3rd** via φ(i)=4i mod 9; the **2nd is neither** (3 triangles vs 9) |
+| 7 | d(v) ≥ n/2 ⟹ connected | proved twice; in fact **diam ≤ 2**, and the bound is sharp |
+| 8 | Directed degree count | **42** |
+
+### Volume 2 — problems 9–26 and ★
+
+| # | Problem | Answer |
+|---|---------|--------|
+| 9 | All degrees distinct | only **K₁** |
+| 10 | Degree sequence 2,2,2,4,5,5 | no **simple** graph realises it |
+| 11 | 11 vertices, 45 edges | some degree **≥ 9** (and 9 is attained) |
+| 12 | Cycle-avoiding game | **first player wins ⟺ n is even** |
+| 13 | 100 vertices, one of degree 66 | **connected** (67 + 34 > 100) |
+| 14 | 10 deletions, 33 additions | **42 edges** |
+| 15 | 5-vertex graphs with m = 2 / 8 / 3 | **2 / 2 / 4** graphs, all listed |
+| 16 | Self-complementary graphs | **yes** for n = 5 (C₅ and the bull); **no** for n = 6 |
+| 17 | Connectivity and cycles | m ≥ n−1; and m = n forces a cycle |
+| 18 | Add one edge, delete two | **impossible** (needs ≥ 41 steps, affords ≤ 24) |
+| 19 | Delete one edge, add two | **impossible** (needs ≥ 31 steps, affords ≤ 10) |
+| 20 | 2k vertices, δ ≥ k−1, one of degree k | **connected** |
+| ★ | 123 edges, three connected colour classes | at most **42 vertices**, and 42 is attained |
+| 21 | Acyclic orientation | order the vertices, orient each edge upward |
+| 22 | Three edges, three cuts | **G−e−f is disconnected** (the printed conclusion is a typo) |
+| 23 | Deleting a column keeps rows distinct | always possible |
+| 24 | Colouring K₄ in three colours | **yes** — three matchings, or three paths |
+| 25 | Thirteen people | true, and **13 is sharp** (12 fails) |
+| 26 | Tiling a rectangle | T has an integer side |
 
 ## Verification
 
-The computational claims in the document were checked exhaustively; the scripts are in
-[`src/verify/`](src/verify):
+Every computational claim was checked exhaustively, and then audited a second time by a *different*
+method. The scripts live in [`src/verify/`](src/verify) and all pass.
 
-* `verify1.py` — breadth-first search over every position of the knights puzzle (140 reachable,
-  2 of them with all knights on corners, none of the required kind)
-* `detect2.py` — recovers the edge sets of the three drawings from the problem image by sampling
-  pixels along every candidate chord
-* `verify6.py` — brute force over all 9! = 362,880 vertex bijections, plus triangle and 4-cycle counts
-* `verify8.py` — max-flow realisation showing digraphs with the prescribed degrees exist for n ≥ 43
+**Volume 1**
+
+* `verify1.py` — breadth-first search over every position of the knights puzzle
+* `detect2.py` — recovers the three edge sets of problem 6 from `problem-set.jpg` by pixel sampling
+* `verify6.py` — brute force over all 9! = 362,880 vertex bijections; triangle and 4-cycle counts
+* `verify8.py` — max-flow realisation showing the digraph of problem 8 exists for every n ≥ 43
 * `verify_rest.py`, `verify_extra.py` — degree-sequence realisability, Guarini's puzzle, partition counts
+* `audit.py`, `audit2.py`, `audit_img.py` — the independent audit (see below)
 
-An independent audit suite re-checks every claim by different methods than those that produced it:
+**Volume 2**
 
-* `audit.py` — exhaustive enumeration: both classification theorems of Problem 3 over all 33,867
-  graphs on ≤ 6 vertices; the parity results of Problems 4 and 5 per graph and per component; the
-  connectivity threshold of Problem 7 over all graphs on ≤ 7 vertices, confirming that the largest
-  minimum degree of a *disconnected* graph is exactly ⌊n/2⌋ − 1; and an exhaustive search over all
-  2²¹ graphs on 7 vertices confirming that no graph has degree sequence 1,1,2,2,3,4,4
-* `audit2.py` — Problem 1's invariant checked on every outgoing move of every reachable state (not
-  just reachability), and shown to be *complete*; Problem 6 settled by canonical form rather than by
-  trying all 9! permutations, with the triangle multisets enumerated independently of the hand argument
-* `audit_img.py` — re-reads the three drawings at a different ink threshold and sampling density,
-  measuring the vertex centres; reports the separation between edges and non-edges (every true edge
-  scores 1.000, the strongest non-edge 0.141, so the reading is unambiguous)
+* `new_A.py` — problems 9, 10, 15, 16, 17, 24 by exhaustive enumeration up to isomorphism
+* `new_B.py` — problems 12, 20, 22, 23, 25; includes the complete game tree for problem 12 and all
+  35,898 instances of problem 22's hypothesis
+* `new_C.py` — problems 11, 13, 14, 18, 19, 21 and the starred problem
+* `new_D.py` — problem 26 on randomly generated tilings, and problem 24's second solution
+* `audit_new.py` — the independent audit: Erdős–Gallai instead of Havel–Hakimi for problems 9 and 10,
+  the "safe move" lemma instead of the game tree for problem 12, the complement bijection for
+  problem 15, and the full 21-path Hamiltonian decomposition of K₄₂ for the starred problem
 
-Run them with `python3 src/verify/audit.py` etc. All checks pass. The image-reading scripts
-read `problem-set.jpg` (the original photo of the problem set, committed at the repo root), so the
-verification is reproducible from a clean clone.
+Audits found and fixed two real defects, both recorded in the git history: an incomplete case
+analysis in the proof of Theorem 3.2 (volume 1) and a hand-waved edge-disjointness claim in the
+starred problem (volume 2).
 
-The PDF committed here is exactly what `src/build.sh` produces from the committed source: rebuilding
-from a clean checkout yields a file whose 19 pages are byte-identical in both content stream and text
-layer, differing only in the creation timestamp that Chromium embeds.
-
-## Rebuilding the PDF
+## Rebuilding the PDFs
 
 ```sh
 cd src
 npm install mathjax@3 puppeteer-core
-./build.sh
+./build.sh     # volume 1
+./build2.sh    # volume 2
 ```
 
-The document is authored as HTML fragments (`part0.html` … `part8.html`) with math typeset by
-MathJax; figures and tables are generated by `figs.py` and `tables.py`, inlined by `assemble.py`,
-and printed to PDF by headless Chromium via `render.js`.
+Each document is authored as HTML fragments (`part0…part9.html` and `q0…q7.html`) with math typeset
+by MathJax; figures and tables are generated by `figs*.py` and `tables*.py`, inlined by
+`assemble*.py`, and printed to PDF by headless Chromium via `render*.js`. The committed PDFs are
+exactly what these scripts produce: rebuilding volume 1 from a clean checkout yields a file whose
+pages are byte-identical in both content stream and text layer, differing only in the creation
+timestamp Chromium embeds.

@@ -1,0 +1,193 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 24</span><h2>Colouring \(K_4\) in three colours</h2>
+<span class="ptag">a decomposition</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Is it possible to colour the edges of the complete graph \(K_4\) using colours red, white and green in such a way
+that, however two of the colours are chosen of the three, the two graphs formed by the edges of these two colours,
+respectively, are isomorphic to each other?</p></div>
+
+<p>The condition says that the three colour classes are pairwise isomorphic as spanning subgraphs of \(K_4\).</p>
+
+<div class="env thm"><span class="h">Theorem 24.1</span><span class="body">
+Such a colouring exists. Moreover every solution splits the six edges as \(2+2+2\), and there are exactly two
+possibilities for the common shape of a colour class.</span></div>
+
+<div class="prf"><span class="h">Why \(2+2+2\).</span>
+Isomorphic graphs have the same number of edges, so the three classes have equal size; as they partition the
+\(\binom42 = 6\) edges of \(K_4\), each has \(6/3 = 2\) edges. A graph on four vertices with two edges is either two
+adjacent edges (a path \(P_3\) plus an isolated vertex) or two disjoint edges (a perfect matching \(2K_2\)); these
+two are not isomorphic, having degree sequences \(2,1,1,0\) and \(1,1,1,1\). So all three classes are of the same one
+of these two shapes. <span class="qed">&#9633;</span></div>
+
+<div class="prf"><span class="h">Two constructions.</span>
+Take \(V(K_4)=\{0,1,2,3\}\).
+<p style="margin-top:.5em"><em>Perfect matchings.</em> Colour
+\[ \{01,\,23\}\ \text{red},\qquad \{02,\,13\}\ \text{white},\qquad \{03,\,12\}\ \text{green}. \]
+These are the three perfect matchings of \(K_4\); they are disjoint and together use all six edges. Each class is a
+\(2K_2\), so any two of them are isomorphic. (This is the proper 3-edge-colouring of the 3-regular graph
+\(K_4\).)</p>
+<p><em>Paths.</em> Colour
+\[ \{01,\,12\}\ \text{red},\qquad \{02,\,23\}\ \text{white},\qquad \{03,\,13\}\ \text{green}. \]
+The six listed edges are again all of \(K_4\), and each class consists of two edges sharing a vertex (at \(1\), at
+\(2\), at \(3\) respectively), so each class is a \(P_3\) plus an isolated vertex, and any two are isomorphic.</p>
+<span class="qed">&#9633;</span></div>
+
+<figure>{{FIG2:P24}}
+<figcaption>The two kinds of solution. Left: the three perfect matchings. Right: three paths, centred at the
+vertices \(1\), \(2\) and \(3\).</figcaption></figure>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>Yes.</strong> The cleanest example is to give each of the three perfect matchings of \(K_4\) its own
+colour: \(\{01,23\}\), \(\{02,13\}\), \(\{03,12\}\). Every colour class is then a pair of disjoint edges, so any two
+classes are isomorphic. A second, genuinely different solution colours three paths instead:
+\(\{01,12\}\), \(\{02,23\}\), \(\{03,13\}\).</p></div>
+
+<div class="note"><span class="h">How many such colourings are there?</span>
+Exhaustive search over all \(3^6 = 729\) colourings finds \(54\) that work. They fall into \(9\) unordered
+partitions, each of which can be assigned colours in \(3! = 6\) ways: <em>one</em> partition into perfect matchings,
+and <em>eight</em> into paths. So the path-type solution is in fact the common one; the matching-type solution is
+unique.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 25</span><h2>Thirteen people</h2>
+<span class="ptag">a Ramsey-type count</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Prove that among any 13 people there exists one who knows at least 6 others, or there exist 3 people who are
+pairwise unknown to each other. (Acquaintance is symmetric.)</p></div>
+
+<p>Model the party as a simple graph \(G\) on \(13\) vertices, joining two people when they know each other. The two
+alternatives read \(\Delta(G)\ge6\) and "\(G\) has three pairwise non-adjacent vertices".</p>
+
+<div class="env thm"><span class="h">Theorem 25.1</span><span class="body">
+Every simple graph on \(13\) vertices satisfies \(\Delta(G)\ge6\) or contains three pairwise non-adjacent
+vertices.</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+Pick any vertex \(v\) and suppose \(\Delta(G)\le5\), so in particular \(d(v)\le5\). Let
+\[ S \;=\; V(G)\setminus\bigl(\{v\}\cup N(v)\bigr) \]
+be the set of people other than \(v\) whom \(v\) does <em>not</em> know. Since \(|N(v)| = d(v) \le 5\),
+\[ |S| \;\ge\; 13-1-5 \;=\; 7 . \]
+<p style="margin-top:.5em"><em>Case 1: two vertices of \(S\) are non-adjacent</em>, say \(x,y\in S\) with
+\(xy\notin E(G)\). Neither \(x\) nor \(y\) is adjacent to \(v\), by the definition of \(S\). So \(v,x,y\) are three
+pairwise non-adjacent vertices &#8212; three mutual strangers.</p>
+<p><em>Case 2: the vertices of \(S\) are pairwise adjacent.</em> Then \(S\) induces a complete graph on
+\(|S|\ge7\) vertices, so each \(x\in S\) is adjacent to the other \(|S|-1\ge6\) members of \(S\), giving
+\(d(x)\ge6\) and hence \(\Delta(G)\ge6\), contrary to our supposition. So this case cannot occur under
+\(\Delta(G)\le 5\), and Case&nbsp;1 applies.</p>
+<p>Either way, one of the two alternatives holds. <span class="qed">&#9633;</span></div>
+
+<h3>A second proof, in the complement</h3>
+<p>Suppose \(\Delta(G)\le5\) and \(G\) has no three pairwise non-adjacent vertices. Pass to \(\overline{G}\) on the
+same \(13\) vertices. "No three pairwise non-adjacent vertices in \(G\)" says \(\overline{G}\) has no triangle, and
+\(\Delta(G)\le5\) gives \(\delta(\overline{G}) \ge 12-5 = 7\). But in a triangle-free graph adjacent vertices have
+no common neighbour, so for any edge \(uv\) of \(\overline{G}\) the sets \(N(u)\) and \(N(v)\) are disjoint subsets of
+the \(13\) vertices:</p>
+\[ 14 \;\le\; d_{\overline{G}}(u)+d_{\overline{G}}(v) \;=\; |N(u)\cup N(v)| \;\le\; 13 , \]
+<p>a contradiction. (There is an edge to apply this to, since \(\delta(\overline{G})\ge7\gt0\).)</p>
+
+<div class="answer"><span class="lab">Answer</span>
+<p>Suppose nobody knows six others. Take any person \(v\): they know at most \(5\), so at least
+\(13-1-5=7\) people are strangers to \(v\). If two of those seven are strangers to each other, they and \(v\) are
+<strong>three mutual strangers</strong>. Otherwise those seven all know one another, and then each of them knows at
+least \(6\) people &#8212; <strong>somebody knows at least six</strong>. Either way the claim holds.</p></div>
+
+<div class="note"><span class="h">Thirteen is sharp</span>
+With twelve people the statement fails. Split them into two groups of six and let acquaintance mean "same group":
+each person then knows exactly \(5\) others, and any three people include two from the same group, who know each
+other. In graph terms \(G = K_6\,\dot\cup\,K_6\) is \(5\)-regular on \(12\) vertices with no three pairwise
+non-adjacent vertices. So the count \(13-1-5=7\) is exactly what makes the argument run.</div>
+
+<figure>{{FIG2:P25}}
+<figcaption>The twelve-person counterexample: two disjoint \(K_6\)'s. Everyone knows exactly five others, and no
+three people are pairwise strangers.</figcaption></figure>
+
+<div class="note"><span class="h">Machine check</span>
+The triangle-free inequality \(d(u)+d(v)\le n\) was verified over all graphs on at most seven vertices; the
+\(12\)-vertex example was checked to be \(5\)-regular with no independent set of size \(3\); and \(200\,000\)
+random graphs on \(13\) vertices with maximum degree \(\le5\) were searched &#8212; every one contains three pairwise
+non-adjacent vertices.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 26</span><h2>Tiling a rectangle by integer-sided rectangles</h2>
+<span class="ptag">double counting corners</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Show that if a rectangle \(T\) is tiled by rectangles so that each tile has at least one side of integer length,
+then \(T\) also has a side of integer length.</p></div>
+
+<p>Place \(T\) with its lower-left corner at the origin, so \(T = [0,w]\times[0,h]\), and call a point of the plane
+<em>integral</em> if both of its coordinates are integers. Everything follows from counting, in two ways, the pairs
+(tile, integral corner of that tile) &#8212; the same double count that proves the handshake lemma.</p>
+
+<div class="env lem"><span class="h">Lemma 26.1</span><span class="body">
+A rectangle with a side of integer length has an even number of integral corners.</span></div>
+<div class="prf"><span class="h">Proof.</span>
+Let \(R = [a,b]\times[c,d]\) and suppose its width \(b-a\) is an integer (the case of integer height is identical
+with the roles of the axes exchanged). Then \(a\in\mathbb{Z} \iff b\in\mathbb{Z}\). The four corners are
+\((a,c),(b,c),(a,d),(b,d)\), and
+\[ (a,c) \text{ integral} \iff a,c\in\mathbb{Z} \iff b,c\in\mathbb{Z} \iff (b,c) \text{ integral}, \]
+so the bottom two corners are integral together or not at all; likewise the top two. The count is thus \(0\), \(2\)
+or \(4\). <span class="qed">&#9633;</span></div>
+
+<div class="env lem"><span class="h">Lemma 26.2</span><span class="body">
+For a point \(p\) let \(t(p)\) be the number of tiles having \(p\) as a corner. Then \(t(p)=1\) if \(p\) is a corner
+of \(T\), and \(t(p)\) is even for every other point \(p\).</span></div>
+<div class="prf"><span class="h">Proof.</span>
+Take \(\delta\gt0\) so small that the only tile boundaries meeting the \(\delta\)-disc around \(p\) are those through
+\(p\) itself; then each of the four small quadrants at \(p\) that lies inside \(T\) is covered by a single tile. A
+tile \(A\) covering, say, the north-east quadrant has \(p\) as a corner exactly when it does not extend west or
+south of \(p\) &#8212; that is, exactly when \(A\) differs from the tiles covering the north-west and the south-east
+quadrants.
+<ul class="tight">
+<li><em>\(p\) interior to \(T\):</em> all four quadrants are present. If one tile covers all four, \(t(p)=0\). If two
+tiles split the disc along a line through \(p\), each contains \(p\) in the interior of a side and \(t(p)=0\). At a
+T-junction three tiles meet and exactly the two on the stem side have a corner at \(p\), so \(t(p)=2\). If four
+distinct tiles meet, each has a corner at \(p\) and \(t(p)=4\). (Three quadrants cannot share one tile: an
+axis-parallel rectangle containing points of the north-east and south-west quadrants contains the whole box between
+them, hence all four.) In every case \(t(p)\) is even.</li>
+<li><em>\(p\) on a side of \(T\) but not a corner:</em> only two quadrants lie inside \(T\), covered by tiles \(A\)
+and \(B\). If \(A=B\) then \(p\) is interior to a side of it and \(t(p)=0\); if \(A\ne B\) then both have a corner at
+\(p\) and \(t(p)=2\).</li>
+<li><em>\(p\) a corner of \(T\):</em> one quadrant, one tile, and its corner is \(p\). So \(t(p)=1\).</li>
+</ul><span class="qed">&#9633;</span></div>
+
+<figure>{{FIG2:P26L}}
+<figcaption>The local pictures at an interior point. The number of tiles with a corner at \(p\) is \(0\), \(2\) or
+\(4\) &#8212; never odd.</figcaption></figure>
+
+<div class="env thm"><span class="h">Theorem 26.3</span><span class="body">
+If every tile has a side of integer length, then \(T\) has a side of integer length.</span></div>
+<div class="prf"><span class="h">Proof.</span>
+Count the pairs \((R,p)\) where \(R\) is a tile and \(p\) an integral corner of \(R\); call the total \(N\).
+<p style="margin-top:.5em"><em>By tiles.</em> Every tile has an integer side, so by Lemma&nbsp;26.1 contributes an
+even number. Hence \(N\) is even.</p>
+<p><em>By points.</em> Grouping instead by the integral point \(p\),
+\[ N \;=\; \sum_{p \text{ integral}} t(p) . \]
+By Lemma&nbsp;26.2 every term is even except those coming from integral corners of \(T\), each of which contributes
+exactly \(1\). Therefore
+\[ N \;\equiv\; \#\{\text{integral corners of } T\} \pmod 2 . \]</p>
+<p>Since \(N\) is even, \(T\) has an <em>even</em> number of integral corners. But suppose neither \(w\) nor \(h\)
+were an integer. The corners of \(T\) are \((0,0),(w,0),(0,h),(w,h)\); the first is integral, while
+\((w,0)\) and \((w,h)\) fail because \(w\notin\mathbb{Z}\) and \((0,h)\) fails because \(h\notin\mathbb{Z}\). That is
+exactly <em>one</em> integral corner &#8212; an odd number, a contradiction.</p>
+<p>Hence \(w\in\mathbb{Z}\) or \(h\in\mathbb{Z}\). <span class="qed">&#9633;</span></div>
+
+<figure>{{FIG2:P26F}}
+<figcaption>If \(T\) had no integer side, only the origin among its four corners would be integral &#8212; and the
+double count forbids an odd number.</figcaption></figure>
+
+<div class="answer"><span class="lab">Answer</span>
+<p>Put \(T=[0,w]\times[0,h]\) and call a point integral when both coordinates are integers. Count the pairs (tile,
+integral corner of it) two ways. <strong>By tiles:</strong> a rectangle with an integer side has \(0\), \(2\) or
+\(4\) integral corners, so the total is even. <strong>By points:</strong> the number of tiles with a corner at a
+given point is even everywhere except at the four corners of \(T\), where it is \(1\). So \(T\) must have an even
+number of integral corners &#8212; whereas a rectangle with neither side an integer has exactly one, namely the
+origin. <strong>Hence \(w\) or \(h\) is an integer.</strong></p></div>
+
+<div class="note"><span class="h">Machine check</span>
+Randomly generated tilings whose every tile has an integer side &#8212; \(2\,220\) of them, with up to \(33\) tiles
+&#8212; were tested: every tile had an even number of integral corners, every container had an integer side, and
+across \(5\,737\) corner points the count \(t(p)\) was \(1\) at each corner of the container and even everywhere
+else, exactly as Lemma&nbsp;26.2 asserts.</div>
+</section>

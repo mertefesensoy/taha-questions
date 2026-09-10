@@ -1,0 +1,182 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 18</span><h2>Add one edge, delete two</h2>
+<span class="ptag">two competing budgets</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Is it possible to obtain a connected graph from a graph of 88 vertices, 42 components and 111 edges by a sequence
+of steps, where one step consists of adding one edge and deleting two edges at the same time? (An edge deleted
+earlier can be added later.)</p></div>
+
+<p>Two quantities are worth watching: the number of edges, which the step controls exactly, and the number of
+components, which it can only move slowly. They pull in opposite directions.</p>
+
+<div class="env thm"><span class="h">Theorem 18.1</span><span class="body">
+No such sequence of steps reaches a connected graph.</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+Write \(n=88\), and let \(m_k\) and \(c_k\) be the number of edges and of components after \(k\) steps, so
+\(m_0=111\) and \(c_0=42\).
+<p style="margin-top:.5em"><em>The edge budget.</em> Each step adds one edge and deletes two, so \(m_k = 111-k\).
+By Theorem&nbsp;17.1 a connected graph on \(88\) vertices needs at least \(87\) edges. So if the graph is connected
+after \(k\) steps then
+\[ 111-k \;\ge\; 87 \qquad\Longrightarrow\qquad k \;\le\; 24 . \]</p>
+<p><em>The component budget.</em> Within one step, adding an edge lowers the number of components by at most one
+(Lemma&nbsp;C), while deleting edges can only raise it or leave it unchanged &#8212; deleting an edge never merges
+two components. Hence \(c_k \ge c_{k-1}-1\) for every \(k\), regardless of the order in which the three edges are
+processed, and therefore
+\[ c_k \;\ge\; 42-k . \]
+Being connected means \(c_k=1\), which forces \(1\ge 42-k\), i.e. \(k\ge 41\).</p>
+<p>The two requirements are incompatible: \(41 \le k \le 24\) is empty. So no sequence of steps produces a connected
+graph. <span class="qed">&#9633;</span></div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>No, it is impossible.</strong> Each step costs one edge net, so after \(k\) steps there are \(111-k\)
+edges; connectivity on \(88\) vertices needs \(87\) of them, giving \(k\le24\). But each step can lower the number of
+components by at most one, so getting from \(42\) components down to \(1\) needs \(k\ge41\). Since \(41\gt24\), the
+target is unreachable.</p></div>
+
+<div class="note"><span class="h">How close is it?</span>
+Not close. Even spending the entire edge budget &#8212; \(24\) steps, ending at exactly \(87\) edges, the bare
+minimum for a spanning tree &#8212; removes at most \(24\) of the \(41\) components that must go. The obstruction is
+not a parity accident but a shortfall of \(17\) steps.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 19</span><h2>Delete one edge, add two</h2>
+<span class="ptag">the cycle rank as a monovariant</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Is it possible to obtain a cycle-free simple graph from a 77-vertex simple graph of 66 edges and 42 components by
+applying a sequence of steps where a step consists of deletion of one edge and addition of two edges? (An edge
+deleted earlier is possible to be added back later.)</p></div>
+
+<p>Now the edge count moves the other way, and the right quantity to track is the one that measures "how far from
+cycle-free" the graph is.</p>
+
+<div class="env defn"><span class="h">Definition</span><span class="body">
+The <em>cycle rank</em> of a graph is \(\rho(G) = m-n+c\), where \(m\), \(n\), \(c\) are its numbers of edges,
+vertices and components. By Theorem&nbsp;17.1 we have \(\rho(G)\ge0\), and by Lemma&nbsp;D, \(\rho(G)=0\) exactly
+when \(G\) is cycle-free.</span></div>
+
+<div class="env lem"><span class="h">Lemma 19.1</span><span class="body">
+Deleting one edge lowers \(\rho\) by at most \(1\); adding one edge never lowers \(\rho\) at all.</span></div>
+<div class="prf"><span class="h">Proof.</span>
+Delete an edge \(e\): then \(m\) drops by \(1\), and \(c\) either stays (if \(e\) lay on a cycle) or rises by \(1\)
+(if \(e\) was a bridge). So \(\rho\) changes by \(-1+0=-1\) or by \(-1+1=0\). Add an edge \(e\): by Lemma&nbsp;C,
+\(m\) rises by \(1\) and \(c\) either falls by \(1\) (no cycle through \(e\)) or stays (a cycle through \(e\)). So
+\(\rho\) changes by \(+1-1=0\) or by \(+1-0=+1\). <span class="qed">&#9633;</span></div>
+
+<div class="env thm"><span class="h">Theorem 19.2</span><span class="body">
+No such sequence of steps reaches a cycle-free graph.</span></div>
+<div class="prf"><span class="h">Proof.</span>
+At the start \(n=77\), \(m_0=66\), \(c_0=42\), so
+\[ \rho_0 \;=\; 66-77+42 \;=\; 31 . \]
+<p style="margin-top:.5em"><em>The rank budget.</em> One step deletes one edge and adds two, so by Lemma&nbsp;19.1
+it lowers \(\rho\) by at most \(1\) in total. Reaching a cycle-free graph means \(\rho=0\), so at least \(31\) steps
+are required: \(k\ge31\).</p>
+<p><em>The edge budget.</em> Each step raises the edge count by one, so after \(k\) steps there are \(66+k\) edges.
+A cycle-free graph on \(77\) vertices is a forest, and by Lemma&nbsp;D it has at most \(76\) edges. So
+\[ 66+k \;\le\; 76 \qquad\Longrightarrow\qquad k \;\le\; 10 . \]</p>
+<p>Again \(31\le k\le10\) is impossible. <span class="qed">&#9633;</span></div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>No, it is impossible.</strong> The cycle rank \(m-n+c\) starts at \(66-77+42=31\) and must reach \(0\);
+one step (delete one edge, add two) lowers it by at most \(1\), so at least \(31\) steps are needed. But each step
+adds a net edge, and a forest on \(77\) vertices has at most \(76\) edges, allowing at most \(10\) steps.</p></div>
+
+<div class="note"><span class="h">Machine check</span>
+Lemma&nbsp;19.1 was tested on \(4000\) random steps applied to random graphs on up to seven vertices: in every case
+the cycle rank dropped by at most one.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 20</span><h2>\(2k\) vertices, minimum degree \(k-1\)</h2>
+<span class="ptag">component sizes again</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Simple graph \(G\) has \(2k\) vertices. Every vertex has degree at least \(k-1\), and there exists at least one
+vertex of degree \(k\). Show that \(G\) is connected.</p></div>
+
+<div class="env thm"><span class="h">Theorem 20.1</span><span class="body">
+Let \(G\) be a simple graph on \(n=2k\) vertices with \(\delta(G)\ge k-1\), and suppose some vertex \(v_0\) has
+\(d(v_0)\ge k\). Then \(G\) is connected.</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+Suppose \(G\) is disconnected, and let \(H_0\) be the component containing \(v_0\) and \(H_1\) a different
+component. By Lemma&nbsp;B, a component containing a vertex of degree \(d\) has at least \(d+1\) vertices, so
+\[ |V(H_0)| \;\ge\; d(v_0)+1 \;\ge\; k+1, \qquad\qquad |V(H_1)| \;\ge\; \delta(G)+1 \;\ge\; k . \]
+The two components are disjoint, so
+\[ 2k \;=\; |V(G)| \;\ge\; |V(H_0)|+|V(H_1)| \;\ge\; (k+1)+k \;=\; 2k+1 , \]
+which is absurd. Hence \(G\) has a single component. <span class="qed">&#9633;</span></div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>\(G\) is connected.</strong> The component of the degree-\(k\) vertex holds at least \(k+1\) vertices and
+any other component at least \((k-1)+1 = k\); two of them would need \(2k+1\) vertices, one more than \(G\) has.</p></div>
+
+<div class="note"><span class="h">The extra vertex is indispensable</span>
+Dropping the vertex of degree \(k\) makes the statement false: for \(k=3\), two disjoint triangles form a graph on
+\(2k=6\) vertices with every degree equal to \(k-1=2\), and it is disconnected. In general
+\(K_k\,\dot\cup\,K_k\) is \((k-1)\)-regular on \(2k\) vertices and disconnected. The single vertex of degree \(k\) is
+exactly what breaks the tie \(k+k=2k\).</div>
+
+<div class="note"><span class="h">Machine check</span>
+Exhaustive for \(k=1,2,3\) (that is, \(n=2,4,6\)): among all graphs on those vertex sets, \(12\,037\) satisfy the
+hypothesis and every one of them is connected. Without the degree-\(k\) requirement, \(10\) disconnected graphs on
+six vertices satisfy \(\delta\ge2\).</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM &#9733;</span><h2>Three colours, 123 edges</h2>
+<span class="ptag">three spanning trees</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>At most how many vertices may a graph \(G\) have, that has 123 edges and its edges can be coloured using colours
+red, white and green (every edge gets exactly one colour), so that between any two vertices of \(G\) there exist
+paths consisting of only red, only white as well as only green edges?</p></div>
+
+<p>The condition says precisely that each of the three colour classes, taken as a spanning subgraph on all of
+\(V(G)\), is connected.</p>
+
+<div class="env thm"><span class="h">Theorem &#9733;.1</span><span class="body">
+Such a graph has at most \(42\) vertices, and \(42\) is attained.</span></div>
+
+<div class="prf"><span class="h">Upper bound.</span>
+Let \(n=|V(G)|\) and let \(R\), \(W\), \(Z\) be the sets of red, white and green edges; they partition \(E(G)\), so
+\(|R|+|W|+|Z| = 123\). The hypothesis says that any two vertices are joined by a red path, so the spanning subgraph
+\((V(G),R)\) is connected; by Theorem&nbsp;17.1 it has at least \(n-1\) edges, i.e. \(|R|\ge n-1\), and likewise
+\(|W|\ge n-1\) and \(|Z|\ge n-1\). Adding,
+\[ 123 \;=\; |R|+|W|+|Z| \;\ge\; 3(n-1) \qquad\Longrightarrow\qquad n-1 \;\le\; 41 \qquad\Longrightarrow\qquad
+n \;\le\; 42 . \]<span class="qed">&#9633;</span></div>
+
+<div class="prf"><span class="h">Attainment.</span>
+For \(n=42\) equality must hold everywhere, so each colour class must be a connected spanning subgraph with exactly
+\(41=n-1\) edges &#8212; that is, a spanning tree. Three pairwise edge-disjoint spanning trees on \(42\) vertices do
+exist. Work in \(\mathbb{Z}_{42}\) and, for \(k=0,1,2\), let \(P_k\) be the zig-zag sequence
+\[ P_k:\quad k,\;\; k+1,\;\; k-1,\;\; k+2,\;\; k-2,\;\;\dots,\;\; k+20,\;\; k-20,\;\; k+21
+   \pmod{42} . \]
+<p style="margin-top:.5em"><em>Each \(P_k\) is a Hamiltonian path.</em> Its terms are \(k\), then \(k+i\) and
+\(k-i\) for \(i=1,\dots,20\), and finally \(k+21\). That is \(1+40+1=42\) terms, and they are pairwise distinct
+modulo \(42\): the residues \(k, k\pm1,\dots,k\pm20\) are \(41\) distinct values and \(k+21\equiv k-21\) is the
+one remaining. So \(P_k\) visits every vertex exactly once and is a spanning tree with \(41\) edges.</p>
+<p><em>The three paths are pairwise edge-disjoint.</em> Consecutive terms of \(P_k\) come in just two shapes,
+\(\{k-(i-1),\,k+i\}\) and \(\{k+i,\,k-i\}\), whose endpoint sums are
+\[ (k-i+1)+(k+i) \;=\; 2k+1 , \qquad\qquad (k+i)+(k-i) \;=\; 2k \qquad \pmod{42} . \]
+So <em>every</em> edge of \(P_k\) has endpoint sum \(2k\) or \(2k+1\). For \(k=0,1,2\) these sum sets are
+\(\{0,1\}\), \(\{2,3\}\) and \(\{4,5\}\), which are pairwise disjoint; an edge belonging to two of the paths
+would have to have its endpoint sum in two disjoint sets. Hence no edge is shared.</p>
+<p>Colouring \(P_0\) red, \(P_1\) white and \(P_2\) green therefore gives a graph on \(42\) vertices with
+\(3\cdot41 = 123\) edges in which every colour class is a spanning tree, hence connected.</p>
+<span class="qed">&#9633;</span></div>
+
+<figure>{{FIG2:STAR}}
+<figcaption>The construction at \(n=8\): three edge-disjoint spanning paths in three colours. At \(n=42\) the same
+recipe gives \(3\times41=123\) edges.</figcaption></figure>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>At most 42 vertices, and 42 is achievable.</strong> Each colour class must be a connected spanning
+subgraph, hence has at least \(n-1\) edges, so \(3(n-1)\le123\) and \(n\le42\). At \(n=42\) each class is forced to
+be a spanning tree, and three edge-disjoint spanning trees on \(42\) vertices exist &#8212; for example three of the
+\(21\) Hamiltonian paths into which \(K_{42}\) decomposes.</p></div>
+
+<div class="note"><span class="h">Machine check</span>
+The three zig-zag paths on \(42\) vertices were built explicitly and verified: each visits all \(42\) vertices
+exactly once, each has \(41\) edges and is connected, the endpoint sums of their edges are exactly \(\{0,1\}\),
+\(\{2,3\}\) and \(\{4,5\}\) as claimed, they are pairwise edge-disjoint, and their union has exactly \(123\)
+edges.</div>
+</section>

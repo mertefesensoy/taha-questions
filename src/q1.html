@@ -1,0 +1,137 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 9</span><h2>Graphs with all degrees distinct</h2>
+<span class="ptag">pigeonhole</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Determine all finite simple graphs that do not have two vertices of the same degree.</p></div>
+
+<div class="env thm"><span class="h">Theorem 9.1</span><span class="body">
+The only finite simple graph whose degrees are pairwise distinct is the one&#8209;vertex graph \(K_1\).</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+For \(n=1\) the condition is vacuous, and \(K_1\) qualifies. So let \(G\) be simple with \(n\ge2\) vertices and
+suppose its \(n\) degrees are pairwise distinct.
+<p style="margin-top:.5em">In a simple graph a vertex has at most \(n-1\) neighbours, so every degree lies in the
+\(n\)-element set \(\{0,1,\dots,n-1\}\). We have \(n\) pairwise distinct degrees drawn from a set of size \(n\), so
+<em>every</em> value in \(\{0,1,\dots,n-1\}\) is taken, each exactly once. In particular there is a vertex \(u\)
+with \(d(u)=0\) and a vertex \(w\) with \(d(w)=n-1\), and \(u\ne w\) because \(0\ne n-1\) (here \(n\ge2\)).</p>
+<p>Now \(d(w)=n-1\) means \(w\) is adjacent to all \(n-1\) other vertices, \(u\) among them. But then
+\(d(u)\ge 1\), contradicting \(d(u)=0\).</p>
+<p>So no simple graph on \(n\ge2\) vertices has pairwise distinct degrees.</p><span class="qed">&#9633;</span></div>
+
+<figure>{{FIG2:P9}}
+<figcaption>The obstruction: distinct degrees on \(n\ge 2\) vertices would force both an isolated vertex and a vertex
+joined to everything &#8212; and the second must be joined to the first.</figcaption></figure>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>Only \(K_1\).</strong> For \(n\ge2\) the \(n\) distinct degrees would have to exhaust
+\(\{0,1,\dots,n-1\}\), producing simultaneously a vertex of degree \(0\) and a vertex of degree \(n-1\) &#8212;
+which is impossible, since the latter is adjacent to the former.</p></div>
+
+<div class="note"><span class="h">The usual formulation</span>
+Turned around, the theorem says: <em>every simple graph on at least two vertices has two vertices of equal
+degree.</em> This is the standard "two people at a party have the same number of acquaintances" puzzle. Note where
+simplicity is used: with loops or parallel edges the degrees are no longer confined to \(\{0,\dots,n-1\}\) and the
+argument collapses &#8212; two vertices joined by one edge and by a second parallel edge attached to a loop can
+easily have different degrees.</div>
+
+<div class="note"><span class="h">Machine check</span>
+Every simple graph on \(n\le 6\) vertices was enumerated: exactly one has pairwise distinct degrees, namely \(K_1\)
+at \(n=1\); for \(n=2,\dots,6\) there are none.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 10</span><h2>The degree sequence 2, 2, 2, 4, 5, 5</h2>
+<span class="ptag">forced adjacencies</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Prove that if the degree sequence of a 6-vertex graph is \(2,2,2,4,5,5\), then it is not simple.</p></div>
+
+<p>The two cheap tests are passed, so they cannot be the obstruction: the entries sum to
+\(2+2+2+4+5+5=20\), which is even (so \(m=10\)), and the largest entry \(5\) does not exceed \(n-1=5\). The
+obstruction is structural, and the two vertices of degree \(5\) are what force it.</p>
+
+<div class="env thm"><span class="h">Theorem 10.1</span><span class="body">
+No simple graph on six vertices has degree sequence \(2,2,2,4,5,5\).</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+Suppose \(G\) were such a simple graph, on the vertex set \(\{a,b,c,d,x,y\}\) with
+\[ d(a)=d(b)=d(c)=2, \qquad d(d)=4, \qquad d(x)=d(y)=5 . \]
+<p style="margin-top:.5em"><em>Step 1: \(x\) and \(y\) are joined to everything.</em> Since \(G\) is simple on six
+vertices, a vertex has at most \(5\) neighbours, and they are distinct. So \(d(x)=5\) forces \(x\) to be adjacent to
+each of \(a,b,c,d,y\), and likewise \(y\) to each of \(a,b,c,d,x\).</p>
+<p><em>Step 2: \(a\), \(b\) and \(c\) are used up.</em> By Step&nbsp;1 each of \(a,b,c\) is already adjacent to both
+\(x\) and \(y\), so each already has degree \(2\). As their prescribed degree is exactly \(2\), none of them is
+adjacent to anything else. In particular
+\[ ad,\; bd,\; cd \notin E(G). \]</p>
+<p><em>Step 3: \(d\) cannot reach degree 4.</em> By Step&nbsp;1, \(d\) is adjacent to \(x\) and to \(y\); by
+Step&nbsp;2 it is adjacent to none of \(a,b,c\). Since \(G\) is simple, \(d\) cannot be joined to \(x\) or \(y\) a
+second time, and there is no loop at \(d\). Hence \(d(d)=2\), contradicting \(d(d)=4\).</p>
+<p>The assumption of simplicity is what fails, so no simple graph has this degree sequence.</p>
+<span class="qed">&#9633;</span></div>
+
+<figure>{{FIG2:P10}}
+<figcaption>The adjacencies forced by \(d(x)=d(y)=5\). Once \(a\), \(b\), \(c\) have spent their degree \(2\) on
+\(x\) and \(y\), the vertex \(d\) is stranded at degree \(2\).</figcaption></figure>
+
+<h3>The same conclusion from Havel&#8211;Hakimi</h3>
+<p>The reduction of Havel and Hakimi deletes the largest entry \(d_1\) and subtracts \(1\) from each of the next
+\(d_1\) entries; the original sequence is graphical if and only if the reduced one is. Applied here:</p>
+{{TBL2:HH10}}
+<p>At the third step the leading entry \(2\) demands two further vertices of positive residual degree, and none
+remain. So the sequence is not graphical &#8212; in agreement with Theorem&nbsp;10.1.</p>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>No simple graph has this degree sequence</strong>, so any graph realising \(2,2,2,4,5,5\) must contain a
+loop or a pair of parallel edges. The reason is that the two vertices of degree \(5=n-1\) are adjacent to everything;
+that already exhausts the degree of the three vertices of degree \(2\), leaving the vertex of prescribed degree
+\(4\) with only \(x\) and \(y\) available &#8212; degree \(2\).</p></div>
+
+<div class="note"><span class="h">The sequence <em>is</em> realisable if parallel edges are allowed</span>
+Simplicity is exactly what fails, and nothing more. Taking the edges
+\[ xy,\; xd,\; xd,\; xa,\; xb,\; yd,\; yd,\; yc,\; ya,\; bc \]
+(with \(xd\) and \(yd\) each doubled) gives a loopless multigraph on \(a,b,c,d,x,y\) with ten edges and degrees
+\(d(x)=d(y)=5\), \(d(d)=4\), \(d(a)=d(b)=d(c)=2\), as required.</div>
+
+<div class="note"><span class="h">A third route: Erd&#337;s&#8211;Gallai</span>
+The Erd&#337;s&#8211;Gallai criterion says a non-increasing sequence with even sum is graphical exactly when
+\(\sum_{i\le k} d_i \le k(k-1)+\sum_{i\gt k}\min(d_i,k)\) for every \(k\). For \(5,5,4,2,2,2\) the inequality
+holds at \(k=1,2,4,5,6\) but fails at \(k=3\):
+\[ 5+5+4 \;=\; 14 \qquad\text{versus}\qquad 3\cdot2+\min(2,3)+\min(2,3)+\min(2,3) \;=\; 6+6 \;=\; 12 . \]
+The three vertices of largest degree want \(14\) edge-endpoints, but they can absorb at most \(6\) among
+themselves and at most \(3\cdot2=6\) from the rest.</div>
+
+<div class="note"><span class="h">Machine check</span>
+All \(2^{15}=32\,768\) simple graphs on six labelled vertices were enumerated; none has degree sequence
+\(2,2,2,4,5,5\). The multigraph above was checked to have the right degrees, and the Erd&#337;s&#8211;Gallai
+inequalities were evaluated for all six values of \(k\), failing exactly at \(k=3\).</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 11</span><h2>Eleven vertices and forty-five edges</h2>
+<span class="ptag">averaging</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Show that if \(G=(V,E)\) satisfies \(|V|=11\) and \(|E|=45\), then it has a vertex of degree at least 9.</p></div>
+
+<div class="env thm"><span class="h">Theorem 11.1</span><span class="body">
+Every graph with \(11\) vertices and \(45\) edges has a vertex of degree at least \(9\).</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+By the handshake lemma (Lemma&nbsp;A),
+\[ \sum_{v\in V} d(v) \;=\; 2|E| \;=\; 2\cdot 45 \;=\; 90 . \]
+Suppose, for contradiction, that every vertex had degree at most \(8\). Summing this bound over the \(11\) vertices
+gives
+\[ 90 \;=\; \sum_{v\in V} d(v) \;\le\; 11\cdot 8 \;=\; 88 , \]
+which is false. Hence some vertex has degree at least \(9\). <span class="qed">&#9633;</span></div>
+
+<p>Equivalently: the average degree is \(90/11 = 8.\overline{18}\), and the maximum of a finite list is at least its
+average, so \(\Delta(G)\ge \lceil 90/11\rceil = 9\).</p>
+
+<div class="answer"><span class="lab">Answer</span>
+<p>The degrees sum to \(2\cdot 45 = 90\). If all eleven were at most \(8\) the sum could not exceed
+\(11\cdot 8 = 88 < 90\). So <strong>some vertex has degree at least \(9\)</strong>.</p></div>
+
+<div class="note"><span class="h">Two remarks</span>
+The argument uses nothing about simplicity, so it holds for multigraphs as well. And the bound \(9\) cannot be
+improved: since \(\binom{11}{2}=55\), deleting the ten edges of a Hamiltonian path from \(K_{11}\) leaves a simple
+graph with \(11\) vertices and exactly \(45\) edges in which every degree is \(10\) minus the path degree, i.e.
+\(8\) or \(9\). So \(\Delta=9\) is attained and the conclusion "degree at least \(10\)" would be false.</div>
+</section>

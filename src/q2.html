@@ -1,0 +1,152 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 12</span><h2>The cycle-avoiding game</h2>
+<span class="ptag">the game length is an invariant</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Alice and Bob play the following game. Alternately they draw edges between \(n\) given vertices. The player who
+first obtains a cycle loses the game. Who wins if both players play an optimal strategy, the one who moves first, or
+the other one?</p></div>
+
+<p>The surprise is that <em>neither player has a choice that matters</em>. Whatever they do, the game lasts exactly
+\(n-1\) safe moves and the \(n\)-th move loses; so the winner is decided by the parity of \(n\) before a single edge
+is drawn.</p>
+
+<div class="env thm"><span class="h">Theorem 12.1</span><span class="body">
+For \(n\ge2\) the first player wins if \(n\) is even, and the second player wins if \(n\) is odd.</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+At every moment the drawn edges form a graph \(F\) on the \(n\) vertices, and as long as nobody has lost, \(F\) is
+<em>acyclic</em> &#8212; a forest. We make two observations.
+<p style="margin-top:.5em"><em>(i) A safe move exists precisely while \(|E(F)| \lt n-1\).</em> By Lemma&nbsp;D a
+forest on \(n\) vertices with \(c\) components has \(n-c\) edges. So \(|E(F)| \lt n-1\) means \(c\ge2\): there are
+two different components, and joining a vertex of one to a vertex of the other creates no cycle (a cycle through the
+new edge would give a second connection between the two components). That move is safe. Conversely if
+\(|E(F)| = n-1\) then \(c=1\), so \(F\) is a spanning tree, and <em>every</em> further edge \(uv\) closes a cycle,
+namely the new edge together with the unique \(u\)&#8211;\(v\) path in \(F\).</p>
+<p><em>(ii) The game therefore lasts exactly \(n-1\) safe moves.</em> A player who draws a cycle loses at once, so
+under optimal play nobody does so voluntarily; and by (i) a safe move is available as long as fewer than \(n-1\)
+edges are down. After \(n-1\) safe moves the picture is a spanning tree, and by (i) the player to move must create a
+cycle. There is such an edge to draw, since \(\binom n2-(n-1)=\binom{n-1}{2}\ge 1\) for \(n\ge3\), so that player
+moves and loses. (For \(n=2\) the single edge is already drawn and the second player has no move at all; with the
+usual convention that a player unable to move loses, the count below is unchanged.)</p>
+<p><em>(iii) Parity decides.</em> Moves \(1,3,5,\dots\) belong to the first player and moves \(2,4,6,\dots\) to the
+second. The losing move is move number \(n\). So the first player loses exactly when \(n\) is odd, and the second
+player loses exactly when \(n\) is even.</p><span class="qed">&#9633;</span></div>
+
+<figure>{{FIG2:P12}}
+<figcaption>\(n=6\): the numbered edges are the five forced safe moves, in whatever order and shape the players
+choose. The dashed sixth edge &#8212; any remaining edge &#8212; must close a cycle.</figcaption></figure>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>The first player wins when \(n\) is even; the second player wins when \(n\) is odd.</strong></p>
+<p>Neither player can influence the outcome. A drawn position is always a forest, a safe move exists exactly while
+the forest has fewer than \(n-1\) edges, and any maximal forest is a spanning tree with exactly \(n-1\) edges. So
+the game always consists of \(n-1\) safe moves followed by a losing \(n\)-th move, and move \(n\) belongs to the
+first player precisely when \(n\) is odd.</p></div>
+
+<div class="note"><span class="h">Machine check</span>
+The complete game tree was searched for \(n=2,\dots,7\), with both players playing optimally. The winner is the
+first player for \(n=2,4,6\) and the second player for \(n=3,5,7\) &#8212; exactly the parity rule.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 13</span><h2>One hundred vertices, one of degree 66</h2>
+<span class="ptag">component sizes</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Let us assume that simple graph \(G\) has 100 vertices and each has degree at least 33, furthermore, there is a
+vertex of \(G\) that is incident with at least 66 edges. Prove that \(G\) is connected. <em>(Midterm '15)</em></p></div>
+
+<div class="env thm"><span class="h">Theorem 13.1</span><span class="body">
+Let \(G\) be a simple graph on \(100\) vertices with \(\delta(G)\ge33\), and suppose some vertex \(v_0\) satisfies
+\(d(v_0)\ge66\). Then \(G\) is connected.</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+Suppose \(G\) were disconnected, and let \(H_0\) be the component containing \(v_0\) and \(H_1\) any other
+component; they are vertex&#8209;disjoint.
+<p style="margin-top:.5em">By Lemma&nbsp;B a component containing a vertex of degree \(d\) has at least \(d+1\)
+vertices &#8212; that vertex together with its \(d\) neighbours, all of which lie in the same component. Applying
+this twice:
+\[ |V(H_0)| \;\ge\; d(v_0)+1 \;\ge\; 67, \qquad\qquad |V(H_1)| \;\ge\; \delta(G)+1 \;\ge\; 34 . \]
+Since \(H_0\) and \(H_1\) are disjoint subsets of \(V(G)\),
+\[ 100 \;=\; |V(G)| \;\ge\; |V(H_0)|+|V(H_1)| \;\ge\; 67+34 \;=\; 101 , \]
+a contradiction. Hence \(G\) has only one component. <span class="qed">&#9633;</span></div>
+
+<figure>{{FIG2:P13}}
+<figcaption>Why a second component cannot fit: the component of \(v_0\) already occupies at least \(67\) of the
+\(100\) vertices, and any further component needs \(34\) more.</figcaption></figure>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>\(G\) is connected.</strong> A component containing a vertex of degree \(d\) has at least \(d+1\)
+vertices. So the component of \(v_0\) has at least \(67\) vertices and every other component at least
+\(\delta+1 = 34\); two of them would need \(67+34 = 101 \gt 100\) vertices.</p></div>
+
+<div class="note"><span class="h">Both hypotheses are needed</span>
+Neither alone suffices. With \(\delta\ge33\) but no high&#8209;degree vertex, two disjoint copies of \(K_{50}\) give a
+disconnected graph of minimum degree \(49\ge33\). With a vertex of degree \(66\) but no lower bound elsewhere, a star
+\(K_{1,66}\) together with \(33\) isolated vertices is disconnected. It is the combination \(67+34\gt100\) that
+does the work &#8212; and it is tight: had the hypothesis read "degree at least \(65\)", the numbers would give
+\(66+34=100\), and indeed \(K_{66}\,\dot\cup\,K_{34}\) is a disconnected graph with \(\delta=33\) and a vertex of
+degree \(65\).</div>
+
+<div class="note"><span class="h">Machine check</span>
+The scaled&#8209;down analogue &#8212; \(n=7\), \(\delta\ge2\), some vertex of degree \(\ge4\), where
+\(5+3=8\gt7\) plays the role of \(67+34\gt100\) &#8212; was verified over all graphs on seven vertices: every graph
+satisfying the hypothesis is connected.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 14</span><h2>Ten deletions and thirty-three additions</h2>
+<span class="ptag">cycle rank and component count</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>How many edges does the 66-vertex graph \(G\) have that satisfies the following two properties?
+(a) At least 10 edges must be deleted from \(G\) in order to obtain a cycle-free graph.
+(b) At least 33 edges must be added to \(G\) in order to obtain a connected graph.</p></div>
+
+<p>Read the two conditions as they are meant: \(10\) is the <em>minimum</em> number of deletions that makes \(G\)
+acyclic, and \(33\) the <em>minimum</em> number of additions that makes it connected. Both minima have closed
+formulas in \(n\), \(m\) and \(c=c(G)\), and together they pin \(m\) down.</p>
+
+<div class="env thm"><span class="h">Theorem 14.1</span><span class="body">
+For any graph \(G\) with \(n\) vertices, \(m\) edges and \(c\) components:
+<br>(i) the minimum number of edges whose deletion makes \(G\) acyclic is \(m-n+c\);
+<br>(ii) the minimum number of edges whose addition makes \(G\) connected is \(c-1\).</span></div>
+
+<div class="prf"><span class="h">Proof of (i).</span>
+Choose a spanning forest \(F\subseteq G\) &#8212; a spanning tree in each component. By Lemma&nbsp;D it has
+\(n-c\) edges, so deleting the other \(m-(n-c)\) edges leaves the acyclic graph \(F\): that many deletions suffice.
+Conversely, suppose deleting a set \(D\) leaves \(G-D\) acyclic. Deleting edges never merges components, so
+\(c(G-D)\ge c\), and by Lemma&nbsp;D the forest \(G-D\) has \(n-c(G-D)\le n-c\) edges. Hence
+\(|D| = m-|E(G-D)| \ge m-(n-c)\). <span class="qed">&#9633;</span></div>
+
+<div class="prf"><span class="h">Proof of (ii).</span>
+By Lemma&nbsp;C each added edge lowers the number of components by at most one, so getting from \(c\) components to
+\(1\) needs at least \(c-1\) additions. They also suffice: pick one vertex from each component and join them
+consecutively by \(c-1\) new edges. <span class="qed">&#9633;</span></div>
+
+<h3>Solving for \(m\)</h3>
+<p>Here \(n=66\). Condition (b) and Theorem&nbsp;14.1(ii) give</p>
+\[ c-1 = 33 \qquad\Longrightarrow\qquad c = 34 . \]
+<p>Condition (a) and Theorem&nbsp;14.1(i) then give</p>
+\[ m-n+c = 10 \qquad\Longrightarrow\qquad m = n-c+10 = 66-34+10 = \boxed{42} . \]
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>\(G\) has 42 edges.</strong> The minimum number of deletions making a graph acyclic is \(m-n+c\) and the
+minimum number of additions making it connected is \(c-1\). So \(c-1=33\) gives \(c=34\), and \(m-66+34=10\) gives
+\(m=42\).</p></div>
+
+<div class="note"><span class="h">Such a graph exists</span>
+Take a path on \(33\) vertices (\(32\) edges), add ten chords from its first vertex, and throw in \(33\) isolated
+vertices. That is \(66\) vertices, \(42\) edges and \(34\) components; its spanning forest has \(66-34=32\) edges, so
+\(42-32=10\) deletions are needed to make it acyclic, and \(34-1=33\) additions to connect it. Both were confirmed
+by brute&#8209;force minimisation.</div>
+
+<div class="note"><span class="h">A word on the wording</span>
+Taken hyper-literally, "at least 10 must be deleted" and "at least 33 must be added" would only say
+\(m-n+c\ge10\) and \(c-1\ge33\), which do not determine \(m\) &#8212; for instance \(66\) vertices in \(34\)
+components with a \(K_{33}\) among them satisfies both and has \(528\) edges. The question asks for <em>the</em>
+number of edges, so the two numbers are the exact minima, as used above.</div>
+
+<div class="note"><span class="h">Machine check</span>
+Both formulas of Theorem&nbsp;14.1 were checked against brute&#8209;force minimisation on \(120\) random graphs with
+up to seven vertices, and the witness graph above was verified to have \(66\) vertices, \(42\) edges, \(34\)
+components, deletion number \(10\) and addition number \(33\).</div>
+</section>

@@ -1,0 +1,79 @@
+<div class="title-wrap">
+  <div class="kicker">FCS Practice Session 1 &middot; Problems 9&#8211;26</div>
+  <h1>Degree Sequences, Forests,<br>Connectivity and Counting</h1>
+  <div class="sub">Complete worked solutions to the remaining eighteen problems, and the starred one</div>
+  <div class="meta"><span>19 problems</span><span>&middot;</span><span>Full proofs and constructions</span><span>&middot;</span><span>All results machine&#8209;verified</span></div>
+</div>
+
+<p>This is the companion volume to <em>Degrees, Regularity, Isomorphism and Connectivity</em>, which solves
+problems&nbsp;1&#8211;8 of the same sheet. Here we treat problems&nbsp;9&#8211;26 together with the starred problem
+that sits between&nbsp;20 and&nbsp;21. Nothing from the first volume is assumed beyond the handshake lemma and the
+definition of a component, both restated below, so this document can be read on its own.</p>
+
+<p>Every solution is obtained by graph&#8209;theoretic means. Several of the problems are not posed in the language
+of graphs &#8212; a game played with pencil and paper (12), a question about a table of numbers (23), a party
+(25), a tiled rectangle (26) &#8212; and in each the first step is to identify the graph hiding inside. Where a
+problem asks for a construction or an exhaustive list, the objects are exhibited and checked one by one rather than
+merely asserted to exist.</p>
+
+<p>All computational claims were additionally confirmed by exhaustive machine search: every graph on at most six
+or seven vertices where that suffices, the complete game tree for problem&nbsp;12, brute&#8209;force minimisation
+for the two extremal quantities of problem&nbsp;14, and randomised tilings for problem&nbsp;26. Those checks are
+reported alongside the arguments; they corroborate the proofs rather than replace them.</p>
+
+<div class="toc">
+  <h3>Contents</h3>
+  <ol start="9">
+    <li><span class="a">All degrees distinct</span> &#8212; only \(K_1\)</li>
+    <li><span class="a">The sequence 2,2,2,4,5,5</span> &#8212; no simple graph realises it</li>
+    <li><span class="a">11 vertices, 45 edges</span> &#8212; some degree is at least 9</li>
+    <li><span class="a">The cycle-avoiding game</span> &#8212; the first player wins iff \(n\) is even</li>
+    <li><span class="a">100 vertices, one of degree 66</span> &#8212; connected</li>
+    <li><span class="a">Deletions and additions</span> &#8212; the graph has 42 edges</li>
+    <li><span class="a">All 5-vertex graphs with 2, 8, 3 edges</span> &#8212; 2, 2 and 4 of them</li>
+    <li><span class="a">Self-complementary graphs</span> &#8212; yes on 5 vertices, no on 6</li>
+    <li><span class="a">Connected \(\Rightarrow m\ge n-1\)</span>; and \(m=n\Rightarrow\) a cycle</li>
+    <li><span class="a">Add one edge, delete two</span> &#8212; connectivity is unreachable</li>
+    <li><span class="a">Delete one edge, add two</span> &#8212; acyclicity is unreachable</li>
+    <li><span class="a">\(2k\) vertices, \(\delta\ge k-1\)</span> &#8212; connected</li>
+  </ol>
+  <p style="margin:2.4mm 0 0 0; font-size:9.4pt; border-top:.5pt solid #d5d8dc; padding-top:1.8mm">
+  <span class="a">&#9733;</span> three colours, 123 edges &#8212; at most 42 vertices &nbsp;&middot;&nbsp;
+  <span class="a">21</span> acyclic orientations &nbsp;&middot;&nbsp;
+  <span class="a">22</span> three edges, three cuts &nbsp;&middot;&nbsp;
+  <span class="a">23</span> deleting a column &nbsp;&middot;&nbsp;
+  <span class="a">24</span> colouring \(K_4\) &nbsp;&middot;&nbsp;
+  <span class="a">25</span> 13 people &nbsp;&middot;&nbsp;
+  <span class="a">26</span> tiling a rectangle</p>
+</div>
+
+<h2 style="margin-top:6mm">What is assumed</h2>
+<p>Graphs are finite; they are simple unless the problem explicitly allows otherwise. We write \(n=|V(G)|\),
+\(m=|E(G)|\), \(d(v)\) for the degree of \(v\), \(\Delta(G)\) and \(\delta(G)\) for the largest and smallest degree,
+and \(c(G)\) for the number of connected components. \(K_n\), \(P_n\) and \(C_n\) are the complete graph, the path
+and the cycle on \(n\) vertices, and \(\overline{G}\) is the complement of \(G\). Four facts are used throughout.</p>
+
+<div class="env lem"><span class="h">Lemma A (handshake lemma)</span><span class="body">
+\(\sum_{v\in V(G)} d(v) = 2m\).</span></div>
+<div class="prf"><span class="h">Proof.</span> Count the pairs \((v,e)\) with \(v\) an endvertex of \(e\) in two ways:
+by edges, each contributing \(2\); by vertices, vertex \(v\) contributing \(d(v)\). <span class="qed">&#9633;</span></div>
+
+<div class="env lem"><span class="h">Lemma B (components are degree&#8209;closed)</span><span class="body">
+If \(H\) is a component of \(G\) and \(x\in V(H)\), then every neighbour of \(x\) lies in \(H\); hence
+\(d_H(x)=d_G(x)\) and \(|V(H)|\ge d_G(x)+1\).</span></div>
+<div class="prf"><span class="h">Proof.</span> A neighbour \(y\) of \(x\) is joined to \(x\) by an edge, so it lies
+in the same component. The \(d_G(x)\) neighbours together with \(x\) itself are \(d_G(x)+1\) distinct vertices of
+\(H\). <span class="qed">&#9633;</span></div>
+
+<div class="env lem"><span class="h">Lemma C (edge addition, EAL)</span><span class="body">
+Adding one edge \(e\) to \(G\) either creates no cycle through \(e\), in which case \(c(G+e)=c(G)-1\), or creates a
+cycle through \(e\), in which case \(c(G+e)=c(G)\). In particular one edge lowers the number of components by at most
+one.</span></div>
+
+<div class="env lem"><span class="h">Lemma D (forests)</span><span class="body">
+A forest on \(n\) vertices with \(c\) components has exactly \(n-c\) edges. Consequently a forest has at most
+\(n-1\) edges, with equality exactly for trees.</span></div>
+<div class="prf"><span class="h">Proof.</span> Build the forest edge by edge from the edgeless graph, which has
+\(n\) components. No added edge ever lies on a cycle, so by Lemma&nbsp;C each addition lowers the component count by
+exactly one. After \(m\) additions the count is \(n-m\), and this equals \(c\).
+<span class="qed">&#9633;</span></div>

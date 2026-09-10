@@ -1,0 +1,173 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 15</span><h2>All 5-vertex graphs with 2, 8 and 3 edges</h2>
+<span class="ptag">exhaustive lists</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Find (up to isomorphism) all \(n\)-vertex \(m\)-edge graphs for &nbsp;a) \(n=5,\ m=2\); &nbsp;b) \(n=5,\ m=8\);
+&nbsp;c) \(n=5,\ m=3\).</p></div>
+
+<p>Throughout, isolated vertices are part of the graph &#8212; all five vertices are always present. A convenient
+way to organise the search is by the <em>edge structure</em>: discard the isolated vertices, list the possible graphs
+with the prescribed number of edges and no isolated vertex, and then pad back up to five vertices whenever there is
+room.</p>
+
+<h3>a) \(n=5\), \(m=2\)</h3>
+<p>Two edges either share an endvertex or they do not, and there is no third possibility.</p>
+<ul class="tight">
+<li>They share a vertex: the two edges form a path \(P_3\) on three vertices, leaving two isolated vertices &#8212;
+the graph \(P_3\,\dot\cup\,2K_1\), with degree sequence \(2,1,1,0,0\).</li>
+<li>They are disjoint: they occupy four vertices, leaving one isolated &#8212; the graph \(2K_2\,\dot\cup\,K_1\),
+with degree sequence \(1,1,1,1,0\).</li>
+</ul>
+<p>Both fit inside five vertices, and their degree sequences differ, so they are not isomorphic.
+<strong>There are exactly two.</strong></p>
+<figure>{{FIG2:P15A}}<figcaption>The two graphs with \(n=5\), \(m=2\).</figcaption></figure>
+
+<h3>c) \(n=5\), \(m=3\)</h3>
+<p>We take (c) before (b), because (b) will be read off from (a). Sort the three edges by how their components split.</p>
+<ul class="tight">
+<li><em>All three edges in one component.</em> A connected graph with three edges has at most four vertices. On three
+vertices it must be the triangle \(K_3\); on four vertices it has \(4-1=3\) edges, so it is a tree, and the trees on
+four vertices are the path \(P_4\) and the star \(K_{1,3}\). This gives \(K_3\,\dot\cup\,2K_1\) (degrees
+\(2,2,2,0,0\)), \(P_4\,\dot\cup\,K_1\) (degrees \(2,2,1,1,0\)) and \(K_{1,3}\,\dot\cup\,K_1\) (degrees
+\(3,1,1,1,0\)).</li>
+<li><em>Split \(2+1\).</em> The two-edge part must be \(P_3\) (three vertices, as disjoint edges would already use
+four) and the single edge \(K_2\) two more: five vertices exactly, giving \(P_3\,\dot\cup\,K_2\) with degrees
+\(2,1,1,1,1\).</li>
+<li><em>Split \(1+1+1\).</em> Three pairwise disjoint edges need six vertices &#8212; impossible here.</li>
+</ul>
+<p>The four degree sequences \(2,2,2,0,0\); \(2,2,1,1,0\); \(3,1,1,1,0\); \(2,1,1,1,1\) are pairwise different, so
+these four graphs are pairwise non-isomorphic. <strong>There are exactly four.</strong></p>
+<figure>{{FIG2:P15C}}<figcaption>The four graphs with \(n=5\), \(m=3\).</figcaption></figure>
+
+<h3>b) \(n=5\), \(m=8\)</h3>
+<p>Here the complement does the work. On five vertices there are \(\binom52 = 10\) possible edges, so
+\(|E(\overline{G})| = 10-8 = 2\). Complementation is an involution and preserves isomorphism in both directions
+(\(G_1\cong G_2 \iff \overline{G_1}\cong\overline{G_2}\), because a bijection preserves adjacency exactly when it
+preserves non-adjacency). Hence</p>
+\[ G \;\longmapsto\; \overline{G} \]
+<p>is a bijection between the \(5\)-vertex graphs with \(8\) edges and those with \(2\) edges, taken up to
+isomorphism. By part (a) there are <strong>exactly two</strong>, namely the complements of the two graphs found
+there:</p>
+<ul class="tight">
+<li>\(\overline{P_3\,\dot\cup\,2K_1} = K_5 - P_3\): remove two adjacent edges from \(K_5\); degrees
+\(4,4,3,3,2\).</li>
+<li>\(\overline{2K_2\,\dot\cup\,K_1} = K_5 - 2K_2\): remove two disjoint edges from \(K_5\); degrees
+\(4,3,3,3,3\).</li>
+</ul>
+<figure>{{FIG2:P15B}}<figcaption>The two graphs with \(n=5\), \(m=8\), drawn as \(K_5\) with two edges removed.</figcaption></figure>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>a) two graphs</strong> &#8212; \(P_3\,\dot\cup\,2K_1\) and \(2K_2\,\dot\cup\,K_1\).<br>
+<strong>b) two graphs</strong> &#8212; \(K_5-P_3\) and \(K_5-2K_2\), the complements of those in (a).<br>
+<strong>c) four graphs</strong> &#8212; \(K_3\,\dot\cup\,2K_1\), \(P_4\,\dot\cup\,K_1\),
+\(K_{1,3}\,\dot\cup\,K_1\) and \(P_3\,\dot\cup\,K_2\).</p></div>
+
+<div class="note"><span class="h">Machine check</span>
+All \(2^{10}=1024\) labelled graphs on five vertices were sorted into isomorphism classes. The number of classes with
+\(m\) edges is \(1,1,2,4,6,6,6,4,2,1,1\) for \(m=0,1,\dots,10\) &#8212; palindromic, as complementation requires. The
+entries at \(m=2,3,8\) are \(2,4,2\), and the classes found by machine are exactly the ones listed above.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 16</span><h2>Graphs isomorphic to their complements</h2>
+<span class="ptag">a parity obstruction</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Are there 5-vertex graphs that are isomorphic to their complements? How about 6-vertex graphs?</p></div>
+
+<p>A graph with \(G\cong\overline{G}\) is called <em>self-complementary</em>. There is one immediate necessary
+condition.</p>
+
+<div class="env lem"><span class="h">Lemma 16.1</span><span class="body">
+If \(G\) is a self-complementary graph on \(n\) vertices then \(\binom n2\) is even, i.e. \(n\equiv0\) or
+\(1 \pmod 4\).</span></div>
+<div class="prf"><span class="h">Proof.</span>
+Every pair of distinct vertices is an edge of exactly one of \(G\) and \(\overline{G}\), so
+\(|E(G)|+|E(\overline{G})| = \binom n2\). An isomorphism is a bijection on vertices carrying edges onto edges, so
+isomorphic graphs have equally many edges: \(|E(G)|=|E(\overline{G})|\). Hence \(\binom n2 = 2|E(G)|\) is even.
+Since \(\binom n2 = n(n-1)/2\), evenness is exactly \(n\equiv 0,1\pmod 4\).
+<span class="qed">&#9633;</span></div>
+
+<h3>Five vertices: yes</h3>
+<p>Here \(\binom52=10\) is even, so the obstruction does not apply &#8212; and indeed an example exists. Take the
+five-cycle \(C_5\) on \(\{0,1,2,3,4\}\) with edges \(01,12,23,34,40\). Its complement has the five edges
+\(02,13,24,30,41\), which form the closed walk</p>
+\[ 0 \;-\; 2 \;-\; 4 \;-\; 1 \;-\; 3 \;-\; 0, \]
+<p>a five-cycle again. Explicitly, \(\varphi(i)=2i \bmod 5\) is a bijection of \(\{0,\dots,4\}\) carrying the edges
+of \(C_5\) onto the edges of \(\overline{C_5}\): a difference of \(\pm1\) is multiplied into \(\pm2\), and the edges
+of \(\overline{C_5}\) are exactly the pairs at difference \(\pm2\). So \(C_5\cong\overline{C_5}\).</p>
+<figure>{{FIG2:P16}}<figcaption>\(C_5\) and its complement. The complement of a pentagon is the pentagram &#8212;
+which is again a pentagon, drawn differently.</figcaption></figure>
+
+<h3>Six vertices: no</h3>
+<p>Here \(\binom62 = 15\) is odd, so by Lemma&nbsp;16.1 there is no self-complementary graph on six vertices. Said
+directly: \(|E(G)| = |E(\overline{G})|\) would force \(15 = 2|E(G)|\), and \(15\) is not even.</p>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>Five vertices: yes.</strong> \(C_5\) is isomorphic to its complement (which is again a 5-cycle); there
+are exactly two such graphs on five vertices.<br>
+<strong>Six vertices: no.</strong> A self-complementary graph must have \(\binom n2\) even, and
+\(\binom62 = 15\) is odd.</p></div>
+
+<div class="note"><span class="h">The second one, and what the condition does not give</span>
+On five vertices there are exactly two self-complementary graphs: \(C_5\), and the <em>bull</em> &#8212; a triangle
+with a pendant edge attached to each of two of its vertices, degree sequence \(3,3,2,1,1\). Lemma&nbsp;16.1 is only
+necessary, not sufficient: it permits \(n = 4,5,8,9,12,13,\dots\), and self-complementary graphs do exist for every
+such \(n\) (for \(n=4\), the path \(P_4\)), but the lemma alone does not prove that.</div>
+
+<div class="note"><span class="h">Machine check</span>
+Complete enumeration: \(n=4\) has \(1\) self-complementary graph, \(n=5\) has \(2\) (\(C_5\) and the bull), and
+\(n=6\) has \(0\).</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 17</span><h2>Connectivity needs \(n-1\) edges; \(n\) edges force a cycle</h2>
+<span class="ptag">the edge addition lemma</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Let \(G\) be an arbitrary \(n\)-vertex graph. Prove that if \(G\) is connected, then it has at least \(n-1\)
+edges. Also show that if it has \(n\) edges, then it contains a cycle.</p></div>
+
+<p>Both halves follow from one bookkeeping principle: build \(G\) one edge at a time from the edgeless graph and
+watch the number of components fall.</p>
+
+<div class="env thm"><span class="h">Theorem 17.1</span><span class="body">
+Let \(G\) have \(n\) vertices, \(m\) edges and \(c\) components. Then \(m\ge n-c\). In particular a connected graph
+has at least \(n-1\) edges.</span></div>
+<div class="prf"><span class="h">Proof.</span>
+List the edges of \(G\) as \(e_1,\dots,e_m\) and let \(G_k\) be the graph with all \(n\) vertices and the edges
+\(e_1,\dots,e_k\); so \(G_0\) is edgeless with \(c(G_0)=n\), and \(G_m=G\) with \(c(G_m)=c\). By Lemma&nbsp;C each
+step lowers the number of components by at most one:
+\[ c(G_k) \;\ge\; c(G_{k-1})-1 \qquad (k=1,\dots,m). \]
+Chaining these, \(c = c(G_m) \ge c(G_0)-m = n-m\), that is \(m\ge n-c\). For a connected graph \(c=1\) and
+\(m\ge n-1\). <span class="qed">&#9633;</span></div>
+
+<div class="env thm"><span class="h">Theorem 17.2</span><span class="body">
+If an \(n\)-vertex graph has \(n\) edges, then it contains a cycle. More generally, any graph with \(m\ge n\) edges
+contains a cycle.</span></div>
+<div class="prf"><span class="h">Proof.</span>
+Suppose \(G\) had no cycle, i.e. \(G\) is a forest. Then by Lemma&nbsp;D it has exactly \(n-c\) edges, where
+\(c\ge1\) is its number of components; hence
+\[ m \;=\; n-c \;\le\; n-1 \;\lt\; n , \]
+contradicting \(m\ge n\). So \(G\) contains a cycle. <span class="qed">&#9633;</span></div>
+
+<p>Lemma&nbsp;D itself is the same edge-by-edge count run under the extra assumption that no cycle ever appears:
+every one of the \(m\) additions then falls in the first case of the Edge Addition Lemma and drops the component
+count by exactly one, from \(n\) to \(n-m\).</p>
+
+<div class="answer"><span class="lab">Answer</span>
+<p>Add the edges one at a time. By the Edge Addition Lemma each new edge lowers the number of components by at most
+one, so starting from \(n\) components one needs at least \(n-1\) edges to reach a single component: <strong>a
+connected \(n\)-vertex graph has at least \(n-1\) edges</strong>.</p>
+<p>If the graph were cycle-free, every addition would lower the count by <em>exactly</em> one, so a forest with
+\(c\ge1\) components has exactly \(n-c\le n-1\) edges. <strong>Hence \(n\) edges are impossible without a
+cycle.</strong></p></div>
+
+<div class="note"><span class="h">Both bounds are attained</span>
+Trees show that \(n-1\) edges can suffice for connectivity, and a forest with \(c\) components shows \(m=n-c\) is
+attainable in general. Together the two theorems say that the quantity \(m-n+c\ge0\) &#8212; the <em>cycle
+rank</em> &#8212; is zero exactly for forests. It reappears in problems&nbsp;14 and&nbsp;19 as the number of edges
+one must delete to destroy all cycles.</div>
+
+<div class="note"><span class="h">Machine check</span>
+Both statements were verified over every graph on at most six vertices: no connected graph has fewer than \(n-1\)
+edges, and no graph with \(n\) or more edges is acyclic.</div>
+</section>

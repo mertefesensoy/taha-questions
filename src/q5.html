@@ -1,0 +1,153 @@
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 21</span><h2>Every graph has an acyclic orientation</h2>
+<span class="ptag">order the vertices</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Prove that the edges of a simple graph \(G=(V,E)\) can be oriented so that the directed graph obtained does not
+contain a directed cycle.</p></div>
+
+<div class="env thm"><span class="h">Theorem 21.1</span><span class="body">
+Every finite simple graph admits an acyclic orientation.</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+Since \(V\) is finite, we may number its vertices \(v_1,v_2,\dots,v_n\); write \(\nu(v_i)=i\) for the label of a
+vertex. Orient every edge from its endvertex of smaller label to its endvertex of larger label:
+\[ \text{for } e=\{v_i,v_j\}\in E \text{ with } i \lt j, \text{ orient } e \text{ as } v_i \to v_j . \]
+This is well defined: \(G\) is simple, so an edge has two distinct endvertices and their labels differ.
+<p style="margin-top:.5em">Suppose the resulting digraph contained a directed cycle
+\(u_1 \to u_2 \to \dots \to u_k \to u_1\) with \(k\ge2\). Each arc goes from a smaller label to a larger one, so
+\[ \nu(u_1) \;\lt\; \nu(u_2) \;\lt\; \dots \;\lt\; \nu(u_k) \;\lt\; \nu(u_1) , \]
+where the last inequality comes from the closing arc \(u_k\to u_1\). Chaining them gives
+\(\nu(u_1)\lt\nu(u_1)\), which is false. Hence no directed cycle exists.
+<span class="qed">&#9633;</span></div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p>Number the vertices \(1,\dots,n\) and orient each edge <strong>from the smaller label to the larger</strong>.
+Along any directed walk the labels strictly increase, so a directed cycle would return to its start with a strictly
+larger label than it left with &#8212; impossible. The orientation is therefore acyclic.</p></div>
+
+<div class="note"><span class="h">Remarks</span>
+The proof uses only that \(V\) carries a linear order, so it works for any graph whose vertex set can be linearly
+ordered &#8212; every finite graph, and with the axiom of choice every infinite one too. Conversely, every acyclic
+orientation arises this way: an acyclic digraph has a topological order, and orienting by that order reproduces it.
+Simplicity matters only to exclude loops, which could never be oriented acyclically. Finally, the number of acyclic
+orientations of \(G\) is \(|\chi_G(-1)|\), where \(\chi_G\) is the chromatic polynomial (Stanley's theorem) &#8212;
+far more than we need, but it shows these orientations are plentiful, not exceptional.</div>
+
+<div class="note"><span class="h">Machine check</span>
+Three thousand random simple graphs on up to seven vertices were oriented by the rule above; a depth-first search
+found a directed cycle in none of them.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 22</span><h2>Three edges, three cuts</h2>
+<span class="ptag">bridges after a deletion</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>Let \(e\), \(f\) and \(g\) be edges of simple, connected graph \(G\). Assume that \(G\) remains connected if any
+one of its edges is deleted, however neither \(G-e-g\) nor \(G-f-g\) is connected. Prove that graph
+\(G-f-g\) is also disconnected.</p></div>
+
+<div class="note" style="margin-top:0"><span class="h">Reading the statement</span>
+As printed, the conclusion "\(G-f-g\) is disconnected" is already one of the hypotheses, so it cannot be what is
+meant. The hypotheses concern the pairs \(\{e,g\}\) and \(\{f,g\}\); the conclusion must therefore concern the third
+pair, \(\{e,f\}\). We prove that <strong>\(G-e-f\) is disconnected</strong>, and take \(e,f,g\) to be pairwise
+distinct, as the wording implies. (Some distinctness is genuinely needed: for \(e=f\) the claim would read
+"\(G-e\) is disconnected", contradicting the hypothesis that \(G\) survives any single deletion.)</div>
+
+<div class="env thm"><span class="h">Theorem 22.1</span><span class="body">
+Let \(G\) be connected with no bridge, and let \(e,f,g\) be three distinct edges such that \(G-e-g\) and
+\(G-f-g\) are both disconnected. Then \(G-e-f\) is disconnected.</span></div>
+
+<div class="prf"><span class="h">Proof.</span>
+Put \(H := G-g\).
+<p style="margin-top:.5em"><em>Step 1: \(H\) is connected, and both \(e\) and \(f\) are bridges of \(H\).</em>
+By hypothesis \(G\) stays connected after the deletion of any single edge, so \(H=G-g\) is connected. Also
+\(H-e = G-e-g\) is disconnected, so the edge \(e\) is a bridge of \(H\); likewise \(H-f = G-f-g\) is disconnected,
+so \(f\) is a bridge of \(H\).</p>
+<p><em>Step 2: \(H-e-f\) has exactly three components.</em> Deleting the bridge \(e\) from the connected graph
+\(H\) leaves exactly two components (by Lemma&nbsp;C read backwards: \(e\) lies on no cycle of \(H\), so
+\(c(H) = c(H-e)-1\), giving \(c(H-e)=2\)). The edge \(f\ne e\) survives in \(H-e\) and lies inside one of those two
+components; \(f\) is a bridge of \(H\), hence also of \(H-e\) &#8212; deleting edges cannot create a cycle through
+\(f\) &#8212; so deleting it splits that component in two. Therefore
+\[ c(H-e-f) \;=\; 3 . \]</p>
+<p><em>Step 3: putting \(g\) back.</em> Now \(G-e-f\) is exactly \(H-e-f\) with the single edge \(g\) restored. By
+Lemma&nbsp;C one edge lowers the number of components by at most one, so
+\[ c(G-e-f) \;=\; c\bigl((H-e-f)+g\bigr) \;\ge\; 3-1 \;=\; 2 . \]
+A graph with at least two components is disconnected. <span class="qed">&#9633;</span></div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p><strong>\(G-e-f\) is disconnected.</strong> Since \(G\) is bridgeless, \(H=G-g\) is connected; and since
+\(G-e-g\) and \(G-f-g\) are disconnected, \(e\) and \(f\) are both bridges of \(H\). Deleting two distinct bridges
+from a connected graph leaves three components, and restoring the single edge \(g\) can rejoin at most two of them
+&#8212; so \(G-e-f\) has at least two components.</p></div>
+
+<div class="note"><span class="h">The same statement in cut language</span>
+Because \(G\) is bridgeless while \(G-e-g\) is disconnected, the pair \(\{e,g\}\) is a <em>minimal</em> edge cut;
+likewise \(\{f,g\}\). The cuts of a graph form a vector space over \(\mathbb{F}_2\) under symmetric difference, and
+\[ \{e,g\}\;\triangle\;\{f,g\} \;=\; \{e,f\}, \]
+so \(\{e,f\}\) is a cut too &#8212; which is exactly the conclusion. The elementary argument above avoids setting up
+the cut space, but this is what makes the result feel inevitable.</div>
+
+<div class="note"><span class="h">Machine check</span>
+Every connected bridgeless graph on at most six vertices was enumerated together with every ordered triple of
+distinct edges \((e,f,g)\). In all \(35\,898\) instances satisfying the hypotheses, \(G-e-f\) was indeed
+disconnected.</div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">PROBLEM 23</span><h2>Deleting a column keeps the rows distinct</h2>
+<span class="ptag">a graph on the rows</span></div>
+<div class="statement"><span class="lab">Problem</span>
+<p>All rows of an \(n\times n\) table \(T\) are pairwise distinct. Prove that \(T\) has a column such that the table
+obtained by the deletion of that column still has pairwise distinct rows.</p></div>
+
+<p>There is nothing graph-like in the statement, so we build the graph ourselves &#8212; on the rows &#8212; and then
+count edges against vertices using problem&nbsp;17.</p>
+
+<div class="env defn"><span class="h">Definition</span><span class="body">
+Call column \(j\) <em>critical</em> if deleting it destroys distinctness, i.e. if some two rows of \(T\) agree in
+every column except \(j\). The claim to prove is that not all \(n\) columns are critical.</span></div>
+
+<div class="env lem"><span class="h">Lemma 23.1</span><span class="body">
+If rows \(r\ne s\) agree in every column except \(j\), then \(j\) is determined by the pair \(\{r,s\}\).</span></div>
+<div class="prf"><span class="h">Proof.</span>
+Rows \(r\) and \(s\) are distinct, so they differ somewhere; agreeing outside \(j\) means they differ exactly in
+column \(j\). If they also differed exactly in column \(j'\) with \(j'\ne j\), then column \(j\) would be one of the
+columns "outside \(j'\)", where they agree &#8212; contradicting that they differ in column \(j\).
+<span class="qed">&#9633;</span></div>
+
+<div class="env thm"><span class="h">Theorem 23.2</span><span class="body">
+Some column of \(T\) may be deleted without making two rows equal.</span></div>
+<div class="prf"><span class="h">Proof.</span>
+Suppose every one of the \(n\) columns is critical. Build a graph \(\Gamma\):
+<ul class="tight">
+<li>the \(n\) vertices of \(\Gamma\) are the \(n\) rows of \(T\);</li>
+<li>for each column \(j\), choose one pair of rows \(\{r_j,s_j\}\) agreeing outside column \(j\) (such a pair exists,
+as \(j\) is critical) and put the edge \(r_js_j\) into \(\Gamma\), labelling it with \(j\).</li>
+</ul>
+By Lemma&nbsp;23.1 different columns yield different pairs, so these \(n\) edges are distinct: \(\Gamma\) has \(n\)
+vertices and \(n\) edges. By Theorem&nbsp;17.2, \(\Gamma\) contains a cycle
+\[ r_1 \;\overset{j_1}{-}\; r_2 \;\overset{j_2}{-}\; \cdots \;\overset{j_{k-1}}{-}\; r_k \;\overset{j_k}{-}\; r_1 ,
+\qquad k\ge3, \]
+whose edge labels \(j_1,\dots,j_k\) are pairwise distinct columns.
+<p style="margin-top:.5em">Now look at what happens in column \(j_1\). The edge \(r_1r_2\) is labelled \(j_1\), so
+\(r_1\) and \(r_2\) <em>differ</em> in column \(j_1\). Every other edge of the cycle carries a label \(j_i \ne j_1\),
+so its two rows <em>agree</em> in column \(j_1\). Walking the cycle the long way round,
+\[ r_2,\; r_3,\; \dots,\; r_k,\; r_1 \]
+are consecutive along edges labelled \(j_2,\dots,j_k\), all different from \(j_1\); hence all of these rows agree
+with one another in column \(j_1\). In particular \(r_2\) and \(r_1\) agree in column \(j_1\) &#8212; contradicting
+that they differ there.</p>
+<p>So not every column is critical, and any non-critical column may be deleted.</p><span class="qed">&#9633;</span></div>
+
+<div class="answer"><span class="lab">Answer</span>
+<p>Call a column <em>critical</em> if deleting it makes two rows equal, and suppose all \(n\) were. Form a graph on
+the \(n\) rows by joining, for each column \(j\), a pair of rows that agree everywhere except in column \(j\);
+different columns give different pairs, so this graph has \(n\) vertices and \(n\) edges and therefore contains a
+cycle. Along that cycle every edge but one keeps the entry in the first edge's column constant, forcing its two
+endpoints to agree in that column &#8212; while that edge says they differ. <strong>Hence some column is not
+critical and can be deleted.</strong></p></div>
+
+<div class="note"><span class="h">Machine check</span>
+All \(n\times n\) tables with pairwise distinct rows were enumerated for \(n=2,3\) over a two-letter alphabet and
+for \(n=3\) over a three-letter alphabet &#8212; \(17\,898\) tables in total. Every one of them has a deletable
+column.</div>
+</section>
