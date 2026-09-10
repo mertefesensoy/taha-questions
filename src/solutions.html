@@ -121,6 +121,12 @@ search (breadth&#8209;first search over all positions, brute&#8209;force search 
 bijections, and a max&#8209;flow realisation of the prescribed degree pairs). Those checks are reported at the end
 of the relevant sections; they are corroboration, not substitutes for the arguments.</p>
 
+<p>Every solution below is carried out by graph&#8209;theoretic means. Two of the problems are not posed in the
+language of graphs at all &#8212; Problem&nbsp;1 is a chess puzzle, Problem&nbsp;8 a counting riddle about a network
+&#8212; and in each the first move is a <em>reduction</em>: replace the object by a graph whose structure answers
+the question. The appendix on the final page records, problem by problem, which graph&#8209;theoretic objects the
+solution uses and which results are applied to them.</p>
+
 <div class="toc">
   <h3>Contents</h3>
   <ol>
@@ -133,6 +139,9 @@ of the relevant sections; they are corroboration, not substitutes for the argume
     <li><span class="a">Minimum degree \(n/2\)</span> &#8212; connectivity, and in fact diameter \(\le 2\)</li>
     <li><span class="a">A directed degree count</span> &#8212; the missing indegree is \(42\)</li>
   </ol>
+  <p style="margin:2.4mm 0 0 0; font-size:9.4pt; border-top:.5pt solid #d5d8dc; padding-top:1.8mm">
+  <span class="a">Appendix</span> &#8212; the graph theory used, problem by problem: which objects each solution
+  works with, which results are applied, and the three techniques that recur throughout.</p>
 </div>
 
 <h2 style="margin-top:6mm">Notation, conventions, and three basic lemmas</h2>
@@ -192,6 +201,13 @@ counting results component by component. <span class="qed">&#9633;</span></div>
 coloured knights are on diametrically opposite corners. The knights move in the usual way known from chess, and two
 knights cannot stand on the same square at the same time. Is it possible to move the knights so that they stand in
 the corners at the end, but the diametrically opposite ones are of different colours?</p></div>
+
+<p>Although it is posed as a chess puzzle, this is a question about a graph, and we treat it as one
+throughout. The squares a knight can stand on are the vertices; two squares are joined by an edge when a single
+knight's move carries one to the other. The four knights are then <em>tokens</em> occupying four distinct vertices,
+a legal move slides one token along an edge to an unoccupied vertex, and the question asked is which token
+configurations are reachable from which. Everything therefore hinges on the structure of that one graph &#8212;
+and it will turn out to be a single \(8\)-cycle, which settles the matter at once.</p>
 
 <p>The answer is <strong>no</strong>. We prove it by exhibiting a quantity &#8212; the cyclic order in which the four
 knights appear around a certain \(8\)-cycle &#8212; that no legal move can ever change, and which differs between the
@@ -1119,5 +1135,57 @@ Two small consistency observations. First, <span class="nb">\(42\ne22\),</span> 
 &#8212; had the arithmetic produced \(22\) the hypotheses would have been contradictory. Second, the average indegree
 must equal the average outdegree, namely <span class="nb">\(22\);</span> and indeed the three exceptional values average out correctly,
 since <span class="nb">\(12+12+42=66=3\cdot22\).</span></div>
+</section>
+
+<section class="problem">
+<div class="phead"><span class="pnum">APPENDIX</span><h2>The graph theory used, problem by problem</h2>
+<span class="ptag">a reader&#8217;s index</span></div>
+
+<p>The eight problems look varied, but each is settled the same way: identify the right graph, then apply a small
+number of standard results to it. This appendix records that correspondence, so that it can be checked at a
+glance.</p>
+
+<div class="tblock"><table class="wide"><thead><tr><th class="">#</th><th class="l">the graph&#8209;theoretic objects the solution works with</th><th class="l">the results applied to them</th></tr></thead><tbody><tr><td class="">1</td><td class="l">the knight&#8217;s graph of the 3&times;3 board &#8212; an isolated vertex plus a single <em>C</em><sub>8</sub>; the four knights as tokens on its vertices</td><td class="l">connected 2-regular &rArr; cycle (Thm&nbsp;3.1); an invariant of the move relation</td></tr><tr><td class="">2</td><td class="l">degree sequences; the realising graph <em>G</em>*</td><td class="l">handshake lemma (Lem&nbsp;A); Havel&ndash;Hakimi; Erd&#337;s&ndash;Gallai</td></tr><tr><td class="">3</td><td class="l">regularity, &Delta;, &delta;; components, trees, paths, cycles</td><td class="l">&delta;&nbsp;&ge;&nbsp;2 &rArr; a cycle exists (Lem&nbsp;C); degree-closed components (Lem&nbsp;D); a tree has |<em>V</em>|&nbsp;&minus;&nbsp;1 edges</td></tr><tr><td class="">4</td><td class="l">vertex&ndash;edge incidences; the ray, an infinite graph</td><td class="l">double counting (Thm&nbsp;4.1); reduction mod&nbsp;2 (Cor&nbsp;4.2)</td></tr><tr><td class="">5</td><td class="l">components; walks and paths; parity of degrees</td><td class="l">every walk contains a path (Lem&nbsp;B); Lem&nbsp;D; Cor&nbsp;4.2 applied to one component</td></tr><tr><td class="">6</td><td class="l">the three drawings as circulant graphs <em>C</em><sub>9</sub>(1,2), <em>C</em><sub>9</sub>(1,3), <em>C</em><sub>9</sub>(1,4) on &#8484;<sub>9</sub>; complement; Aut</td><td class="l">subgraph counts are isomorphism invariants; the multiplier map <em>x</em>&nbsp;&#8614;&nbsp;<em>ux</em> for a unit <em>u</em></td></tr><tr><td class="">7</td><td class="l">components, neighbourhoods, connectivity, diameter</td><td class="l">Lem&nbsp;D; inclusion&ndash;exclusion on <em>N</em>(<em>u</em>) and <em>N</em>(<em>v</em>); Dirac&#8217;s theorem for context</td></tr><tr><td class="">8</td><td class="l">a digraph: arcs, indegree, outdegree</td><td class="l">directed handshake lemma (Thm&nbsp;8.1); realisation of prescribed degree pairs by max-flow</td></tr></tbody></table><p class="tcap">Table A.1 &mdash; what each solution is, in graph-theoretic terms.</p></div>
+
+<h3>Three techniques carry most of the weight</h3>
+
+<p>Read across the table and the same three ideas recur; recognising which one a problem calls for is most of the
+work.</p>
+
+<h4>1. Double counting a set of incidences</h4>
+<p>Count one finite set in two ways and equate the answers. Counting the vertex&#8211;edge incidences of a graph by
+edges and then by vertices gives the handshake lemma \(\sum_v d(v)=2|E|\) (Theorem&nbsp;4.1); counting the arcs of a
+digraph by tails and then by heads gives its directed analogue \(\sum_v d^{+}(v)=|A|=\sum_v d^{-}(v)\)
+(Theorem&nbsp;8.1). Everything in Problems&nbsp;4 and&nbsp;8 is an immediate consequence, part&nbsp;(b) of
+Problem&nbsp;2 is the handshake lemma read modulo&nbsp;2, Problem&nbsp;5 is the same statement applied to a single
+component, and even the classification in Problem&nbsp;3 has a two&#8209;line proof by this route
+(\(2|V(H)|=\sum_{v\in H}d(v)=2|E(H)|\) forces \(|E(H)|=|V(H)|\)).</p>
+
+<h4>2. Passing to a connected component</h4>
+<p>A component contains every neighbour of each of its vertices, so degrees measured inside it agree with degrees
+measured in the whole graph (Lemma&nbsp;D). That innocuous remark is what lets a global counting theorem be applied
+locally, and it is the pivot of three different arguments: the classification of \(2\)-regular graphs and of graphs
+with \(\Delta\le2\) (Problem&nbsp;3, where each component is handled separately), the existence of a second
+odd&#8209;degree vertex <em>within reach</em> of the first (Problem&nbsp;5, where applying the parity corollary to
+\(G\) instead of to the component would prove nothing), and the degree bound
+\(d(v)\le|V(H)|-1\) inside a smallest component (Problem&nbsp;7).</p>
+
+<h4>3. Exhibiting an invariant</h4>
+<p>To prove that something <em>cannot</em> be done, find a quantity that the permitted operations leave unchanged and
+show it differs at the two ends. Problems&nbsp;1 and&nbsp;6 are the same proof in different clothing:</p>
+
+<div class="tblock"><table class="wide"><thead><tr><th class="l"></th><th class="l">Problem 1</th><th class="l">Problem 6</th></tr></thead><tbody><tr><td class="l">what may be done</td><td class="l">slide one knight along an edge of <em>C</em><sub>8</sub> to an empty vertex</td><td class="l">relabel the vertices by any bijection</td></tr><tr><td class="l">the invariant</td><td class="l">the cyclic word of the four knights&#8217; colours</td><td class="l">the number of triangles</td></tr><tr><td class="l">value at the start</td><td class="l">W&#8201;D&#8201;W&#8201;D</td><td class="l">9 &nbsp;(in <em>G</em><sub>1</sub>)</td></tr><tr><td class="l">value at the target</td><td class="l">W&#8201;W&#8201;D&#8201;D</td><td class="l">3 &nbsp;(in <em>G</em><sub>2</sub>)</td></tr><tr><td class="l">conclusion</td><td class="l">the target position is unreachable</td><td class="l"><em>G</em><sub>1</sub> and <em>G</em><sub>2</sub> are not isomorphic</td></tr></tbody></table><p class="tcap">Table A.2 &mdash; two impossibility proofs of identical shape: a quantity that the permitted operations cannot change, taking different values at the two ends.</p></div>
+
+<p>Both invariants are well chosen. In Problem&nbsp;1 the cyclic colour word is <em>complete</em>: Table&nbsp;1.3
+shows that all \(140\) configurations with the correct pattern really are reachable, so nothing weaker would have
+sufficed and nothing stronger is true. In Problem&nbsp;6 the cheap invariants &#8212; order, size, degree sequence,
+connectivity, girth &#8212; all agree (Table&nbsp;6.3), so the triangle count is the first one that does any work.</p>
+
+<div class="note"><span class="h">A closing remark</span>
+The two halves of an impossibility proof behave quite differently. Showing something <em>is</em> possible needs one
+example, and Problems&nbsp;2(a) and&nbsp;6 supply one each. Showing something is <em>impossible</em> needs an argument
+covering every conceivable attempt at once &#8212; and an invariant is exactly that, compressed into a single number.
+Hence Problems&nbsp;1, 2(b) and&nbsp;6 all end the same way: a quantity computed twice, giving two different
+answers.</div>
 </section>
 </body></html>

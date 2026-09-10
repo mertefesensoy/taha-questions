@@ -8,5 +8,5 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 python3 assemble.py solutions.html part0.html part1.html part2.html part3.html \
-                                   part4.html part5.html part6.html part7.html part8.html
+                                   part4.html part5.html part6.html part7.html part8.html part9.html
 node render.js solutions.html ../graph-theory-solutions.pdf pdf

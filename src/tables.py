@@ -222,9 +222,56 @@ def t_p6pairs():
              "Table 6.5 &mdash; a triangle needs a + b + c &equiv; 0 (mod 9) with a, b, c &isin; S. Comparing the "
              "third column with the fourth decides every case at a glance.", cls="wide", lc=(2, 3))
 
+
+# ---------------------------------------------------------------- Appendix
+def t_methods():
+    rows = [
+        ["1", "the knight&#8217;s graph of the 3&times;3 board &#8212; an isolated vertex plus a single "
+              "<em>C</em><sub>8</sub>; the four knights as tokens on its vertices",
+              "connected 2-regular &rArr; cycle (Thm&nbsp;3.1); an invariant of the move relation"],
+        ["2", "degree sequences; the realising graph <em>G</em>*",
+              "handshake lemma (Lem&nbsp;A); Havel&ndash;Hakimi; Erd&#337;s&ndash;Gallai"],
+        ["3", "regularity, &Delta;, &delta;; components, trees, paths, cycles",
+              "&delta;&nbsp;&ge;&nbsp;2 &rArr; a cycle exists (Lem&nbsp;C); degree-closed components "
+              "(Lem&nbsp;D); a tree has |<em>V</em>|&nbsp;&minus;&nbsp;1 edges"],
+        ["4", "vertex&ndash;edge incidences; the ray, an infinite graph",
+              "double counting (Thm&nbsp;4.1); reduction mod&nbsp;2 (Cor&nbsp;4.2)"],
+        ["5", "components; walks and paths; parity of degrees",
+              "every walk contains a path (Lem&nbsp;B); Lem&nbsp;D; Cor&nbsp;4.2 applied to one component"],
+        ["6", "the three drawings as circulant graphs <em>C</em><sub>9</sub>(1,2), <em>C</em><sub>9</sub>(1,3), "
+              "<em>C</em><sub>9</sub>(1,4) on &#8484;<sub>9</sub>; complement; Aut",
+              "subgraph counts are isomorphism invariants; the multiplier map <em>x</em>&nbsp;&#8614;&nbsp;"
+              "<em>ux</em> for a unit <em>u</em>"],
+        ["7", "components, neighbourhoods, connectivity, diameter",
+              "Lem&nbsp;D; inclusion&ndash;exclusion on <em>N</em>(<em>u</em>) and <em>N</em>(<em>v</em>); "
+              "Dirac&#8217;s theorem for context"],
+        ["8", "a digraph: arcs, indegree, outdegree",
+              "directed handshake lemma (Thm&nbsp;8.1); realisation of prescribed degree pairs by max-flow"],
+    ]
+    return T(["#", "the graph&#8209;theoretic objects the solution works with",
+              "the results applied to them"], rows,
+             "Table A.1 &mdash; what each solution is, in graph-theoretic terms.",
+             cls="wide", lc=(1, 2))
+
+def t_invariant():
+    rows = [
+        ["what may be done", "slide one knight along an edge of <em>C</em><sub>8</sub> to an empty vertex",
+         "relabel the vertices by any bijection"],
+        ["the invariant", "the cyclic word of the four knights&#8217; colours",
+         "the number of triangles"],
+        ["value at the start", "W&#8201;D&#8201;W&#8201;D", "9 &nbsp;(in <em>G</em><sub>1</sub>)"],
+        ["value at the target", "W&#8201;W&#8201;D&#8201;D", "3 &nbsp;(in <em>G</em><sub>2</sub>)"],
+        ["conclusion", "the target position is unreachable",
+         "<em>G</em><sub>1</sub> and <em>G</em><sub>2</sub> are not isomorphic"],
+    ]
+    return T(["", "Problem 1", "Problem 6"], rows,
+             "Table A.2 &mdash; two impossibility proofs of identical shape: a quantity that the permitted "
+             "operations cannot change, taking different values at the two ends.", cls="wide", lc=(0, 1, 2))
+
 TBL = {
     'KNIGHT': t_knight, 'P1TARGET': t_p1target, 'P1BFS': t_p1bfs,
     'HH': t_hh, 'P2DEG': t_p2deg, 'EG': t_eg,
     'P6ID': t_p6id, 'P6EDGES': t_p6edges, 'P6INV': t_p6inv,
     'P6MAP': t_p6map, 'P6PAIRS': t_p6pairs, 'P6EDGEMAP': t_p6edgemap, 'P6TRIS': t_p6tris,
+    'METHODS': t_methods, 'INVARIANT': t_invariant,
 }

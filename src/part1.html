@@ -8,6 +8,13 @@ coloured knights are on diametrically opposite corners. The knights move in the 
 knights cannot stand on the same square at the same time. Is it possible to move the knights so that they stand in
 the corners at the end, but the diametrically opposite ones are of different colours?</p></div>
 
+<p>Although it is posed as a chess puzzle, this is a question about a graph, and we treat it as one
+throughout. The squares a knight can stand on are the vertices; two squares are joined by an edge when a single
+knight's move carries one to the other. The four knights are then <em>tokens</em> occupying four distinct vertices,
+a legal move slides one token along an edge to an unoccupied vertex, and the question asked is which token
+configurations are reachable from which. Everything therefore hinges on the structure of that one graph &#8212;
+and it will turn out to be a single \(8\)-cycle, which settles the matter at once.</p>
+
 <p>The answer is <strong>no</strong>. We prove it by exhibiting a quantity &#8212; the cyclic order in which the four
 knights appear around a certain \(8\)-cycle &#8212; that no legal move can ever change, and which differs between the
 starting position and every admissible target position.</p>

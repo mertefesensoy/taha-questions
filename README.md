@@ -2,8 +2,14 @@
 
 Worked solutions to an eight-problem introductory graph theory set.
 
-**Deliverable: [`graph-theory-solutions.pdf`](graph-theory-solutions.pdf)** — 18 pages, with full
+**Deliverable: [`graph-theory-solutions.pdf`](graph-theory-solutions.pdf)** — 19 pages, with full
 proofs, constructions, diagrams and data tables.
+
+Every problem is solved by graph-theoretic means. Two of them are not posed in the language of graphs
+at all — Problem 1 is a chess puzzle, Problem 8 a counting riddle about a network — and in each the
+first step is a reduction: replace the object by a graph whose structure answers the question. The
+appendix records, problem by problem, which graph-theoretic objects each solution works with and
+which results are applied to them.
 
 ## The problems and their answers
 
